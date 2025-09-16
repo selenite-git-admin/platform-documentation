@@ -1,0 +1,544 @@
+/* docs/assets/styles/overrides.css
+   Cxofacts - Material-aligned tokens + components (LIGHT ONLY)
+*/
+
+/* ======================================
+   1) DESIGN TOKENS + THEME (LIGHT)
+   - Safe to extend; do not rename without grep
+====================================== */
+:root {
+  /* Brand palette */
+  --cf-blue-900: #1b4f7f;
+  --cf-blue-700: #2266A3;   /* primary */
+  --cf-blue-500: #4BA3DD;   /* accent */
+  --cf-blue-300: #7EC6F3;   /* highlight */
+
+  /* Unified grayscale */
+  --cf-gray-900: #111827;
+  --cf-gray-800: #1f2937;
+  --cf-gray-700: #374151;
+  --cf-gray-600: #4b5563;
+  --cf-gray-500: #6b7280;
+  --cf-gray-400: #9ca3af;
+  --cf-gray-300: #d1d5db;
+  --cf-gray-200: #e5e7eb;
+  --cf-gray-100: #f3f4f6;
+  --cf-gray-50:  #f9fafb;
+
+  /* Back-compat aliases (keep unless you update all refs) */
+  --cx-gray-700: var(--cf-gray-700);
+  --cf-slate-700: var(--cf-gray-600);
+  --cf-slate-500: var(--cf-gray-500);
+  --cf-slate-200: var(--cf-gray-200);
+
+  /* Status */
+  --cf-success: #16a34a;
+  --cf-warning: #f59e0b;
+  --cf-danger:  #ef4444;
+
+  /* Surfaces */
+  --cf-bg:       #ffffff;
+  --cf-surface:  #f7fafc;
+  --cf-border:   rgba(17, 24, 39, 0.12);
+  --cf-code-bg:  #f5f5f5;
+
+  /* Typography */
+  --md-text-font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                  Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --md-code-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+                  Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Text tones */
+  --cf-text:    var(--cf-gray-900);  /* AA on white */
+  --cf-heading: #0f172a;
+  --md-default-fg-color--light: var(--cf-gray-600); /* meta labels, captions */
+
+  /* Motion + depth */
+  --cf-radius-1: 6px; --cf-radius-2: 8px; --cf-radius-3: 10px;
+  --cf-shadow-1: 0 1px 1px rgba(0,0,0,.04), 0 1px 0 rgba(0,0,0,.03);
+  --cf-shadow-2: 0 4px 10px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.05);
+  --cf-ease-out: cubic-bezier(.16,1,.3,1);
+  --cf-dur-1: 120ms; --cf-dur-2: 220ms;
+
+  /* MkDocs Material mappings */
+  --md-primary-fg-color:        var(--cf-blue-700);
+  --md-primary-fg-color--light: var(--cf-blue-500);
+  --md-primary-fg-color--dark:  var(--cf-blue-900);
+  --md-accent-fg-color:         var(--cf-blue-500);
+  --md-default-fg-color:        var(--cf-text);
+  --md-default-bg-color:        var(--cf-bg);
+
+  /* Layout */
+  --cf-header-height: 64px;
+  --cf-nav-toggle-top: calc(var(--cf-header-height) + 8px);
+  --cf-nav-toggle-left: 12px;
+  --md-sidebar-width: 18rem;
+
+  /* Tabs bar (subheader) */
+  --cf-tabs-bg:       var(--cf-gray-300);
+  --cf-tabs-height:   44px;
+  --cf-tabs-radius:   var(--cf-radius-2);
+  --cf-tabs-hover-bg: color-mix(in oklab, #ffffff 14%, var(--cf-tabs-bg));
+
+  /* App chrome */
+  --cf-header-bg:  var(--cf-gray-500);
+  --cf-surface-bg: var(--cf-gray-50);
+
+  /* Inline badge color tokens (safe: colors only) */
+  --badge-p0-bg:#1b5e20;  --badge-p0-border:#1b5e20; --badge-p0-fg:#ffffff;
+  --badge-p1-bg:#e8f5e9;  --badge-p1-border:#a5d6a7; --badge-p1-fg:#1b5e20;
+  --badge-p2-bg:#e3f2fd;  --badge-p2-border:#90caf9; --badge-p2-fg:#0d47a1;
+}
+
+/* Compact heading scale for doc-style pages
+   - Smaller jumps above body text (16px base)
+   - Reduced vertical margins for tighter flow
+*/
+
+.md-typeset h1 {
+  font-size: x-large;   /* ~20px */
+  margin: 0.0em 0 0.2em;
+  font-weight: 200;
+}
+
+
+.md-typeset h2 {
+  font-size: large;
+    font-weight: 500;
+  margin: 0.55em 0 0.28em;
+}
+
+.md-typeset h3 {
+  font-size: medium;
+    font-weight: 500;
+  margin: 0.50em 0 0.25em;
+}
+
+.md-typeset h4 {
+  font-size: medium;
+  margin: 0.45em 0 0.22em;
+    font-weight: 500;
+}
+
+.md-typeset h5 {
+  font-size: small;
+    font-weight: 300;
+  margin: 0.40em 0 0.20em;
+}
+
+.md-typeset h6 {
+  font-size: small;
+    font-weight: 300;
+  margin: 0.35em 0 0.18em;
+}
+
+/* Inline feature title + priority pill (scoped) */
+.md-typeset h2.feature {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+  margin-bottom: 0.6rem;
+}
+.md-typeset h2.feature::before {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 48px; height: 3px;
+  border-radius: 2px;
+  background: var(--md-primary-fg-color, #3f51b5);
+}
+.md-typeset h2.feature::after {
+  content: attr(data-prio);
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8em;   /* compact pill; does not affect heading size */
+  line-height: 1;
+  border: 1px solid;
+  vertical-align: middle;
+}
+.md-typeset h2.feature[data-prio="P0"]::after {
+  background: var(--badge-p0-bg);
+  border-color: var(--badge-p0-border);
+  color: var(--badge-p0-fg);
+}
+.md-typeset h2.feature[data-prio="P1"]::after {
+  background: var(--badge-p1-bg);
+  border-color: var(--badge-p1-border);
+  color: var(--badge-p1-fg);
+}
+.md-typeset h2.feature[data-prio="P2"]::after {
+  background: var(--badge-p2-bg);
+  border-color: var(--badge-p2-border);
+  color: var(--badge-p2-fg);
+}
+
+/* First page title spacing (balances badges) */
+.md-content > .md-typeset h1:first-of-type { margin-top: 0.50em; }
+
+/* Optional: sidebar/TOC labels */
+.md-nav__title, .md-sidebar__title { font-size: 0.93rem; }
+
+/* Hide the spec URL under the title in Swagger UI */
+.swagger-ui .info .url { display: none !important; }
+
+/* Respect user preference: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* =========================
+   2) APP CHROME / NAV
+========================= */
+.md-header {
+  background: var(--cf-header-bg);
+  box-shadow: none;
+  border-bottom: 0px solid color-mix(in oklab, var(--cf-border) 100%, transparent);
+  transition:
+    background var(--cf-dur-2) var(--cf-ease-out),
+    box-shadow var(--cf-dur-2) var(--cf-ease-out);
+}
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg { height: 40px; width: auto; }
+
+/* Tabs strip (subheader) */
+.md-header .md-tabs,
+.md-tabs {
+  background-color: var(--cf-tabs-bg) !important;
+  background-image: none !important;
+  min-height: var(--cf-tabs-height);
+}
+
+/* Tabs layout & look */
+.md-tabs__list {
+  display: flex; align-items: center; height: var(--cf-tabs-height); gap: 0;
+}
+.md-tabs__item { display: flex; align-items: center; }
+.md-tabs__link {
+  display: inline-flex; align-items: center;
+  height: var(--cf-tabs-height); line-height: 1;
+  padding: 0 .5rem;
+  background: transparent !important;
+  border-radius: 0;
+  font-weight: 300;
+  color: rgb(30, 31, 34) !important;
+  text-decoration: none; cursor: pointer;
+  transition:
+    color var(--cf-dur-1) var(--cf-ease-out),
+    text-decoration-color var(--cf-dur-1) var(--cf-ease-out);
+}
+.md-tabs__link[aria-current],
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+  background: transparent !important;
+  color: #ffffff !important;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+/* Hide active slider for a leaner look */
+.md-tabs__slider { display: none !important; }
+
+/* Left nav hover */
+.md-nav__item .md-nav__link {
+  border-radius: 4px;
+  transition: background var(--cf-dur-1) var(--cf-ease-out);
+}
+.md-nav__item .md-nav__link:hover {
+  background: color-mix(in oklab, var(--md-accent-fg-color) 8%, transparent);
+}
+
+/* Header search: square & no glow */
+.md-header .md-search__form,
+.md-header .md-search__input { opacity: 0.9;
+ !important;
+border-radius: 0px !important; }
+.md-header .md-search__form:focus-within,
+.md-header .md-search__input:focus,
+.md-header .md-search__input:focus-visible,
+.md-header .md-search__icon:focus,
+.md-header .md-search__icon:focus-visible {
+  outline: none !important; box-shadow: none !important; outline-offset: 0 !important;
+}
+
+/* =========================
+   3) CONTENT BASELINE
+========================= */
+.md-content { max-width: 960px; }
+.md-typeset { color: var(--cf-text); }
+.md-typeset {
+  font-size: 0.8rem;  /* ~15px on a 16px root; use 0.875rem for ~14px */
+  line-height: 1.35;
+}
+.md-typeset h1, .md-typeset h2, .md-typeset h3 { color: var(--cf-heading); }
+.md-typeset h1:first-child { margin-top: .2rem; }
+
+.md-typeset a {
+  color: var(--md-accent-fg-color);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: color var(--cf-dur-1) var(--cf-ease-out);
+}
+.md-typeset a:hover { color: var(--md-primary-fg-color); }
+
+/* Inline highlight */
+.md-typeset mark,
+.md-search-result__link mark {
+  background: var(--cf-blue-300);
+  color: #0f172a;
+  padding: 0 .15em;
+  border-radius: .2em;
+  box-shadow: inset 0 -.2em 0 rgba(0,0,0,.05);
+}
+
+/* Code */
+.md-typeset code {
+  font-family: var(--md-code-font);
+  border-radius: 4px;
+  padding: .12em .34em;
+  background: var(--cf-code-bg);
+}
+.md-typeset pre > code {
+  border-radius: var(--cf-radius-2);
+  box-shadow: var(--cf-shadow-1);
+  background: var(--cf-code-bg);
+}
+
+/* Admonitions */
+.md-typeset .admonition,
+.md-typeset details {
+  border-left-width: 4px;
+  border-radius: var(--cf-radius-2);
+  font-size: 0.75rem;   /* set content size to 0.75rem */
+  line-height: 1.6;
+}
+/* Ensure the title/summary matches the body size (no extra shrink) */
+.md-typeset .admonition > .admonition-title,
+.md-typeset details > summary {
+  font-size: medium;       /* inherit from container (0.75rem) */
+}
+.md-typeset .admonition.warning,
+.md-typeset details.warning { border-left-color: var(--cf-warning); }
+.md-typeset .admonition.danger,
+.md-typeset details.danger   { border-left-color: var(--cf-danger); }
+.md-typeset .admonition.tip,
+.md-typeset details.tip      { border-left-color: var(--cf-success); }
+
+/* Tables */
+.md-typeset table {
+  display: block; overflow-x: auto; white-space: nowrap;
+  border-radius: var(--cf-radius-1);
+  border: 1px solid var(--cf-border);
+}
+.md-typeset table tbody tr:nth-child(odd) {
+  background: color-mix(in oklab, var(--cf-surface) 70%, transparent);
+}
+.md-typeset table tbody tr:hover {
+  background: color-mix(in oklab, var(--md-accent-fg-color) 6%, transparent);
+}
+
+/* Focus ring (consistent across controls) */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--md-accent-fg-color) 70%, #000 0%);
+  outline-offset: 3px; border-radius: 0;
+}
+
+/* =========================
+   4) PRIMITIVES
+========================= */
+/* Buttons (utility class) */
+.cf-btn {
+  --btn-bg: var(--md-primary-fg-color);
+  --btn-fg: #fff;
+  --btn-bd: transparent;
+
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .6rem .95rem;
+  border-radius: var(--cf-radius-2);
+  border: 1px solid var(--btn-bd);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600; line-height: 1;
+  transition: background var(--cf-dur-1) var(--cf-ease-out),
+              box-shadow var(--cf-dur-1) var(--cf-ease-out);
+  box-shadow: var(--cf-shadow-1);
+}
+.cf-btn:hover  { box-shadow: var(--cf-shadow-2); }
+.cf-btn:active { box-shadow: var(--cf-shadow-1); }
+.cf-btn--secondary {
+  --btn-bg: transparent;
+  --btn-fg: var(--cf-gray-700);
+  --btn-bd: color-mix(in oklab, var(--md-accent-fg-color) 50%, #000 0%);
+}
+.cf-btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--cf-gray-700);
+  --btn-bd: var(--cf-border);
+}
+
+/* Cards */
+.cf-card {
+  background: var(--cf-bg);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius-2);
+  padding: 1.25rem; /* was var(--cf-space-5); inlined to reduce token surface */
+  transition:
+    border-color var(--cf-dur-2) var(--cf-ease-out),
+    background var(--cf-dur-2) var(--cf-ease-out);
+}
+.cf-card:hover {
+  border-color: color-mix(in oklab, var(--md-accent-fg-color) 30%, var(--cf-border));
+}
+.cf-card__title { margin: 0 0 .75rem; color: var(--cf-heading); font-weight: 700; }
+.cf-card__meta  { color: var(--cf-gray-700); font-size: .9rem; }
+
+/* Chips / Tags */
+.cf-chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .3rem .55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--md-accent-fg-color) 28%, transparent);
+  background: color-mix(in oklab, var(--md-accent-fg-color) 8%, transparent);
+  color: color-mix(in oklab, var(--md-primary-fg-color) 86%, #000 0%);
+  font-weight: 600; font-size: .85rem;
+}
+
+/* Inline kbd */
+.md-typeset kbd {
+  border-radius: 6px; padding: .1rem .35rem;
+  border: 1px solid var(--cf-border);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.08);
+  background: var(--cf-code-bg); color: var(--cf-heading);
+}
+
+/* Badges */
+.md-typeset .badge {
+  display: inline-block; white-space: nowrap;
+  padding: 0.15rem 0.5rem; margin-right: 0.25rem;
+  border-radius: 500px;
+  font-size: 0.65rem; font-weight: 300; line-height: 1;
+  background: var(--badge-bg, #414141); color: var(--badge-fg, #fff);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.md-typeset .badge--neutral { --badge-bg: var(--cf-gray-700); --badge-fg: #fff; }
+
+/* =========================
+   5) MKDOCS BUTTON POLISH
+========================= */
+.md-typeset .md-button {
+  border-radius: var(--cf-radius-2);
+  box-shadow: var(--cf-shadow-1);
+  transition: background var(--cf-dur-1) var(--cf-ease-out),
+              box-shadow var(--cf-dur-1) var(--cf-ease-out);
+}
+.md-typeset .md-button:hover    { box-shadow: var(--cf-shadow-2); }
+.md-typeset .md-button--primary { background-color: var(--md-primary-fg-color); color: #fff; }
+.md-typeset .md-button--secondary {
+  border-color: color-mix(in oklab, var(--md-accent-fg-color) 60%, #000 0%);
+  color: var(--cf-gray-700); background: transparent;
+}
+
+/* =========================
+   6) BACK-TO-TOP BUTTON
+========================= */
+/* Back-to-top - restore original bottom-right placement */
+.md-top {
+  position: fixed;
+  top: auto !important;
+  bottom: 1rem;
+  right: 1rem;
+  left: auto !important;
+
+  /* kill any earlier centering transforms/margins */
+  transform: none !important;
+  margin-left: 0 !important;
+
+  z-index: 9999;
+  background-color: var(--cf-gray-500) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  pointer-events: auto;
+}
+.md-top:hover,
+.md-top:focus { background-color: var(--cf-gray-600) !important; color: #ffffff !important; }
+.md-top svg { fill: currentColor; }
+.md-top[hidden] { display: none !important; } /* keep theme's hide/show */
+
+/* =========================
+   7) SIDEBAR TOGGLE (desktop)
+========================= */
+/* Site title weight */
+.md-header .md-header__title,
+.md-header .md-header__topic,
+.md-header .md-header__title .md-ellipsis {
+  font-weight: 300 !important;
+  font-size: 1rem; /* Adjust this value as desired (~16px) */
+  color: var(--cf-gray-100); /* Or any custom color */
+}
+
+.cf-nav-toggle-btn {
+  position: fixed; top: var(--cf-nav-toggle-top); left: var(--cf-nav-toggle-left); z-index: 2000;
+  display: inline-flex; align-items: center; gap: .45rem;
+  height: 32px; padding: 0 .6rem;
+  border-radius: var(--cf-radius-2);
+  background: var(--md-default-bg-color); color: var(--cf-gray-700);
+  border: 1px solid var(--cf-border); box-shadow: var(--cf-shadow-1);
+  font: 300 .65rem/1 var(--md-text-font); letter-spacing: .01em; cursor: pointer;
+}
+.cf-nav-toggle-btn:hover {
+  background: color-mix(in oklab, var(--cf-gray-700) 10%, var(--md-default-bg-color));
+  box-shadow: var(--cf-shadow-2);
+}
+.cf-nav-toggle-btn:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--cf-gray-500) 70%, transparent);
+  outline-offset: 3px;
+}
+
+/* Hide label if space is tight */
+@media (max-width: 1200px) {
+  .cf-nav-toggle-btn .cf-nav-toggle-text { font-size: 0.60rem; font-weight: 300; }
+}
+/* Mobile: rely on native drawer */
+@media (max-width: 959px) {
+  .cf-nav-toggle-btn { display: none !important; }
+}
+
+/* Collapsed state */
+html.cf-nav-collapsed .md-sidebar--primary { display: none !important; }
+@media (min-width: 960px) {
+  html.cf-nav-collapsed .md-main__inner {
+    grid-template-columns: 0 minmax(0, 1fr) var(--md-sidebar-width, 0);
+  }
+  .md-main__inner { transition: grid-template-columns 160ms cubic-bezier(.16,1,.3,1); }
+}
+
+/* Defensive: hide plugin-injected header toggles (avoid duplicate buttons) */
+.md-header__inner button[aria-label="Toggle navigation"],
+.md-header__inner .toggle-sidebar__button[data-target="navigation"],
+.md-header__inner .tsb-toggle[data-target="navigation"] {
+  display: none !important;
+}
+
+/* =========================
+   8) FOOTER - unified bg, centered meta
+========================= */
+.md-footer,
+.md-footer-meta {
+  background: var(--cf-gray-900);
+  color: rgba(255,255,255,0.85);
+}
+.md-footer a,
+.md-footer-meta a { color: rgba(255,255,255,0.9); }
+.md-footer a:hover,
+.md-footer-meta a:hover { color: #ffffff; }
+
+/* Center the meta row */
+.md-footer-meta { text-align: center; }
+.md-footer-meta .md-footer-meta__inner {
+  display: flex; justify-content: center; align-items: center;
+  flex-wrap: wrap; gap: .5rem .75rem;
+}
+.md-footer-meta .md-footer__link,
+.md-footer-meta .md-copyright { margin: 0; }

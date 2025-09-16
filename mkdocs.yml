@@ -1,0 +1,125 @@
+site_name: Project Documentation
+site_description: Technical documentation
+# site_url: https://example.com/docs/
+copyright: "© 2025 Selenite®  |  Selenite Business Solutions Pvt. Ltd. All rights reserved."
+
+# -- Optional repo integration (uncomment when ready) -------------------------
+# repo_url: https://github.com/your-org/your-repo     # "Edit on GitHub" etc.
+# repo_name: your-org/your-repo
+# edit_uri: edit/main/docs/                           # Path to docs folder in repo
+
+theme:
+  name: material
+  logo: assets/logos/bare_count_logo_dark.svg  # Logo in the light scheme
+  favicon: assets/logos/bare_count_favicon.png
+  features:
+    # Navigation UX
+    - navigation.instant          # Client-side nav for faster page transitions
+    - navigation.tracking         # Update URL anchor as you scroll
+    - navigation.tabs             # Top-level sections as tabs
+    - navigation.tabs.sticky      # Tabs remain visible on scroll
+    # - header.autohide           # Auto-hide header on scroll down; disabled due to issues
+    # - toc.integrate             # Put TOC into the main nav (optional)
+    - toc.follow                  # Auto-highlight current heading in TOC
+    - navigation.top              # “Back to top” button
+    - navigation.indexes          # Section landing pages
+    - navigation.prune            # Hide empty nav items
+    # Content UX
+    - content.code.copy           # Copy button on code blocks
+    - content.action.edit         # “Edit this page” action
+    - content.tooltips            # Tooltips via title attributes
+    - content.tabs.link           # Linked content tabs across pages
+    # Search UX
+    - search.highlight            # Highlight search matches
+    - search.suggest              # Search suggestions
+
+  icon:
+    repo: fontawesome/brands/github  # Repo icon in header if repo_url is set
+
+# -- Social links (optional) ---------------------------------------------------
+# extra:
+#   social:
+#     - icon: fontawesome/brands/github
+#       link: https://github.com/your-org
+#     - icon: fontawesome/brands/linkedin
+#       link: https://www.linkedin.com/company/your-org/
+
+# -----------------------------------------------------------------------------
+# MARKDOWN EXTENSIONS (grouped + documented)
+# -----------------------------------------------------------------------------
+markdown_extensions:
+  # --- Core Markdown quality-of-life -----------------------------------------
+  - admonition                     # Callout blocks: note/warning/tip/etc.
+  - def_list                       # Definition lists: term + definition syntax
+  - footnotes                      # In-page footnotes with backlinks
+  - attr_list                      # `{}` attribute lists on elements (ids, classes)
+  - md_in_html                     # Allow Markdown inside raw HTML blocks
+  - toc:                           # Table of contents
+      permalink: false             # Add an anchor link to headings
+      toc_depth: 2                 # Limit TOC depth (H2+)
+
+  # --- Pymdown extensions (power features) -----------------------------------
+  - pymdownx.details               # `<details>` collapsible sections via `???`
+  - pymdownx.superfences:          # Fenced code block superpowers + custom fences
+      custom_fences:
+        - name: mermaid            # ```mermaid
+          class: mermaid           #   graph TD; A-->B
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:            # Pygments-based code highlighting
+      linenums: true               # Show line numbers on code blocks
+      anchor_linenums: true        # Make line numbers linkable
+  - pymdownx.inlinehilite          # `==inline code==` highlighting shorthand
+  - pymdownx.tabbed:               # Content tabs: ```tab=Foo
+      alternate_style: true        # Use alt styling that fits Material nicely
+  - pymdownx.tasklist:             # [ ] and [x] task lists
+      custom_checkbox: true        # Styled checkboxes
+      clickable_checkbox: true     # Toggle checkboxes in the browser
+  - pymdownx.critic                # Critic markup (add/del/sub comments) for reviews
+  - pymdownx.smartsymbols          # Converts (c), (tm), --, ... into proper glyphs
+  - pymdownx.emoji:                # :emoji: support using Material’s SVG set
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.snippets:             # Reuse content via !INCLUDE or snippet syntax
+      base_path: docs              # Root path for included snippets
+  - pymdownx.magiclink             # Auto-link bare URLs and @user/#issue patterns
+  - pymdownx.betterem              # Smarter emphasis handling (edge-case fixes)
+  - pymdownx.caret                 # ^^insertions^^ (caret markup)
+  - pymdownx.mark                  # ==highlights== (mark markup)
+  - pymdownx.tilde                 # ~~subscripts~~ and ~~deletions~~ (tilde markup)
+
+  # --- Optional: Math typesetting (uncomment + add KaTeX assets below) -------
+  # - pymdownx.arithmatex:         # Render LaTeX-style math as KaTeX
+  #     generic: true              # Wrap math for client-side rendering
+  # NOTE: Add KaTeX CSS/JS under extra_css/extra_javascript if you enable this
+
+# -----------------------------------------------------------------------------
+# PLUGINS
+# -----------------------------------------------------------------------------
+plugins:
+  - search                         # Built-in search index
+  - minify:                        # Reduce HTML size
+      minify_html: true
+  - redirects                      # Maintain old → new URL mappings
+  - awesome-pages                  # Folder-based nav ordering via .pages files
+  - git-revision-date-localized:   # Page dates from Git history
+      enable_creation_date: false
+  # - macros                       # Templating macros (enable if you need it)
+  # - mkdocs-pdf                   # Export pages to PDF (3rd-party plugin)
+
+# -----------------------------------------------------------------------------
+# NAVIGATION
+# -----------------------------------------------------------------------------
+nav:
+  - Home: index.md
+
+# -----------------------------------------------------------------------------
+# ASSETS
+# -----------------------------------------------------------------------------
+extra_css:
+  - stylesheets/overrides.css          # custom CSS
+
+extra_javascript:
+  - javascripts/tablesort.js       # Your table sorting script (JS belongs here)
+  # - https://unpkg.com/mermaid@10/dist/mermaid.min.js                        # (diagrams) for ```mermaid fences
+  # - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js            # (math) KaTeX core
+  # - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js  # (math) auto-render
