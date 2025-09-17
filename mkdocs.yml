@@ -1,4 +1,4 @@
-site_name: Project Documentation
+site_name: Platform Documentation
 site_description: Technical documentation
 # site_url: https://example.com/docs/
 copyright: "© 2025 Selenite®  |  Selenite Business Solutions Pvt. Ltd. All rights reserved."
@@ -110,8 +110,20 @@ plugins:
 # NAVIGATION
 # -----------------------------------------------------------------------------
 nav:
-  - Home: index.md
+    - About Platform:
+        - Overview: index.md
+        - The Problem: home/01-problem.md
+        - Root Causes: home/02-root-causes.md
+        - The Idea: home/03-idea.md
+        - The Solution: home/04-solution.md
+        - Benefits: home/05-benefits.md
+        - Offering: home/06-offering.md
+        - Proof of Value: home/07-proof-of-value.md
+        - Positioning: home/08-positioning.md
+    # - MkDocs Theme: assets/document-styles/mkdocs-guide.md
 
+    - Brand:
+        - Introduction: brand/brand-introduction.md
 # -----------------------------------------------------------------------------
 # ASSETS
 # -----------------------------------------------------------------------------
