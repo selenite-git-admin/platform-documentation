@@ -73,7 +73,7 @@ plugins:
 
 nav:
     - Home:
-        - Overview: kpi-01-overview.md
+        - Overview: index.md
 
         - About Platform:
             - Overview: about-platform/00-overview.md
@@ -85,6 +85,35 @@ nav:
             - Offering: about-platform/06-offering.md
             - Proof of Value: about-platform/07-proof-of-value.md
             - Positioning: about-platform/08-positioning.md
+
+        - Platform Working:
+            - Overview: platform-components/pc-01-index.md
+            - Control Plane: platform-components/pc-02-control-plane.md
+            - Data Plane: platform-components/pc-03-data-plane.md
+            - Control Plane Components:
+                - PHS Control APIs: platform-components/pc-02a-phs-control.md
+                - Schema Services (Contracts & Validation): platform-components/pc-02b-schema.md
+                - Host App (Governance): platform-components/pc-02c-host.md
+            - Data Plane Components:
+                - Bronze (Raw): platform-components/pc-03a-bronze.md
+                - Silver (Processed): platform-components/pc-03b-silver.md
+                - Gold (GDP): platform-components/pc-03c-gold.md
+                - KPI (Results): platform-components/pc-03d-kpi.md
+                - Tenant App (Delivery & Customization): platform-components/pc-03e-tenant.md
+            - Cross-Cutting:
+                - Data Quality & Anomalies: platform-components/pc-10-dqc.md
+                - Alerts & Monitoring: platform-components/pc-11-alerts.md
+                - Residency & Compliance: platform-components/pc-12-residency.md
+                - Security & RBAC: platform-components/pc-13-security.md
+                - Platform Runtime Foundations (PHS Common):
+                    - Orchestration & Scheduling: platform-components/pc-14-orchestration.md
+                    - Config & Artifacts: platform-components/pc-15-config-artifacts.md
+                    - Telemetry Pipeline: platform-components/pc-16-telemetry.md
+                    - Lineage & Metadata: platform-components/pc-17-lineage.md
+                    - Secrets & Key Management: platform-components/pc-18-secrets-kms.md
+                    - Backup/DR & Retention: platform-components/pc-19-backup-dr.md
+                    - Cost & Quota Enforcement: platform-components/pc-20-cost-quota.md
+            - Summary: platform-components/platform-working-summary.md
 
         - User Stories:
             - Overview: user-stories/user-stories-overview.md
@@ -105,7 +134,7 @@ nav:
         - Summary: phs/phs-09-summary.md
 
     - Schema Services:
-        - Overview: schema/kpi-01-overview.md
+        - Overview: schema/index.md
         - GDP Framework: schema/gdp-framework.md
         - Contracts & Versioning: schema/contracts.md
         - Enforcement & Validation: schema/enforcement.md
@@ -122,7 +151,7 @@ nav:
 
     - APIs:
         - Guides:
-            - Overview: apis/guides/kpi-01-overview.md
+            - Overview: apis/guides/index.md
             - Auth & Scopes: apis/guides/auth.md
             - Versioning & Deprecation: apis/guides/versioning.md
             - Errors & Retries: apis/guides/errors.md
@@ -162,7 +191,7 @@ nav:
         - Summary: host-app/ha-summary.md
 
     - Tenant App:
-        - Overview: tenant/kpi-01-overview.md
+        - Overview: tenant/index.md
         - Tenant Infrastructure: tenant/infrastructure.md
         - Onboarding: tenant/onboarding.md
         - Data Access & Reports: tenant/data.md
