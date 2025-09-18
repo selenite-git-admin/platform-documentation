@@ -43,11 +43,12 @@ Adoption accelerates because numbers arrive in the language of each function. Cr
 ## 4) Action Panels
 
 Numbers should not stop at dashboards.
+Move beyond dashboards. The Activation Plane converts KPIs into governed, auditable actions:  
 
-- Live workspaces that combine KPIs, quality checks, and workflow triggers.
-- Real-time variance to targets with owners, thresholds, and next actions.
-- Alerts that open into structured interventions, not just notifications.
-- Full trace of who acted, when they acted, and which number triggered action.
+- Exposes **flows** (event-driven, scheduled, or manual).  
+- Provides **reverse-connectors** to core systems (ERP, CRM, DMS).  
+- Ensures **governance, quotas, and auditability** for every action.  
+- Surfaces these capabilities in the Tenant App UI as **Action Panels**.
 
 **Result**  
 Data moves from passive presentation to active outcomes. Teams correct course while cycles are in motion instead of reacting after the fact.

@@ -192,9 +192,39 @@ nav:
 
     - Tenant App:
         - Overview: tenant/index.md
-        - Tenant Infrastructure: tenant/infrastructure.md
-        - Onboarding: tenant/onboarding.md
-        - Data Access & Reports: tenant/data.md
+
+        - Foundations:
+            - Architecture: tenant/architecture.md
+            - Infrastructure: tenant/infrastructure.md
+            - Security: tenant/security.md
+            - Roles and Permissions: tenant/roles.md
+
+        - Admin Ops:
+            - Onboarding Sources: tenant/onboarding-sources.md
+            - User Management: tenant/user-management.md
+            - Infrastructure Bindings: tenant/infra-bindings.md
+
+        - Delivery and Activation:
+            - Health Dashboards: tenant/health.md
+            - Requests and Approvals: tenant/requests.md
+            - Data Access and Reports: tenant/data.md
+            - Activation Panels: tenant/activation.md
+
+        - Developer:
+            - API Guide: tenant/api-guide.md
+            - API Reference: tenant/api-reference.md
+
+        - Operations:
+            - NFRs: tenant/nfr.md
+            - Troubleshooting: tenant/troubleshooting.md
+            - Release Notes: tenant/release-notes.md
+
+    - Activations:
+        - Overview: activation-plane/index.md
+        - API Guide: activation-plane/activation-plane-api-guide.md
+        - API Reference: activation-plane/activation-plane-api-reference.md
+        - Flows: activation-plane/activation-plane-flows.md
+        - Examples: activation-plane/activation-plane-examples.md
 
     - Decisions:
         - Overview: decisions/decisions-overview.md

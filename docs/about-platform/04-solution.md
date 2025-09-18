@@ -33,7 +33,7 @@ BareCount™ delivers pre-built KPI catalogs across Finance, Sales, Marketing, a
 **Outcome**  
 Adoption is faster because business teams receive KPIs ready for use. Cross-functional alignment improves because definitions are standardized.  
 
-## Action Panels  
+## Activation Plane 
 
 BareCount™ extends beyond dashboards into active workspaces.  
 - Combine KPIs, anomaly detection, and workflows in one panel.  
