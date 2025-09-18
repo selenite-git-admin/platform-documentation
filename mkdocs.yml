@@ -73,7 +73,7 @@ plugins:
 
 nav:
     - Home:
-        - Overview: index.md
+        - Overview: kpi-01-overview.md
 
         - About Platform:
             - Overview: about-platform/00-overview.md
@@ -102,21 +102,27 @@ nav:
         - Storage Residency: phs/phs-06-storage-residency.md
         - Storage Operations: phs/phs-07-storage-operations.md
         - Costs & Budget: phs/phs-08-costs.md
+        - Summary: phs/phs-09-summary.md
 
     - Schema Services:
-        - Overview: schema/index.md
+        - Overview: schema/kpi-01-overview.md
         - GDP Framework: schema/gdp-framework.md
         - Contracts & Versioning: schema/contracts.md
         - Enforcement & Validation: schema/enforcement.md
+        - Summary: schema/schema-summary.md
 
     - KPI Services:
-        - Overview: kpi/index.md
-        - KPI Framework: kpi/framework.md
-        - Validation & Thresholds: kpi/validation.md
+        - Overview: kpi/kpi-01-overview.md
+        - KPI Framework: kpi/kpi-02-framework.md
+        - Requirements: kpi/kpi-03-requirements.md
+        - Roles & Permissions: kpi/kpi-04-roles-permissions.md
+        - Traceability: kpi/kpi-05-traceability.md
+        - Validation & Thresholds: kpi/kpi-06-validation.md
+        - Data Model: kpi/kpi-07-data-model.md
 
     - APIs:
         - Guides:
-            - Overview: apis/guides/index.md
+            - Overview: apis/guides/kpi-01-overview.md
             - Auth & Scopes: apis/guides/auth.md
             - Versioning & Deprecation: apis/guides/versioning.md
             - Errors & Retries: apis/guides/errors.md
@@ -134,12 +140,29 @@ nav:
             - Tenant App API (OpenAPI): apis/reference/tenant-openapi.md
 
     - Host App:
-        - Overview: pha/index.md
-        - Tenant Management: pha/tenant.md
-        - Contract Lifecycle: pha/contracts.md
+        - Overview: host-app/ha-01-overview.md
+        - Architecture:
+            - Core Architecture: host-app/ha-02-architecture.md
+            - Responsibilities & Boundaries: host-app/ha-02a-scope-boundaries.md
+            - Identity & RBAC: host-app/ha-02b-identity-rbac.md
+            - Contracts Governance: host-app/ha-02c-contracts-governance.md
+            - Tenant Management: host-app/ha-02d-tenant-management.md
+            - Observability (Read-only Health): host-app/ha-02e-observability.md
+            - SLAs & Error Model: host-app/ha-02f-slo-error.md
+            - Non-goals & Risks: host-app/ha-02g-nongoals-risks.md
+        - Database:
+            - Metadata Model (Entities): host-app/ha-03-database.md
+            - Reference Data (Calendars/FX/Org): host-app/ha-03a-refdata.md
+            - Audit & Evidence: host-app/ha-03b-audit.md
+            - Storage & Retention: host-app/ha-03c-storage-retention.md
+        - UI:
+            - Information Architecture: host-app/ha-04-ia.md
+            - Host App UI: host-app/ha-04-ui.md
+            - UX Patterns & Accessibility: host-app/ha-04a-ux-accessibility.md
+        - Summary: host-app/ha-summary.md
 
     - Tenant App:
-        - Overview: tenant/index.md
+        - Overview: tenant/kpi-01-overview.md
         - Tenant Infrastructure: tenant/infrastructure.md
         - Onboarding: tenant/onboarding.md
         - Data Access & Reports: tenant/data.md
