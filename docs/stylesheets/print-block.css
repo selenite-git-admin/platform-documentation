@@ -1,0 +1,2 @@
+/* docs/overrides/assets/stylesheets/print-block.css */
+@media print { body { display:none !important; } }

@@ -13,7 +13,7 @@ Features:
 
 Usage:
   python remove_bold.py --dry-run -v
-  python remove_bold.py --path docs --include "docs/gtm/**/*.md" --exclude "docs/brand/**" -v
+  python remove_bold.py --path docs --include "docs/gtm/**/*.md" --exclude "docs/brand-guide/**" -v
   python remove_bold.py --backup -v
   python remove_bold.py --no-skip-headings
   python remove_bold.py --no-skip-leading-bold

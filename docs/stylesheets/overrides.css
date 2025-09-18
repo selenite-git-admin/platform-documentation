@@ -98,9 +98,9 @@
 */
 
 .md-typeset h1 {
-  font-size: x-large;   /* ~20px */
-  margin: 0.0em 0 0.2em;
-  font-weight: 200;
+  font-size: x-large;
+  margin: 0.0em 0 0.0em;
+  font-weight: 300;
 }
 
 
@@ -564,12 +564,121 @@ blockquote {
 }
 
 .media-box {
-  background: var(--md-default-bg-color);
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 0;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
-  padding: 20px;
-  margin: 24px auto;
-  max-width: 680px;
-  text-align: center;
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+    padding: 20px;
+    margin: 24px auto;
+    max-width: 680px;
+    text-align: center;
+}
+.figure-caption {
+    display: block; /* Ensure it behaves like a block element */
+    text-align: center !important; /* Center-align the text */
+    margin-top: 5px !important; /* Add space above */
+    margin-bottom: 10px !important; /* Add space below */
+    font-size: small !important; /* Set font size, with priority */
+    border-top: 0 solid #cccccc; /* Add top border */
+    border-bottom: 1px solid #cccccc; /* Add bottom border */
+    padding-top: 0; /* Add space inside above the text */
+    padding-bottom: 2px; /* Add space inside below the text */
+}
+
+.image-modal {
+    display: none; /* Initially hidden */
+    position: fixed; /* Sticks to the viewport */
+    z-index: 1000; /* Ensures modal appears above other elements */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1); /* White background */
+    align-items: center;
+    justify-content: center;
+    overflow: auto; /* Allows scrolling for very large images */
+}
+
+.image-modal img {
+    display: block; /* Ensure the image is block-level to support alignment */
+    padding: 40px; /* Add padding around the image itself */
+    max-width: calc(100% - 40px); /* Full width minus padding (20px on each side) */
+    max-height: calc(100% - 40px); /* Full height minus padding (20px on each side) */
+    margin: auto; /* Centers the image inside the modal */
+    border: none; /* No border applied to the image */
+    border-radius: 8px; /* Optional: Add light rounding for better aesthetics */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+}
+
+.image-link img {
+    display: block;
+    max-width: 100%; /* Displays original size unless constrained by container */
+    margin: auto;
+    border: none;
+    border-radius: 0; /* Ensure no styling for the initial image */
+}
+
+.image-modal:target {
+    display: flex; /* Display modal when linked */
+}
+
+.image-modal {
+    display: none; /* Initially hidden */
+    position: fixed; /* Sticks to the viewport */
+    z-index: 1000; /* Ensures modal appears above other elements */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1); /* White background */
+    align-items: center;
+    justify-content: center;
+    overflow: auto; /* Allows scrolling for very large images */
+}
+
+.image-modal img {
+    display: block; /* Ensure the image is block-level to support alignment */
+    padding: 20px; /* Add padding around the image itself */
+    max-width: calc(100% - 40px); /* Full width minus padding (20px on each side) */
+    max-height: calc(100% - 40px); /* Full height minus padding (20px on each side) */
+    margin: auto; /* Centers the image inside the modal */
+    border: none; /* No border applied to the image */
+    border-radius: 8px; /* Optional: Add light rounding for better aesthetics */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+}
+
+.image-link img {
+    display: block;
+    max-width: 100%; /* Displays original size unless constrained by container */
+    margin: auto;
+    border: none;
+    border-radius: 0; /* Ensure no styling for the initial image */
+}
+
+.image-modal:target {
+    display: flex; /* Display modal when linked */
+}
+
+.image-modal .close-btn {
+    position: absolute;
+    top: 20px; /* Align close button with modal padding */
+    right: 20px; /* Align close button with modal padding */
+    color: #000 !important; /* Black close button text for visibility */
+    font-size: medium;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0; /* Add spacing between the "X" and "Close" label */
+}
+
+.image-modal .close-btn span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.image-modal .close-btn span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
 }
