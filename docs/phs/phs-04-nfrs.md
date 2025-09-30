@@ -4,8 +4,6 @@
 Define the security model, reliability targets, and operational guardrails for Platform Host Services (PHS).  
 This section sets the expectations for how PHS is accessed, how it behaves under stress, and how it supports compliance and audit needs.
 
----
-
 ## Security Posture
 
 ### Access Control
@@ -30,8 +28,6 @@ This section sets the expectations for how PHS is accessed, how it behaves under
 - Every control-plane action emits immutable audit events with contract/version IDs.
 - CloudTrail and GuardDuty monitor all Super Admin and CICD actions.
 - Audit retention aligned with compliance policies; exportable to external evidence systems.
-
----
 
 ## Non-Functional Requirements (NFRs)
 
@@ -67,8 +63,6 @@ This section sets the expectations for how PHS is accessed, how it behaves under
 - Backup: daily snapshots of metadata stores; 7-day PITR.
 - DR: cross-region backup with RPO = 1 hour, RTO = 4 hours.
 - Business continuity: contract enforcement can continue with read-only PHS in degraded mode.
-
----
 
 ## End State
 PHS operates under a **secure, controlled, and highly available** model.  

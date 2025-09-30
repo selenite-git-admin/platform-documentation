@@ -2,16 +2,12 @@
 Define how Platform Host Services (PHS) manages storage for contracts, metadata, lineage, and audit.  
 PHS does **not** store customer business data. Its storage layer is limited to metadata and evidence needed for contract enforcement, compliance, and observability.
 
----
-
 ## Storage Principles
 - **Metadata only**: schemas, contracts, lineage, audit, evidence, configuration, and policy state.
 - **Tenant data exclusion**: raw, GDP, and KPI business data reside in tenant-controlled domains or storage.
 - **Immutable evidence**: all enforcement decisions recorded with pointers to contract/version IDs.
 - **Policy-driven**: residency, retention, and legal holds enforced via configuration and contract metadata.
 - **Service separation**: different storage backends for different classes of metadata (relational, object, cache).
-
----
 
 ## Storage Classes
 
@@ -38,8 +34,6 @@ PHS does **not** store customer business data. Its storage layer is limited to m
   - TTL-driven eviction (seconds to hours).
   - Not used for durable storage.
 
----
-
 ## Residency & Retention
 - Residency policy defined per contract (region binding).
 - PHS metadata pinned to region of deployment; no cross-region replication without explicit residency approval.
@@ -48,15 +42,11 @@ PHS does **not** store customer business data. Its storage layer is limited to m
   - Evidence objects: 7 years or as per compliance config.
   - Lineage metadata: persisted until contract superseded + grace TTL.
 
----
-
 ## Data Protection
 - Encryption: all storage encrypted with AWS KMS CMKs (customer managed).
 - Secrets: never persisted in PHS stores; only referenced from Secrets Manager.
 - Backup: daily snapshots for relational metadata stores; S3 versioning for objects.
 - Restore: tested quarterly with PITR for Aurora and compliance restores for S3.
-
----
 
 ## End State
 PHS storage remains **narrow, metadata-focused, and policy-driven**.  

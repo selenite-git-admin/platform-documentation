@@ -5,8 +5,6 @@ Platform Host Services (PHS) provide the control plane for the BareCount Data Pl
 They manage metadata, contracts, lineage, compliance, and shared services required to operate the platform.  
 PHS never stores tenant business data; it governs metadata and enforcement only.
 
----
-
 ## Scope
 - **Control Plane Services**: contract registry, versioning, lineage, audit evidence.  
 - **Common Shared Services**: IAM, tenancy manager, policy/compliance, configuration, secrets, observability, orchestration, schema registry, storage fabric, API gateway.  
@@ -15,8 +13,6 @@ PHS never stores tenant business data; it governs metadata and enforcement only.
 - **Lifecycle Management**: contracts published via PHA; PHS enforces active versions.  
 - **Outbound Connectivity**: deny by default; allowlist for specific connectors with TLS/mTLS.
 
----
-
 ## Design Principles
 - **Metadata-only**: no tenant business data stored.  
 - **Contract-driven**: all enforcement tied to an active version.  
@@ -24,8 +20,6 @@ PHS never stores tenant business data; it governs metadata and enforcement only.
 - **Immutable evidence**: every enforcement outcome logged with evidence ID.  
 - **Residency & Retention**: contract-driven, auditable, policy-enforced.  
 - **AWS-native**: implemented with Aurora, S3, Redis, CDK, and IAM.
-
----
 
 ## Key Components
 1. **Overview**  
@@ -59,14 +53,10 @@ PHS never stores tenant business data; it governs metadata and enforcement only.
    - Cost units tied to metadata volume, contract versions, evidence stored.  
    - Budget visibility through observability hub.
 
----
-
 ## Boundaries
 - **PHA (Admin App)**: seeds and manages contract lifecycle.  
 - **PHS**: enforces active versions, stores audit evidence.  
 - **Tenant Apps**: consume validated outputs but do not interact with PHS directly.
-
----
 
 ## Differentiator
 PHS provides a **secure, auditable, metadata-only control plane**.  

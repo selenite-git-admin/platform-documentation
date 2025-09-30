@@ -5,8 +5,6 @@ Describe how PHS operates at runtime across ingress, processing, serving, and eg
 Focus areas: contract enforcement (Raw, GDP, KPI), Schema Services, shared/common services, outbound controls, audit/lineage.  
 PHS does **not** store tenant business data. Lifecycle (seed/modify/approve) happens in **PHA**; PHS only stores and enforces **published** contracts.
 
----
-
 ## Components (Runtime View)
 
 ### 1) Control-Plane Kernel
@@ -33,8 +31,6 @@ PHS does **not** store tenant business data. Lifecycle (seed/modify/approve) hap
 - API Gateway + Ingress/Egress enforcement (authN, quotas, throttling).
 
 > Access model: Only **Platform Super Admin** touches PHS directly (CLI/CDK/CICD). PHA and tenants call via scoped APIs.
-
----
 
 ## Architecture Flows
 
@@ -91,15 +87,11 @@ PHS does **not** store tenant business data. Lifecycle (seed/modify/approve) hap
 - **Contracts:** Published by PHA; PHS persists active versions and begins enforcement immediately (idempotent activation).
 - **Versioning:** Major (breaking), Minor (compatible), Update (non-structural). All runtime decisions include the contract version triplet.
 
----
-
 ## Outbound Connectivity (Data Connectors)
 - **Network:** Private subnets + NAT gateways; VPC endpoints for AWS services; PrivateLink to partners; optional egress proxy.
 - **Policy:** Deny-by-default egress; per-connector allowlists (domain/IP), TLS/mTLS, DNS pinning, request signing.
 - **Controls:** Gateway quotas/throttling; per-connector IAM roles + short-lived creds; audit per request with contract/version id.
 - **Observability:** Connector dashboards (latency, error %, throughput); alarms; anomaly detection on volumes/freshness.
-
----
 
 ## Events & Audit (Illustrative)
 - `ingress.validated` (Raw) — result, evidence id, contract/version, batch/run id.
@@ -109,30 +101,22 @@ PHS does **not** store tenant business data. Lifecycle (seed/modify/approve) hap
 - `policy.changed` — affected contracts/mappings, rollout window.
 - All events correlate to immutable audit entries and are queryable by contract/version/run.
 
----
-
 ## Failure Modes & Handling
 - **Schema drift at ingress:** Reject/quarantine; raise `ingress.validation_failed`; connector notified.
 - **Reference map missing/stale:** Block GDP conformance; emit `gdp.conformance_failed`; roll back to last good map.
 - **KPI formula error:** Do not publish; emit `kpi.publish_failed`; keep last known good.
 - **Egress policy breach:** Block export; emit `egress.policy_denied`; require allowlist change via CDK.
 
----
-
 ## Dependencies & Boundaries
 - **PHA (Admin App):** Owns contract lifecycle and tenant governance; on publish, writes to PHS.  
 - **PHS (this doc):** Enforces only **published** contracts; provides shared/common services.  
 - **Tenant infra/app:** Receives governed datasets/KPIs; isolation and residency handled in tenant domain with PHS policy checks at boundaries.
-
----
 
 ## Diagrams (placeholders)
 - **Runtime enforcement map:** Raw→GDP→KPI with PDP checkpoints and event flows.  
   `![PHS Runtime Enforcement](../images/phs-core-architecture-runtime.png)`  
 - **Outbound connectivity topology:** NAT/Endpoints/PrivateLink + egress policy points.  
   `![PHS Egress Topology](../images/phs-core-architecture-egress.png)`
-
----
 
 ## End State
 All data paths (ingress, normalization, KPI, egress) are governed by **published** contracts.  

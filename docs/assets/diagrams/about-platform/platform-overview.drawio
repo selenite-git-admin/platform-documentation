@@ -1,0 +1,76 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="LsKtsETs-TLXyHAkKxTm">
+    <mxGraphModel dx="1042" dy="770" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-20" value="Enterprise Data Systems" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;fontStyle=1;spacingBottom=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="120" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;ERP" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;CRM" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="270" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-4" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;MES" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-5" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;HRMS" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="370" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-6" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;ITMS" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="420" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-9" value="&lt;span style=&quot;color: rgb(17, 24, 39); font-family: Inter, ui-sans-serif, system-ui, -apple-system, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Helvetica Neue&amp;quot;, Arial, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; font-size: 14px; text-align: start; background-color: rgb(255, 255, 255);&quot;&gt;BareCount™ Data Action Platform&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;fontStyle=1;spacingBottom=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="360" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-11" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="A66RFWzFlaXCIW3IbmdF-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="360" as="sourcePoint" />
+            <mxPoint x="180" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-18" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="359.5" as="sourcePoint" />
+            <mxPoint x="600" y="359" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-21" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="229" y="251" width="302" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-10" value="Pre-build&lt;div&gt;Connectors&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry y="69" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-12" value="Schema&lt;div&gt;Services&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry x="90" y="75" width="62" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-13" value="KPI&lt;div&gt;Services&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry x="163" y="75" width="61" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-14" value="KPI Action&lt;div&gt;Services&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry x="230" y="75" width="72" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-15" value="Data Acquisition&amp;nbsp; |&amp;nbsp; Data Quality&lt;br&gt;Data Processing&amp;nbsp; |&amp;nbsp; Metrics Generation&lt;div&gt;Action generation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry x="90" y="150" width="212" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-19" value="Platform Host Services" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A66RFWzFlaXCIW3IbmdF-21">
+          <mxGeometry x="90" width="212" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A66RFWzFlaXCIW3IbmdF-22" value="Enterprise Data Actions" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;fontStyle=1;spacingBottom=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="200" width="160" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="RZDRDTuHVeCBW8U190pk-2" value="Analytics &amp;amp; AI&lt;div&gt;Activations&lt;/div&gt;" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.analytics;fillColorStyles=fillColor2,fillColor3,fillColor4,fillColor5,fillColor6,fillColor7,fillColor8;fillColor2=#7099a6;fillColor3=#eb912c;fillColor4=#c72035;fillColor5=#1f447e;fillColor6=#59879b;fillColor7=#e8762c;fillColor8=#5b6591;fillColor=none;strokeColor=none;align=center;" parent="1" vertex="1">
+          <mxGeometry x="659.59" y="316" width="40.82" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RZDRDTuHVeCBW8U190pk-3" value="Partner&lt;div&gt;Systems&lt;/div&gt;" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" parent="1" vertex="1">
+          <mxGeometry x="668.8" y="407" width="22.4" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RZDRDTuHVeCBW8U190pk-1" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Consumer Portal&lt;br&gt;(Client App)&lt;/font&gt;" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;fontColor=#4277BB;labelBackgroundColor=default;fontSize=12;spacingTop=3;image=img/lib/ibm/management/provider_cloud_portal_service.svg;" parent="1" vertex="1">
+          <mxGeometry x="660" y="215" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

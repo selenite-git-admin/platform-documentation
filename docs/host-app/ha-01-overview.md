@@ -5,8 +5,6 @@ The Host App is the control-plane application for the platform.
 It provides governance workflows for contracts, tenants, reference data, and audit evidence.  
 The Host App is metadata-driven: it governs state but does not directly provision infrastructure or execute pipelines.
 
----
-
 ## Scope
 In scope:
 - Contract lifecycle: draft, review, approve, publish (immutable versions).  
@@ -22,15 +20,11 @@ Out of scope:
 - Editing or storing tenant raw business data.  
 - Acting as a replacement for Schema Services or Platform Services observability.  
 
----
-
 ## Relationships
 - **Schema Services**: enforce Raw → GDP → KPI transformations; Host App governs contract lifecycle.  
 - **KPI Services**: consume KPI definitions authored in Host App.  
 - **Platform Services (PHS)**: execute provisioning, orchestration, and monitoring.  
 - **APIs / Control Plane**: Host App communicates desired state and receives telemetry.  
-
----
 
 ## Document Roadmap
 This section is organized into four groups:
@@ -43,8 +37,6 @@ This section is organized into four groups:
 
 - **[UI](ha-04-ui.md)**  
   Information architecture, UI screens, UX patterns, and accessibility standards.  
-
----
 
 ## Cross-References
 - [Schema Services — GDP Framework](../schema/gdp-framework.md)  

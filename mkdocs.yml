@@ -1,4 +1,4 @@
-site_name: Data Platform Documentation
+site_name: Enterprise Data Platform
 site_description: Technical documentation
 copyright: "© 2025 Selenite®  |  Selenite Business Solutions Pvt. Ltd. All rights reserved."
 
@@ -41,7 +41,7 @@ markdown_extensions:
           class: mermaid           #   graph TD; A-->B
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:            # Pygments-based code highlighting
-      linenums: true               # Show line numbers on code blocks
+      linenums: false              # Show line numbers on code blocks
       anchor_linenums: true        # Make line numbers linkable
   - pymdownx.inlinehilite          # `==inline code==` highlighting shorthand
   - pymdownx.tabbed:               # Content tabs: ```tab=Foo
@@ -68,59 +68,108 @@ plugins:
       minify_html: true
   - redirects                      # Maintain old → new URL mappings
   - awesome-pages                  # Folder-based nav ordering via .pages files
-  - git-revision-date-localized:   # Page dates from Git history
-      enable_creation_date: false
 
 nav:
     - Home:
-        - Overview: index.md
+        - Index: index.md
+
+    - The Platform:
 
         - About Platform:
-            - Overview: about-platform/00-overview.md
-            - The Problem: about-platform/01-problem.md
+            - Index: about-platform/index.md
+            - Problem: about-platform/01-problem.md
             - Root Causes: about-platform/02-root-causes.md
-            - The Idea: about-platform/03-idea.md
-            - The Solution: about-platform/04-solution.md
-            - Benefits: about-platform/05-benefits.md
-            - Offering: about-platform/06-offering.md
-            - Proof of Value: about-platform/07-proof-of-value.md
-            - Positioning: about-platform/08-positioning.md
+            - Solution: about-platform/03-solution.md
+            - Offerings: about-platform/04-offerings.md
+            - Deployment: about-platform/05-deployment.md
 
-        - Platform Working:
-            - Overview: platform-components/pc-01-index.md
-            - Control Plane: platform-components/pc-02-control-plane.md
-            - Data Plane: platform-components/pc-03-data-plane.md
-            - Control Plane Components:
-                - PHS Control APIs: platform-components/pc-02a-phs-control.md
-                - Schema Services (Contracts & Validation): platform-components/pc-02b-schema.md
-                - Host App (Governance): platform-components/pc-02c-host.md
-            - Data Plane Components:
-                - Bronze (Raw): platform-components/pc-03a-bronze.md
-                - Silver (Processed): platform-components/pc-03b-silver.md
-                - Gold (GDP): platform-components/pc-03c-gold.md
-                - KPI (Results): platform-components/pc-03d-kpi.md
-                - Tenant App (Delivery & Customization): platform-components/pc-03e-tenant.md
-            - Cross-Cutting:
-                - Data Quality & Anomalies: platform-components/pc-10-dqc.md
-                - Alerts & Monitoring: platform-components/pc-11-alerts.md
-                - Residency & Compliance: platform-components/pc-12-residency.md
-                - Security & RBAC: platform-components/pc-13-security.md
-                - Platform Runtime Foundations (PHS Common):
-                    - Orchestration & Scheduling: platform-components/pc-14-orchestration.md
-                    - Config & Artifacts: platform-components/pc-15-config-artifacts.md
-                    - Telemetry Pipeline: platform-components/pc-16-telemetry.md
-                    - Lineage & Metadata: platform-components/pc-17-lineage.md
-                    - Secrets & Key Management: platform-components/pc-18-secrets-kms.md
-                    - Backup/DR & Retention: platform-components/pc-19-backup-dr.md
-                    - Cost & Quota Enforcement: platform-components/pc-20-cost-quota.md
-            - Summary: platform-components/platform-working-summary.md
+        - Platform User Stories:
+            - Index: user-stories/index.md
+            - User Roles: user-stories/user-roles.md
 
-        - User Stories:
-            - Overview: user-stories/user-stories-overview.md
+            - Setting up Platform:
+                - Infra Deployment: user-stories/00a-platform-infrastructure-deployment.md
+                - Connector Deployment: user-stories/00b-connector-deployment.md
+                - Schema Seeding: user-stories/00c-schema-templates-seeding.md
+                - Access Baseline: user-stories/00d-access-rbac-baseline.md
 
-        - Brand Guide:
-            - Introduction: brand-guide/brand-introduction.md
-            - MkDocs Theme: assets/document-styles/mkdocs-guide.md
+            - Managing Tenant:
+                - Tenant Provisioning: user-stories/01-tenant-provisioning.md
+                - Tenant Infrastructure Provisioning: user-stories/01b-tenant-infrastructure-provisioning.md
+                - Tenant Decommissioning / Offboarding: user-stories/01c-tenant-decommissioning.md
+
+            - Onboarding Data:
+                - Data Source Onboarding: user-stories/02-source-onboarding.md
+                - Connector Handshake & Preflight: user-stories/02b-connector-handshake-preflight.md
+
+            - Governance:
+                - Setting Up Guardrails: user-stories/04-guardrails-dqc.md
+                - Evidence: user-stories/05-evidence-lineage.md
+                - Automated Housekeeping & Cost Controls: user-stories/05b-housekeeping-cost-controls.md
+
+            - Managing Schemas:
+                - Source (Raw) Schema Lifecycle: user-stories/03a-raw-schema-lifecycle.md
+                - GDP Schema Lifecycle: user-stories/03b-gdp-schema-lifecycle.md
+                - KPI Schema Lifecycle: user-stories/03c-kpi-schema-lifecycle.md
+                - Tenant Schema Change Request: user-stories/03d-tenant-schema-change-request.md
+                - Tenant-Specific Schema Extension: user-stories/03e-tenant-specific-schema-extension.md
+                - Safe Rollout & Rollback: user-stories/03f-safe-rollout-rollback.md
+                - Impact Analysis & Notifications: user-stories/03g-impact-analysis-notifications.md
+
+            - KPI Lifecycle:
+                - KPI Publishing: user-stories/06-kpi-publishing.md
+                - KPI Consumption: user-stories/07-kpi-consumption.md
+
+            - Data Action Workflows:
+                - Workflow Templates Seeding: user-stories/08a-workflow-templates-seeding.md
+                - Workflow Authoring & Configuration: user-stories/08b-workflow-authoring-configuration.md
+                - Triggers & Approvals: user-stories/08c-triggers-approvals.md
+                - Workflow Execution Engine: user-stories/08d-workflow-execution-engine.md
+                - Simulation / Dry-Run & Rollback: user-stories/08e-simulation-rollback.md
+                - Workflow Observability & Receipts: user-stories/08f-workflow-observability-receipts.md
+
+            - Operations:
+                - Decision Making: user-stories/09-decision-audit.md
+                - Evidence Export for Regulators: user-stories/09b-evidence-export-regulators.md
+                - Monitoring: user-stories/10-observability-monitoring.md
+                - Incident Handling: user-stories/10b-incident-handling.md
+                - Feedback: user-stories/11-feedback.md
+
+            - Extended Stories:
+                - CFO Consumption & Activation: user-stories/12-cfo-consumption-activation.md
+                - Ops Connector Failure & Recovery: user-stories/13-ops-connector-failure-recovery.md
+                - Hybrid Deployment for Regulated Tenant: user-stories/14-hybrid-deployment.md
+                - AI Actor-Assisted Decisioning: user-stories/15-ai-actors-workflows.md
+                - Anomaly Engine: user-stories/16-anomaly-engine.md
+                - Anomaly Tuning: user-stories/17-anomaly-tuning.md
+
+    - Connectors:
+        - Overview: connectors/01-overview.md
+        - SAP: connectors/02-sap.md
+        - Salesforce: connectors/03-salesforce.md
+        - Files & Objects: connectors/04-files-and-objects.md
+        - Streams: connectors/05-streams.md
+        - Outbound Destinations: connectors/06-outbound-destinations.md
+        - Connectors APIs: connectors/07-connector-apis.md
+
+    - Pipeline:
+        - Index: pipeline\index.md
+        - Overview: pipeline\01-overview.md
+        - Ingestion: pipeline\02-ingestion-and-landing.md
+        - Raw Store: pipeline\03-raw-stage.md
+        - Gold Transform: pipeline\04-gdp-transform.md
+        - KPI Materialize: pipeline\05-kpi-materialization.md
+        - Orchestration: pipeline\06-orchestration-and-scheduling.md
+        - Validation: pipeline\07-data-quality-and-validation.md
+        - Evidence: pipeline\08-lineage-and-evidence.md
+        - Observability: pipeline\09-observability-slo-and-alerts.md
+        - Recovery: pipeline\10-recovery-replay-and-dlq.md
+        - Cost Control: pipeline\11-cost-controls-and-scaling.md
+        - Configurations: pipeline\12-pipeline-configuration.md
+        - Pipeline APIs: pipeline\13-pipeline-apis.md
+        - Runners: pipeline\14-runners-and-execution.md
+        - Schedulers: pipeline\15-scheduler-options.md
+        - Anomaly Detection: pipeline\16-anomaly-integration.md
 
     - Platform Services:
         - Overview: phs/phs-01-overview.md
@@ -134,39 +183,33 @@ nav:
         - Summary: phs/phs-09-summary.md
 
     - Schema Services:
-        - Overview: schema/index.md
-        - GDP Framework: schema/gdp-framework.md
-        - Contracts & Versioning: schema/contracts.md
-        - Enforcement & Validation: schema/enforcement.md
-        - Summary: schema/schema-summary.md
+        - Index: schema/index.md
+        - Overview: schema/01-overview.md
+        - Schema Contracts: schema/02-schema-contracts.md
+        - Schema Enforcement: schema/03-schema-enforcement.md
+        - Extraction Schema Model: schema/04-extraction-schema-model.md
+        - Raw Schema Model: schema/05-raw-schema-model.md
+        - GDP Schema Model: schema/06-gdp-schema-model.md
+        - Metric Schema Model: schema/07-metric-schema-model.md
+        - Meta Schema Model: schema/08-meta-schema-model.md
+        - Schema Database: schema/09-schema-database.md
+        - Schema Management: schema/10-schema-management.md
 
     - KPI Services:
-        - Overview: kpi/kpi-01-overview.md
-        - KPI Framework: kpi/kpi-02-framework.md
-        - Requirements: kpi/kpi-03-requirements.md
-        - Roles & Permissions: kpi/kpi-04-roles-permissions.md
-        - Traceability: kpi/kpi-05-traceability.md
-        - Validation & Thresholds: kpi/kpi-06-validation.md
-        - Data Model: kpi/kpi-07-data-model.md
-
-    - APIs:
-        - Guides:
-            - Overview: apis/guides/index.md
-            - Auth & Scopes: apis/guides/auth.md
-            - Versioning & Deprecation: apis/guides/versioning.md
-            - Errors & Retries: apis/guides/errors.md
-            - Rate Limits & Quotas: apis/guides/rate-limits.md
-            - Webhooks & Events: apis/guides/events.md
-            - Examples:
-                - CICD → PHS (CLI/SDK): apis/guides/examples-cicd-phs.md
-                - Contract Publish (Admin App → PHS): apis/guides/examples-contracts.md
-                - Connector Egress (Raw): apis/guides/examples-egress.md
-        - Reference:
-            - PHS API (OpenAPI): apis/reference/phs-openapi.md
-            - Schema Services API (OpenAPI): apis/reference/schema-openapi.md
-            - KPI Services API (OpenAPI): apis/reference/kpi-openapi.md
-            - Admin Host App API (OpenAPI): apis/reference/paa-openapi.md
-            - Tenant App API (OpenAPI): apis/reference/tenant-openapi.md
+        - Index: kpi/index.md
+        - Overview: kpi/01-overview.md
+        - Metric Registry: kpi/02-metric-registry.md
+        - Metric Catalog: kpi/03-metric-catalog.md
+        - Metric APIs: kpi/04-serving-apis.md
+        - Job Authoring: kpi/05-job-authoring-and-runtime.md
+        - Scheduling: kpi/06-scheduling-and-slo.md
+        - Security: kpi/07-security-and-rbac.md
+        - Variants: kpi/08-variants-and-lineage.md
+        - Observability: kpi/09-observability-and-admin.md
+        - Versioning: kpi/10-versioning-and-lifecycle.md
+        - Extensions: kpi/11-extensions-and-derivations.md
+        - Integrations: kpi/12-anomaly-and-dq-integration.md
+        - Outbound Integrations: kpi/13-outbound-integration.md
 
     - Host App:
         - Overview: host-app/ha-01-overview.md
@@ -219,7 +262,7 @@ nav:
             - Troubleshooting: tenant/troubleshooting.md
             - Release Notes: tenant/release-notes.md
 
-    - Activations:
+    - KPI Actions:
         - Overview: activation-plane/index.md
         - API Guide: activation-plane/activation-plane-api-guide.md
         - API Reference: activation-plane/activation-plane-api-reference.md
@@ -228,12 +271,18 @@ nav:
 
     - Decisions:
         - Overview: decisions/decisions-overview.md
+        - ADR-0001: decisions/ADR-0001.md
+        - ADR-0002: decisions/ADR-0002.md
+        - ADR-0003: decisions/ADR-0003.md
+        - ADR-0004: decisions/ADR-0004.md
 
-    - Glossary: glossary/glossary.md
+    - References:
+        - Taxonomy: references/taxonomy.md
+        - Glossary: references/glossary.md
 
 extra_css:
   - stylesheets/overrides.css
-  - stylesheets/print-block.css
+  # - stylesheets/print-block.css
 
 extra_javascript:
   - javascripts/tablesort.js

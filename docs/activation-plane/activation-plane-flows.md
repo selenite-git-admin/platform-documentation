@@ -4,8 +4,6 @@
 Flows describe **how actions are triggered** inside the Activation Plane.  
 They ensure that decisions made from KPIs can be executed consistently, whether automatically or manually, with governance enforced at each step.
 
----
-
 ## Types of Flows
 
 ### 1. Event-Driven Flows
@@ -20,8 +18,6 @@ Triggered by conditions or thresholds defined on KPI outputs.
   - Near-real-time.
   - Auto-generated audit log with KPI reference.
 
----
-
 ### 2. Scheduled Flows
 Triggered on fixed intervals or calendar events.
 - **Examples**
@@ -34,8 +30,6 @@ Triggered on fixed intervals or calendar events.
   - Predictable timing.
   - Alignment with fiscal periods, regulatory deadlines, or business cycles.
 
----
-
 ### 3. Manual Flows
 Triggered by tenant users directly from the Tenant App.
 - **Examples**
@@ -47,8 +41,6 @@ Triggered by tenant users directly from the Tenant App.
 - **Characteristics**
   - Immediate and on-demand.
   - Contextual — initiated from the KPI view.
-
----
 
 ## Flow Lifecycle
 All flows, regardless of type, follow the same lifecycle:
@@ -65,13 +57,9 @@ All flows, regardless of type, follow the same lifecycle:
    - If action fails, retry with exponential backoff.  
    - Failed attempts routed to DLQ; Tenant Admin can replay.
 
----
-
 ## Boundaries
 - **Flows do not** design business processes end-to-end (those remain in ERP/CRM).  
 - **Flows do** orchestrate the final step between a KPI insight and its governed activation.  
-
----
 
 ## Value
 By supporting event-driven, scheduled, and manual activations under one framework, the Activation Plane:

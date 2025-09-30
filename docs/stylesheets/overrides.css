@@ -196,7 +196,7 @@
 .md-header {
   background: var(--cf-header-bg);
   box-shadow: none;
-  border-bottom: 0px solid color-mix(in oklab, var(--cf-border) 100%, transparent);
+  border-bottom: 0 solid color-mix(in oklab, var(--cf-border) 100%, transparent);
   transition:
     background var(--cf-dur-2) var(--cf-ease-out),
     box-shadow var(--cf-dur-2) var(--cf-ease-out);
@@ -255,7 +255,7 @@
 .md-header .md-search__form,
 .md-header .md-search__input { opacity: 0.9;
  !important;
-border-radius: 0px !important; }
+border-radius: 0 !important; }
 .md-header .md-search__form:focus-within,
 .md-header .md-search__input:focus,
 .md-header .md-search__input:focus-visible,
@@ -270,7 +270,7 @@ border-radius: 0px !important; }
 .md-content { max-width: 960px; }
 .md-typeset { color: var(--cf-text); }
 .md-typeset {
-  font-size: 0.8rem;  /* ~15px on a 16px root; use 0.875rem for ~14px */
+  font-size: 0.7rem;  /* ~15px on a 16px root; use 0.875rem for ~14px */
   line-height: 1.35;
 }
 .md-typeset h1, .md-typeset h2, .md-typeset h3 { color: var(--cf-heading); }
@@ -296,7 +296,7 @@ border-radius: 0px !important; }
 
 /* Code */
 .md-typeset code {
-  font-family: var(--md-code-font);
+    font-family: var(--md-code-font), sans-serif;
   border-radius: 4px;
   padding: .12em .34em;
   background: var(--cf-code-bg);
@@ -312,20 +312,48 @@ border-radius: 0px !important; }
 .md-typeset details {
   border-left-width: 4px;
   border-radius: var(--cf-radius-2);
-  font-size: 0.75rem;   /* set content size to 0.75rem */
-  line-height: 1.6;
+  font-size: 0.7rem !important;
+  line-height: 1.6 !important;
 }
 /* Ensure the title/summary matches the body size (no extra shrink) */
+/* Admonition title font size */
 .md-typeset .admonition > .admonition-title,
 .md-typeset details > summary {
-  font-size: medium;       /* inherit from container (0.75rem) */
+  font-size: 0.7rem !important; /* Slightly larger font for readability */
+  font-weight: 500 !important;
 }
+
+/* Admonition content font size */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: 0.7rem; /* Uniform font size across all admonition content */
+}
+
+/* Color and Font Adjustments for All Types */
+.md-typeset .admonition.success,
+.md-typeset details.success {
+  border-left-color: var(--cf-success);
+}
+
+.md-typeset .admonition.info,
+.md-typeset details.info {
+  border-left-color: var(--cf-blue-300); /* Accent color for info */
+}
+
 .md-typeset .admonition.warning,
-.md-typeset details.warning { border-left-color: var(--cf-warning); }
+.md-typeset details.warning {
+  border-left-color: var(--cf-warning);
+}
+
 .md-typeset .admonition.danger,
-.md-typeset details.danger   { border-left-color: var(--cf-danger); }
+.md-typeset details.danger {
+  border-left-color: var(--cf-danger);
+}
+
 .md-typeset .admonition.tip,
-.md-typeset details.tip      { border-left-color: var(--cf-success); }
+.md-typeset details.tip {
+  border-left-color: var(--cf-success); /* Reuse success color for tips */
+}
 
 /* Tables */
 .md-typeset table {
@@ -550,10 +578,12 @@ blockquote {
   border-left: 4px solid var(--cf-gray-700) !important;   /* border color */
   background: #e6e6e6 !important;              /* light background */
   color: #000000 !important;                   /* text color */
-  padding-top: .05em !important;
-  padding-bottom: .05em !important;
-  margin-top: .1em !important;
-  margin-bottom: .1em !important;
+  padding-top: .1em !important;
+  padding-bottom: .1em !important;
+  padding-left: .5em !important;
+  padding-right: 1em !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
   font-style: normal !important;               /* keep it clean */
 }
 
@@ -620,20 +650,6 @@ blockquote {
 
 .image-modal:target {
     display: flex; /* Display modal when linked */
-}
-
-.image-modal {
-    display: none; /* Initially hidden */
-    position: fixed; /* Sticks to the viewport */
-    z-index: 1000; /* Ensures modal appears above other elements */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 1); /* White background */
-    align-items: center;
-    justify-content: center;
-    overflow: auto; /* Allows scrolling for very large images */
 }
 
 .image-modal img {

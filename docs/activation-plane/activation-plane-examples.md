@@ -2,8 +2,6 @@
 
 These examples illustrate how the Activation Plane enables tenants to move directly from KPI insight to governed, auditable action.
 
----
-
 ## Finance — Accounts Receivable
 
 **Scenario:**  
@@ -20,8 +18,6 @@ KPI: *AR overdue > 90 days increased by 15% this quarter.*
 - Task recorded in CRM.  
 - Compliance can trace back every action to KPI evidence.
 
----
-
 ## Operations — Manufacturing Efficiency
 
 **Scenario:**  
@@ -36,8 +32,6 @@ KPI: *OEE dropped below 70% in Plant B.*
 - Plant manager alerted proactively.  
 - Maintenance team has a system-of-record task.  
 - Reduced downtime through early intervention.
-
----
 
 ## Compliance — Regulatory Reporting
 
@@ -54,8 +48,6 @@ KPI: *Quarterly compliance evidence bundle due in 5 days.*
 - Regulator-ready package always aligned with KPI outputs.  
 - Full traceability for auditors.
 
----
-
 ## Liquidity Forecasting — AI Activation
 
 **Scenario:**  
@@ -70,8 +62,6 @@ CFO requests liquidity forecast based on current receivables, payables, and cash
 **Outcome:**  
 - CFO gets actionable forecast instantly.  
 - Decision logged, reproducible, and compliant.  
-
----
 
 ## Why These Examples Matter
 

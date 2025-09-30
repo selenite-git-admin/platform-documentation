@@ -35,15 +35,11 @@ The APIs expose the capabilities of the Activation Plane in a consistent, govern
      }
      ```
 
----
-
 ## Authentication & Authorization
 - OAuth2 (JWT) with tenant-scoped tokens.  
 - Scopes: `data.read`, `action.trigger`, `ai.invoke`.  
 - Service principals supported for M2M integrations.  
 - Policies enforce least privilege by default.
-
----
 
 ## Governance Controls
 - **Rate limits** and **quotas** per tenant and endpoint.  
@@ -51,14 +47,10 @@ The APIs expose the capabilities of the Activation Plane in a consistent, govern
 - **Idempotency**: required header `Idempotency-Key` for all action POSTs.  
 - **Audit trail**: correlation id + KPI reference logged with every call.  
 
----
-
 ## Versioning & Deprecation
 - Semantic versioning via base path (`/api/v1`).  
 - Additive changes allowed in minor releases.  
 - Breaking changes → `/api/v2` with 180-day deprecation window.  
-
----
 
 ## Error Model
 Uniform envelope:  
@@ -73,8 +65,6 @@ Uniform envelope:
 }
 ```
 
----
-
 ## Webhooks & Events
 - **KPI Breach** (`kpi.breach`)  
 - **DQ Failure** (`dq.failed`)  
@@ -82,8 +72,6 @@ Uniform envelope:
 - **Quota/Rate** (`quota.near_limit`, `rate.limit_exceeded`)  
 
 Delivery: retries with backoff, signatures for verification, dead-letter replay.
-
----
 
 ## Examples
 

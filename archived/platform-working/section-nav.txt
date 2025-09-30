@@ -1,0 +1,29 @@
+        - Platform Working:
+            - Overview: platform-working/pc-01-index.md
+            - Product Story: platform-working/pc-01a-product-story.md
+            - Model: platform-working/pc-01b-platform-model.md
+            - Control Plane:
+                - Overview: platform-working/pc-02-control-plane.md
+                - PHS Control APIs: platform-working/pc-02a-phs-control.md
+                - Schema Services (Contracts & Validation): platform-working/pc-02b-schema.md
+                - Host App (Governance): platform-working/pc-02c-host.md
+            - Data Plane:
+                - Overview: platform-working/pc-03-data-plane.md
+                - Bronze (Raw): platform-working/pc-03a-bronze.md
+                - Silver (Processed): platform-working/pc-03b-silver.md
+                - Gold (GDP): platform-working/pc-03c-gold.md
+                - KPI (Results): platform-working/pc-03d-kpi.md
+                - Tenant App (Delivery & Customization): platform-working/pc-03e-tenant.md
+            - Cross-Cutting:
+                - Data Quality & Anomalies: platform-working/pc-10-dqc.md
+                - Alerts & Monitoring: platform-working/pc-11-alerts.md
+                - Residency & Compliance: platform-working/pc-12-residency.md
+                - Security & RBAC: platform-working/pc-13-security.md
+                - Platform Runtime Foundations (PHS Common):
+                    - Orchestration & Scheduling: platform-working/pc-14-orchestration.md
+                    - Config & Artifacts: platform-working/pc-15-config-artifacts.md
+                    - Telemetry Pipeline: platform-working/pc-16-telemetry.md
+                    - Lineage & Metadata: platform-working/pc-17-lineage.md
+                    - Secrets & Key Management: platform-working/pc-18-secrets-kms.md
+                    - Backup/DR & Retention: platform-working/pc-19-backup-dr.md
+                    - Cost & Quota Enforcement: platform-working/pc-20-cost-quota.md

@@ -1,7 +1,6 @@
 # Platform Host Services (PHS) Overview
 
-## Purpose
-Platform Host Services (PHS) provide the control plane and shared services for the BareCount Data Platform.
+Platform Services provide the control plane and shared services for the BareCount Data Platform.
 These services enforce contracts, manage metadata, and supply common capabilities such as identity, policy, observability, and storage fabric controls.
 
 ## Scope

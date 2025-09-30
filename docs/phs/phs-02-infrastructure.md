@@ -14,7 +14,6 @@ It provides the baseline environment for contracts, shared services, and enforce
 
 _Figure 1: Platform Services Infrastructure Conceptual Diagram_{.figure-caption}
 
-
 ## Deployment Model
 - **Infrastructure as Code**: AWS CDK defines all stacks.  
 - **Pipeline**: CICD pipelines deploy PHS; changes are PR-driven and traceable.  
