@@ -1,0 +1,3 @@
+# Cloud Reference
+
+Stub.

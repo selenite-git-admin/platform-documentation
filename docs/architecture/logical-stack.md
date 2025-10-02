@@ -1,0 +1,3 @@
+# Logical Stack
+
+Stub.

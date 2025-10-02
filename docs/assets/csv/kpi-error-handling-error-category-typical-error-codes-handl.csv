@@ -1,0 +1,7 @@
+Error Category,Typical Error Codes,Handling Strategy,Escalation Path
+**Sourcing**,"`MISSING_GDP`, `LINEAGE_BREAK`","Retry (n times, backoff); Fallback to last successful run if allowed",Ops channel (Data Eng); escalate to business owner if persistent
+**Validation (Pre)**,`VALIDATION_FAIL_PRE`,Block execution; mark KPI as skipped,Data Quality + Ops; notify CFO if critical
+**Validation (Post)**,`VALIDATION_FAIL_POST`,Suppress delivery or degrade with warning; retry not applicable,CFO Office (business rule failure)
+**Execution**,"`SQL_ERROR`, `EXEC_TIMEOUT`",Retry with backoff; escalate if > max retries,Ops/Platform Eng
+**Business Rule**,"`BUSINESS_RULE_FAIL` (e.g., implausible values, verdict mismatch)",Suppress or fallback with warning,CFO/Finance Owner
+**Scheduler**,"`SLA_BREACH`, dependency not ready",Retry after upstream ready; mark SLA breached if exceeded,Ops + CFO notified for SLA breaches

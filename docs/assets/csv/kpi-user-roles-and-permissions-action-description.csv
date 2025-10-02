@@ -1,0 +1,127 @@
+Action,Description
+`kpi:Read`,Read KPI results via Calls/Exports
+`kpi:Inspect`,"Preview SQL, view lineage/details"
+`kpi:List`,List KPIs and versions
+`kpi:Create`,Create KPI contract (draft)
+`kpi:Update`,Update contract (draft/proposed)
+`kpi:Publish`,Publish version (requires approvals)
+`kpi:Pause` / `kpi:Resume`,Pause/Resume KPI version
+`kpi:Rollback`,Roll back to a prior version
+`kpi:ScheduleEdit`,Edit schedule/trigger
+`kpi:SlaEdit`,Edit SLA
+`kpi:ValidationEdit`,Edit pre/post validation rules
+`kpi:ChangeRequestSubmit`,File change request
+`kpi:ChangeRequestApprove`,Approve/reject CRs
+`kpi:LogsRead`,Read run logs & monitoring views
+`kpi:AlertsManage`,Configure alert routes
+`kpi:PolicyRead`,Read tenant policy document
+`kpi:PolicyWrite`,Update tenant policy (subject to CR/approval)
+`kpi:Export`,Export results (CSV/Parquet)
+""
+"> Data-plane obligations may include: row filters, masking, grain caps, small-segment suppression."
+""
+---
+""
+## 3. Roles (RBAC Baseline)
+""
+Role,Intended Users,Key Actions
+----------------------,------------------------------------,-------------
+**Viewer**,"Business viewers, analysts","`kpi:List`, `kpi:Read`, `kpi:Export`"
+**Analyst**,"Power users, data analysts","Viewer + `kpi:Inspect`, `kpi:LogsRead`"
+**KPI Author**,Metric authors/modelers,"Analyst + `kpi:Create`, `kpi:Update`, `kpi:ValidationEdit`"
+**KPI Publisher**,Release managers,"`kpi:Publish`, `kpi:Rollback`, `kpi:ScheduleEdit`, `kpi:SlaEdit`"
+**KPI Approver (Biz)**,Finance owners/CFO delegates,`kpi:ChangeRequestApprove` (business)
+**KPI Approver (Tech)**,Data eng/architects,`kpi:ChangeRequestApprove` (technical)
+**KPI Admin**,Tenant admin for KPI System,"All KPI actions incl. `kpi:AlertsManage`, `kpi:PolicyWrite` (subject to CR)"
+**Platform Operator**,Provider ops (not tenant),Read-only across tenants for ops audits; no data-plane `kpi:Read` by default
+""
+> Dual-approval: Publishing critical KPIs requires **Biz + Tech** approvers.
+""
+---
+""
+## 4. ABAC Attributes (Context)
+""
+Attribute,Examples,Purpose
+-------------------,---------------------------,---------
+`tenant_id`,"`acme`, `globex`",Isolation scope
+`user.roles`,"`Viewer`, `Analyst`",Role mapping
+`user.region`,"`APAC`, `EMEA`, `NA`",Regional scoping
+`user.entity_scope`,"`[""LE-APAC-01"", ""...""]`",Legal entity filtering
+`kpi.sensitivity`,`public,internal,restricted,confidential`,Sensitivity gates
+`slice.grain`,`day,week,month,...`,Grain caps
+`slice.region`,`APAC`,Slice filters
+`slice.entity`,`LE-*`,Row filters
+""
+---
+""
+## 5. Policy Patterns
+""
+### 5.1 IAM/JSON-style (example)
+```json
+{
+"""Version"": ""2025-08-01"","
+"""Statement"": ["
+{
+"""Sid"": ""AllowFinanceViewInternalKPIs"","
+"""Effect"": ""Allow"","
+"""Action"": [""kpi:List"",""kpi:Read"",""kpi:Export""],"
+"""Resource"": [""kpi:*""],"
+"""Condition"": {"
+"""kpi:sensitivity"": [""internal"",""public""],"
+"""slice:region"": [""APAC"",""EMEA""]"
+"},"
+"""Obligations"": [""suppress_small_segments"",""grain_ge_month""]"
+"},"
+{
+"""Sid"": ""RestrictConfidentialToApprovers"","
+"""Effect"": ""Allow"","
+"""Action"": [""kpi:Read""],"
+"""Resource"": [""kpi:*""],"
+"""Condition"": { ""kpi:sensitivity"": [""confidential""], ""user:role"": [""KPI Approver (Biz)"",""KPI Admin""] },"
+"""Obligations"": [""mask_currency"",""grain_ge_quarter""]"
+}
+]
+}
+```
+""
+### 5.2 Cedar (AWS Verified Permissions) snippet
+```cedar
+permit(
+"principal in Role::""Analyst"","
+"action in [Action::""kpi:Read"", Action::""kpi:Export""],"
+"resource in KPI::""*"" )"
+"when { resource.sensitivity in [""public"",""internal""]"
+"&& context.region in [""APAC"",""EMEA""]"
+}
+"unless { context.slice.grain == ""day"" };"
+```
+""
+### 5.3 OPA/Rego snippet
+```rego
+package kpi.authz
+""
+default allow = false
+""
+allow {
+"""Analyst"" in input.user.roles"
+"input.resource.sensitivity != ""confidential"""
+"input.slice.region == ""APAC"""
+}
+""
+"obligations := {""suppress_small_segments"": true, ""grain_ge_month"": true}"
+```
+""
+---
+""
+## 6. Mapping: Roles → Actions
+""
+Role → Action,List,Read,Inspect,Create,Update,Publish,Pause/Resume,Rollback,Sched,SLA,Valid,CR Submit,CR Approve,Logs,Alerts,Policy Read,Policy Write,Export
+---------------------------------,:---:,:----:,:------:,:-----:,:-----:,:------:,:-----------:,:-------:,:-----:,:---:,:----:,:--------:,:---------:,:----:,:-----:,:----------:,:-----------:,:-----:
+Viewer,✓,✓,,,,,,,,,,✓,,,,✓,,✓
+Analyst,✓,✓,✓,,,,,,,,,✓,,✓,,✓,,✓
+KPI Author,✓,✓,✓,✓,✓,,,,,,✓,✓,,✓,,✓,,✓
+KPI Publisher,✓,✓,✓,,,✓,✓,✓,✓,✓,✓,✓,,✓,✓,✓,,✓
+KPI Approver (Biz),✓,✓,,,,,,,,,,✓,✓,,,✓,,
+KPI Approver (Tech),✓,✓,✓,,,,,,,,,✓,✓,✓,,✓,,
+KPI Admin,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓,✓
+Platform Operator (provider),✓,,,,,,,,,,,,,✓,✓,,,

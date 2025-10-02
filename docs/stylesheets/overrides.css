@@ -1,21 +1,24 @@
 /* docs/assets/styles/overrides.css
-   Cxofacts - Material-aligned tokens + components (LIGHT ONLY)
+   Cxofacts – Material-aligned tokens + components (LIGHT ONLY)
+   Refactor notes:
+   - De-duped repeated blocks (image-modal / image-link)
+   - Fixed minor CSS issues
+   - Layout stretched to full viewport width
 */
 
 /* ======================================
    1) DESIGN TOKENS + THEME (LIGHT)
-   - Safe to extend; do not rename without grep
-====================================== */
+   ===================================== */
 :root {
-  /* Brand palette */
+  /* Brand */
   --cf-blue-900: #7f1b2d;
   --cf-blue-700: #2266A3;   /* primary */
   --cf-blue-500: #4BA3DD;   /* accent */
   --cf-blue-300: #7EC6F3;   /* highlight */
-  --cf-blue-200: #8ecdf4;   /* highlight */
-  --cf-blue-100: #b3ddf8;   /* highlight */
+  --cf-blue-200: #8ecdf4;
+  --cf-blue-100: #b3ddf8;
 
-  /* Unified grayscale */
+  /* Grayscale */
   --cf-gray-900: #111827;
   --cf-gray-800: #1f2937;
   --cf-gray-700: #374151;
@@ -27,7 +30,7 @@
   --cf-gray-100: #f3f4f6;
   --cf-gray-50:  #f9fafb;
 
-  /* Back-compat aliases (keep unless you update all refs) */
+  /* Back-compat aliases */
   --cx-gray-700: var(--cf-gray-700);
   --cf-slate-700: var(--cf-gray-600);
   --cf-slate-500: var(--cf-gray-500);
@@ -51,9 +54,9 @@
                   Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Text tones */
-  --cf-text:    var(--cf-gray-900);  /* AA on white */
+  --cf-text:    var(--cf-gray-900);
   --cf-heading: #0f172a;
-  --md-default-fg-color--light: var(--cf-gray-600); /* meta labels, captions */
+  --md-default-fg-color--light: var(--cf-gray-600);
 
   /* Motion + depth */
   --cf-radius-1: 6px; --cf-radius-2: 8px; --cf-radius-3: 10px;
@@ -86,55 +89,42 @@
   --cf-header-bg:  var(--cf-gray-500);
   --cf-surface-bg: var(--cf-gray-50);
 
-  /* Inline badge color tokens (safe: colors only) */
+  /* Inline badge colors */
   --badge-p0-bg:#1b5e20;  --badge-p0-border:#1b5e20; --badge-p0-fg:#ffffff;
   --badge-p1-bg:#e8f5e9;  --badge-p1-border:#a5d6a7; --badge-p1-fg:#1b5e20;
   --badge-p2-bg:#e3f2fd;  --badge-p2-border:#90caf9; --badge-p2-fg:#0d47a1;
 }
 
-/* Compact heading scale for doc-style pages
-   - Smaller jumps above body text (16px base)
-   - Reduced vertical margins for tighter flow
-*/
-
+/* Compact heading scale */
 .md-typeset h1 {
   font-size: x-large;
-  margin: 0.0em 0 0.0em;
+  margin: 0;
   font-weight: 300;
 }
-
-
 .md-typeset h2 {
   font-size: large;
-    font-weight: 500;
+  font-weight: 500;
   margin: 0.55em 0 0.28em;
 }
-
 .md-typeset h3 {
   font-size: medium;
-    font-weight: 500;
+  font-weight: 500;
   margin: 0.50em 0 0.25em;
 }
-
 .md-typeset h4 {
   font-size: medium;
+  font-weight: 500;
   margin: 0.45em 0 0.22em;
-    font-weight: 500;
 }
-
-.md-typeset h5 {
-  font-size: small;
-    font-weight: 300;
-  margin: 0.40em 0 0.20em;
-}
-
+.md-typeset h5,
 .md-typeset h6 {
   font-size: small;
-    font-weight: 300;
-  margin: 0.35em 0 0.18em;
+  font-weight: 300;
+  margin: 0.40em 0 0.20em;
 }
+.md-content > .md-typeset h1:first-of-type { margin-top: 0.50em; }
 
-/* Inline feature title + priority pill (scoped) */
+/* Inline feature title + priority pill */
 .md-typeset h2.feature {
   position: relative;
   display: inline-block;
@@ -155,7 +145,7 @@
   margin-left: 8px;
   padding: 2px 8px;
   border-radius: 999px;
-  font-size: 0.8em;   /* compact pill; does not affect heading size */
+  font-size: 0.8em;
   line-height: 1;
   border: 1px solid;
   vertical-align: middle;
@@ -176,45 +166,64 @@
   color: var(--badge-p2-fg);
 }
 
-/* First page title spacing (balances badges) */
-.md-content > .md-typeset h1:first-of-type { margin-top: 0.50em; }
-
 /* Optional: sidebar/TOC labels */
 .md-nav__title, .md-sidebar__title { font-size: 0.93rem; }
 
-/* Hide the spec URL under the title in Swagger UI */
+/* Swagger UI: hide spec URL */
 .swagger-ui .info .url { display: none !important; }
 
-/* Respect user preference: reduced motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
 
-/* =========================
-   2) APP CHROME / NAV
-========================= */
+/* ======================================
+   2) LAYOUT – STRETCH TO FULL WIDTH
+   ===================================== */
+/* Material caps width via .md-grid and inner containers.
+   Drop the cap and let center column breathe. */
+.md-grid,
+.md-content,
+.md-content__inner {
+  max-width: 1440px !important;
+  width: 100%;
+}
+
+/* Give the content some side breathing room on large screens */
+.md-content { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+/* Make the main 3-column grid center column truly flexible */
+@media (min-width: 960px) {
+  .md-main__inner {
+    grid-template-columns:
+      var(--md-sidebar-width, 18rem)
+      minmax(0, 1fr)
+      var(--md-sidebar-width, 18rem);
+  }
+}
+
+/* ======================================
+   3) APP CHROME / NAV
+   ===================================== */
 .md-header {
   background: var(--cf-header-bg);
   box-shadow: none;
   border-bottom: 0 solid color-mix(in oklab, var(--cf-border) 100%, transparent);
-  transition:
-    background var(--cf-dur-2) var(--cf-ease-out),
-    box-shadow var(--cf-dur-2) var(--cf-ease-out);
+  transition: background var(--cf-dur-2) var(--cf-ease-out),
+              box-shadow var(--cf-dur-2) var(--cf-ease-out);
 }
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg { height: 40px; width: auto; }
 
-/* Tabs strip (subheader) */
+/* Tabs */
 .md-header .md-tabs,
 .md-tabs {
   background-color: var(--cf-tabs-bg) !important;
   background-image: none !important;
   min-height: var(--cf-tabs-height);
 }
-
-/* Tabs layout & look */
 .md-tabs__list {
-  display: flex; align-items: center; height: var(--cf-tabs-height); gap: 0;
+  display: flex; align-items: center; height: var(--cf-tabs-height);
 }
 .md-tabs__item { display: flex; align-items: center; }
 .md-tabs__link {
@@ -223,12 +232,11 @@
   padding: 0 .5rem;
   background: transparent !important;
   border-radius: 0;
-  font-weight: 300;
-  color: rgb(30, 31, 34) !important;
+  font-weight: 500;
+  color: rgb(30,31,34) !important;
   text-decoration: none; cursor: pointer;
-  transition:
-    color var(--cf-dur-1) var(--cf-ease-out),
-    text-decoration-color var(--cf-dur-1) var(--cf-ease-out);
+  transition: color var(--cf-dur-1) var(--cf-ease-out),
+              text-decoration-color var(--cf-dur-1) var(--cf-ease-out);
 }
 .md-tabs__link[aria-current],
 .md-tabs__link:hover,
@@ -239,7 +247,6 @@
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
 }
-/* Hide active slider for a leaner look */
 .md-tabs__slider { display: none !important; }
 
 /* Left nav hover */
@@ -251,11 +258,12 @@
   background: color-mix(in oklab, var(--md-accent-fg-color) 8%, transparent);
 }
 
-/* Header search: square & no glow */
+/* Header search: square & no glow (fixed stray !important) */
 .md-header .md-search__form,
-.md-header .md-search__input { opacity: 0.9;
- !important;
-border-radius: 0 !important; }
+.md-header .md-search__input {
+  opacity: 0.9 !important;
+  border-radius: 0 !important;
+}
 .md-header .md-search__form:focus-within,
 .md-header .md-search__input:focus,
 .md-header .md-search__input:focus-visible,
@@ -264,15 +272,19 @@ border-radius: 0 !important; }
   outline: none !important; box-shadow: none !important; outline-offset: 0 !important;
 }
 
-/* =========================
-   3) CONTENT BASELINE
-========================= */
-.md-content { max-width: 960px; }
-.md-typeset { color: var(--cf-text); }
-.md-typeset {
-  font-size: 0.7rem;  /* ~15px on a 16px root; use 0.875rem for ~14px */
-  line-height: 1.35;
+/* Site title weight */
+.md-header .md-header__title,
+.md-header .md-header__topic,
+.md-header .md-header__title .md-ellipsis {
+  font-weight: 300 !important;
+  font-size: 1rem;
+  color: var(--cf-gray-100);
 }
+
+/* ======================================
+   4) CONTENT BASELINE
+   ===================================== */
+.md-typeset { color: var(--cf-text); font-size: 0.7rem; line-height: 1.35; }
 .md-typeset h1, .md-typeset h2, .md-typeset h3 { color: var(--cf-heading); }
 .md-typeset h1:first-child { margin-top: .2rem; }
 
@@ -296,7 +308,7 @@ border-radius: 0 !important; }
 
 /* Code */
 .md-typeset code {
-    font-family: var(--md-code-font), sans-serif;
+  font-family: var(--md-code-font), monospace;
   border-radius: 4px;
   padding: .12em .34em;
   background: var(--cf-code-bg);
@@ -307,7 +319,7 @@ border-radius: 0 !important; }
   background: var(--cf-code-bg);
 }
 
-/* Admonitions */
+/* Admonitions – unified sizing + colors */
 .md-typeset .admonition,
 .md-typeset details {
   border-left-width: 4px;
@@ -315,49 +327,27 @@ border-radius: 0 !important; }
   font-size: 0.7rem !important;
   line-height: 1.6 !important;
 }
-/* Ensure the title/summary matches the body size (no extra shrink) */
-/* Admonition title font size */
 .md-typeset .admonition > .admonition-title,
 .md-typeset details > summary {
-  font-size: 0.7rem !important; /* Slightly larger font for readability */
+  font-size: 0.7rem !important;
   font-weight: 500 !important;
 }
-
-/* Admonition content font size */
-.md-typeset .admonition,
-.md-typeset details {
-  font-size: 0.7rem; /* Uniform font size across all admonition content */
-}
-
-/* Color and Font Adjustments for All Types */
 .md-typeset .admonition.success,
-.md-typeset details.success {
-  border-left-color: var(--cf-success);
-}
-
+.md-typeset details.success { border-left-color: var(--cf-success); }
 .md-typeset .admonition.info,
-.md-typeset details.info {
-  border-left-color: var(--cf-blue-300); /* Accent color for info */
-}
-
+.md-typeset details.info { border-left-color: var(--cf-blue-300); }
 .md-typeset .admonition.warning,
-.md-typeset details.warning {
-  border-left-color: var(--cf-warning);
-}
-
+.md-typeset details.warning { border-left-color: var(--cf-warning); }
 .md-typeset .admonition.danger,
-.md-typeset details.danger {
-  border-left-color: var(--cf-danger);
-}
-
+.md-typeset details.danger { border-left-color: var(--cf-danger); }
 .md-typeset .admonition.tip,
-.md-typeset details.tip {
-  border-left-color: var(--cf-success); /* Reuse success color for tips */
-}
+.md-typeset details.tip { border-left-color: var(--cf-success); }
 
 /* Tables */
 .md-typeset table {
-  display: block; overflow-x: auto; white-space: nowrap;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
   border-radius: var(--cf-radius-1);
   border: 1px solid var(--cf-border);
 }
@@ -368,21 +358,19 @@ border-radius: 0 !important; }
   background: color-mix(in oklab, var(--md-accent-fg-color) 6%, transparent);
 }
 
-/* Focus ring (consistent across controls) */
+/* Focus ring */
 :where(a, button, input, select, textarea):focus-visible {
   outline: 2px solid color-mix(in oklab, var(--md-accent-fg-color) 70%, #000 0%);
   outline-offset: 3px; border-radius: 0;
 }
 
-/* =========================
-   4) PRIMITIVES
-========================= */
-/* Buttons (utility class) */
+/* ======================================
+   5) PRIMITIVES (Buttons, Cards, Chips, kbd, Badges)
+   ===================================== */
 .cf-btn {
   --btn-bg: var(--md-primary-fg-color);
   --btn-fg: #fff;
   --btn-bd: transparent;
-
   display: inline-flex; align-items: center; gap: .5rem;
   padding: .6rem .95rem;
   border-radius: var(--cf-radius-2);
@@ -407,15 +395,13 @@ border-radius: 0 !important; }
   --btn-bd: var(--cf-border);
 }
 
-/* Cards */
 .cf-card {
   background: var(--cf-bg);
   border: 1px solid var(--cf-border);
   border-radius: var(--cf-radius-2);
-  padding: 1.25rem; /* was var(--cf-space-5); inlined to reduce token surface */
-  transition:
-    border-color var(--cf-dur-2) var(--cf-ease-out),
-    background var(--cf-dur-2) var(--cf-ease-out);
+  padding: 1.25rem;
+  transition: border-color var(--cf-dur-2) var(--cf-ease-out),
+              background var(--cf-dur-2) var(--cf-ease-out);
 }
 .cf-card:hover {
   border-color: color-mix(in oklab, var(--md-accent-fg-color) 30%, var(--cf-border));
@@ -423,7 +409,6 @@ border-radius: 0 !important; }
 .cf-card__title { margin: 0 0 .75rem; color: var(--cf-heading); font-weight: 700; }
 .cf-card__meta  { color: var(--cf-gray-700); font-size: .9rem; }
 
-/* Chips / Tags */
 .cf-chip {
   display: inline-flex; align-items: center; gap: .35rem;
   padding: .3rem .55rem;
@@ -434,7 +419,6 @@ border-radius: 0 !important; }
   font-weight: 600; font-size: .85rem;
 }
 
-/* Inline kbd */
 .md-typeset kbd {
   border-radius: 6px; padding: .1rem .35rem;
   border: 1px solid var(--cf-border);
@@ -442,7 +426,6 @@ border-radius: 0 !important; }
   background: var(--cf-code-bg); color: var(--cf-heading);
 }
 
-/* Badges */
 .md-typeset .badge {
   display: inline-block; white-space: nowrap;
   padding: 0.15rem 0.5rem; margin-right: 0.25rem;
@@ -453,9 +436,9 @@ border-radius: 0 !important; }
 }
 .md-typeset .badge--neutral { --badge-bg: var(--cf-gray-700); --badge-fg: #fff; }
 
-/* =========================
-   5) MKDOCS BUTTON POLISH
-========================= */
+/* ======================================
+   6) MKDOCS BUTTON POLISH
+   ===================================== */
 .md-typeset .md-button {
   border-radius: var(--cf-radius-2);
   box-shadow: var(--cf-shadow-1);
@@ -469,21 +452,17 @@ border-radius: 0 !important; }
   color: var(--cf-gray-700); background: transparent;
 }
 
-/* =========================
-   6) BACK-TO-TOP BUTTON
-========================= */
-/* Back-to-top - restore original bottom-right placement */
+/* ======================================
+   7) BACK-TO-TOP BUTTON
+   ===================================== */
 .md-top {
   position: fixed;
   top: auto !important;
   bottom: 1rem;
   right: 1rem;
   left: auto !important;
-
-  /* kill any earlier centering transforms/margins */
   transform: none !important;
   margin-left: 0 !important;
-
   z-index: 9999;
   background-color: var(--cf-gray-500) !important;
   color: #ffffff !important;
@@ -494,20 +473,11 @@ border-radius: 0 !important; }
 .md-top:hover,
 .md-top:focus { background-color: var(--cf-gray-600) !important; color: #ffffff !important; }
 .md-top svg { fill: currentColor; }
-.md-top[hidden] { display: none !important; } /* keep theme's hide/show */
+.md-top[hidden] { display: none !important; }
 
-/* =========================
-   7) SIDEBAR TOGGLE (desktop)
-========================= */
-/* Site title weight */
-.md-header .md-header__title,
-.md-header .md-header__topic,
-.md-header .md-header__title .md-ellipsis {
-  font-weight: 300 !important;
-  font-size: 1rem; /* Adjust this value as desired (~16px) */
-  color: var(--cf-gray-100); /* Or any custom color */
-}
-
+/* ======================================
+   8) SIDEBAR TOGGLE (desktop)
+   ===================================== */
 .cf-nav-toggle-btn {
   position: fixed; top: var(--cf-nav-toggle-top); left: var(--cf-nav-toggle-left); z-index: 2000;
   display: inline-flex; align-items: center; gap: .45rem;
@@ -526,18 +496,16 @@ border-radius: 0 !important; }
   outline-offset: 3px;
 }
 
-/* Hide label if space is tight */
 @media (max-width: 1200px) {
   .cf-nav-toggle-btn .cf-nav-toggle-text { font-size: 0.60rem; font-weight: 300; }
 }
-/* Mobile: rely on native drawer */
-@media (max-width: 959px) {
+@media (max-width: 1440px) {
   .cf-nav-toggle-btn { display: none !important; }
 }
 
 /* Collapsed state */
 html.cf-nav-collapsed .md-sidebar--primary { display: none !important; }
-@media (min-width: 960px) {
+@media (min-width: 1440px) {
   html.cf-nav-collapsed .md-main__inner {
     grid-template-columns: 0 minmax(0, 1fr) var(--md-sidebar-width, 0);
   }
@@ -551,9 +519,9 @@ html.cf-nav-collapsed .md-sidebar--primary { display: none !important; }
   display: none !important;
 }
 
-/* =========================
-   8) FOOTER - unified bg, centered meta
-========================= */
+/* ======================================
+   9) FOOTER
+   ===================================== */
 .md-footer,
 .md-footer-meta {
   background: var(--cf-gray-900);
@@ -564,7 +532,6 @@ html.cf-nav-collapsed .md-sidebar--primary { display: none !important; }
 .md-footer a:hover,
 .md-footer-meta a:hover { color: #ffffff; }
 
-/* Center the meta row */
 .md-footer-meta { text-align: center; }
 .md-footer-meta .md-footer-meta__inner {
   display: flex; justify-content: center; align-items: center;
@@ -573,20 +540,21 @@ html.cf-nav-collapsed .md-sidebar--primary { display: none !important; }
 .md-footer-meta .md-footer__link,
 .md-footer-meta .md-copyright { margin: 0; }
 
-/* Change blockquote style */
+/* ======================================
+   10) TYPOGRAPHY – Blockquote
+   ===================================== */
 blockquote {
-  border-left: 4px solid var(--cf-gray-700) !important;   /* border color */
-  background: #e6e6e6 !important;              /* light background */
-  color: #000000 !important;                   /* text color */
-  padding-top: .1em !important;
-  padding-bottom: .1em !important;
-  padding-left: .5em !important;
-  padding-right: 1em !important;
-  margin-top: 1em !important;
-  margin-bottom: 1em !important;
-  font-style: normal !important;               /* keep it clean */
+  border-left: 4px solid var(--cf-gray-700) !important;
+  background: #e6e6e6 !important;
+  color: #000000 !important;
+  padding: .1em 1em .1em .5em !important;
+  margin: 1em 0 !important;
+  font-style: normal !important;
 }
 
+/* ======================================
+   11) MEDIA / FIGURES + SIMPLE MODAL
+   ===================================== */
 .brand-logo {
   display: block;
   margin: 0 auto;
@@ -594,107 +562,75 @@ blockquote {
 }
 
 .media-box {
-    background: var(--md-default-bg-color);
-    border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 0;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
-    padding: 20px;
-    margin: 24px auto;
-    max-width: 680px;
-    text-align: center;
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+  padding: 20px;
+  margin: 24px auto;
+  max-width: 680px;
+  text-align: center;
 }
+
 .figure-caption {
-    display: block; /* Ensure it behaves like a block element */
-    text-align: center !important; /* Center-align the text */
-    margin-top: 5px !important; /* Add space above */
-    margin-bottom: 10px !important; /* Add space below */
-    font-size: small !important; /* Set font size, with priority */
-    border-top: 0 solid #cccccc; /* Add top border */
-    border-bottom: 1px solid #cccccc; /* Add bottom border */
-    padding-top: 0; /* Add space inside above the text */
-    padding-bottom: 2px; /* Add space inside below the text */
+  display: block;
+  text-align: center !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  font-size: small !important;
+  border-top: 0 solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding-top: 0;
+  padding-bottom: 2px;
 }
 
+/* Anchor-targeted modal */
 .image-modal {
-    display: none; /* Initially hidden */
-    position: fixed; /* Sticks to the viewport */
-    z-index: 1000; /* Ensures modal appears above other elements */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 1); /* White background */
-    align-items: center;
-    justify-content: center;
-    overflow: auto; /* Allows scrolling for very large images */
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,1);
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
 }
+.image-modal:target { display: flex; }
 
 .image-modal img {
-    display: block; /* Ensure the image is block-level to support alignment */
-    padding: 40px; /* Add padding around the image itself */
-    max-width: calc(100% - 40px); /* Full width minus padding (20px on each side) */
-    max-height: calc(100% - 40px); /* Full height minus padding (20px on each side) */
-    margin: auto; /* Centers the image inside the modal */
-    border: none; /* No border applied to the image */
-    border-radius: 8px; /* Optional: Add light rounding for better aesthetics */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+  display: block;
+  padding: 20px;
+  max-width: calc(100% - 40px);
+  max-height: calc(100% - 40px);
+  margin: auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .image-link img {
-    display: block;
-    max-width: 100%; /* Displays original size unless constrained by container */
-    margin: auto;
-    border: none;
-    border-radius: 0; /* Ensure no styling for the initial image */
-}
-
-.image-modal:target {
-    display: flex; /* Display modal when linked */
-}
-
-.image-modal img {
-    display: block; /* Ensure the image is block-level to support alignment */
-    padding: 20px; /* Add padding around the image itself */
-    max-width: calc(100% - 40px); /* Full width minus padding (20px on each side) */
-    max-height: calc(100% - 40px); /* Full height minus padding (20px on each side) */
-    margin: auto; /* Centers the image inside the modal */
-    border: none; /* No border applied to the image */
-    border-radius: 8px; /* Optional: Add light rounding for better aesthetics */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
-}
-
-.image-link img {
-    display: block;
-    max-width: 100%; /* Displays original size unless constrained by container */
-    margin: auto;
-    border: none;
-    border-radius: 0; /* Ensure no styling for the initial image */
-}
-
-.image-modal:target {
-    display: flex; /* Display modal when linked */
+  display: block;
+  max-width: 100%;
+  margin: auto;
+  border: none;
+  border-radius: 0;
 }
 
 .image-modal .close-btn {
-    position: absolute;
-    top: 20px; /* Align close button with modal padding */
-    right: 20px; /* Align close button with modal padding */
-    color: #000 !important; /* Black close button text for visibility */
-    font-size: medium;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0; /* Add spacing between the "X" and "Close" label */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #000 !important;
+  font-size: medium;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0;
 }
-
 .image-modal .close-btn span {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
-}
-
-.image-modal .close-btn span {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
 }

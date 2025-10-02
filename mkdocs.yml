@@ -4,7 +4,7 @@ copyright: "© 2025 Selenite®  |  Selenite Business Solutions Pvt. Ltd. All rig
 
 theme:
   name: material
-  logo: assets/logos/bare_count_logo_dark.svg  # Logo in the light scheme
+  logo: assets/logos/bare_count_logo_dark.svg
   favicon: assets/logos/bare_count_favicon.png
   features:
     - navigation.instant          # Client-side nav for faster page transitions
@@ -73,17 +73,17 @@ nav:
     - Home:
         - Index: index.md
 
-    - The Platform:
+    - About Platform:
+        - Index: about-platform/index.md
+        - Problem: about-platform/01-problem.md
+        - Root Causes: about-platform/02-root-causes.md
+        - Solution: about-platform/03-solution.md
+        - Modules: about-platform/04-platform-modules.md
+        - Working: about-platform/05-platform-working.md
+        - Offerings: about-platform/06-offerings.md
+        - Deployment: about-platform/07-deployment.md
 
-        - About Platform:
-            - Index: about-platform/index.md
-            - Problem: about-platform/01-problem.md
-            - Root Causes: about-platform/02-root-causes.md
-            - Solution: about-platform/03-solution.md
-            - Offerings: about-platform/04-offerings.md
-            - Deployment: about-platform/05-deployment.md
-
-        - Platform User Stories:
+        - User Stories:
             - Index: user-stories/index.md
             - User Roles: user-stories/user-roles.md
 
@@ -143,142 +143,147 @@ nav:
                 - Anomaly Engine: user-stories/16-anomaly-engine.md
                 - Anomaly Tuning: user-stories/17-anomaly-tuning.md
 
-    - Connectors:
-        - Overview: connectors/01-overview.md
-        - SAP: connectors/02-sap.md
-        - Salesforce: connectors/03-salesforce.md
-        - Files & Objects: connectors/04-files-and-objects.md
-        - Streams: connectors/05-streams.md
-        - Outbound Destinations: connectors/06-outbound-destinations.md
-        - Connectors APIs: connectors/07-connector-apis.md
+    - Modules:
+        - Index: modules/index.md
 
-    - Pipeline:
-        - Index: pipeline\index.md
-        - Overview: pipeline\01-overview.md
-        - Ingestion: pipeline\02-ingestion-and-landing.md
-        - Raw Store: pipeline\03-raw-stage.md
-        - Gold Transform: pipeline\04-gdp-transform.md
-        - KPI Materialize: pipeline\05-kpi-materialization.md
-        - Orchestration: pipeline\06-orchestration-and-scheduling.md
-        - Validation: pipeline\07-data-quality-and-validation.md
-        - Evidence: pipeline\08-lineage-and-evidence.md
-        - Observability: pipeline\09-observability-slo-and-alerts.md
-        - Recovery: pipeline\10-recovery-replay-and-dlq.md
-        - Cost Control: pipeline\11-cost-controls-and-scaling.md
-        - Configurations: pipeline\12-pipeline-configuration.md
-        - Pipeline APIs: pipeline\13-pipeline-apis.md
-        - Runners: pipeline\14-runners-and-execution.md
-        - Schedulers: pipeline\15-scheduler-options.md
-        - Anomaly Detection: pipeline\16-anomaly-integration.md
+        - Host Modules:
+            - Overview: modules/host/index.md
 
-    - Platform Services:
-        - Overview: phs/phs-01-overview.md
-        - Infrastructure: phs/phs-02-infrastructure.md
-        - Core Architecture: phs/phs-03-core-architecture.md
-        - Security & NFRs: phs/phs-04-nfrs.md
-        - Storage Strategy: phs/phs-05-storage-strategy.md
-        - Storage Residency: phs/phs-06-storage-residency.md
-        - Storage Operations: phs/phs-07-storage-operations.md
-        - Costs & Budget: phs/phs-08-costs.md
-        - Summary: phs/phs-09-summary.md
+            - Policy Registry:
+              - Index: modules/host/policy-registry/index.md
+              - Data Model: modules/host/policy-registry/data-model.md
+              - User Interface: modules/host/policy-registry/ui.md
+              - API: modules/host/policy-registry/api.md
+              - Observability: modules/host/policy-registry/observability.md
+              - Runbook: modules/host/policy-registry/runbook.md
+              - Security: modules/host/policy-registry/security.md
 
-    - Schema Services:
-        - Index: schema/index.md
-        - Overview: schema/01-overview.md
-        - Schema Contracts: schema/02-schema-contracts.md
-        - Schema Enforcement: schema/03-schema-enforcement.md
-        - Extraction Schema Model: schema/04-extraction-schema-model.md
-        - Raw Schema Model: schema/05-raw-schema-model.md
-        - GDP Schema Model: schema/06-gdp-schema-model.md
-        - Metric Schema Model: schema/07-metric-schema-model.md
-        - Meta Schema Model: schema/08-meta-schema-model.md
-        - Schema Database: schema/09-schema-database.md
-        - Schema Management: schema/10-schema-management.md
+            - Data Contract Registry: modules/host/contract-registry/index.md
+            - Tenant Management: modules/host/tenant-management/index.md
+            - Lineage Obligations: modules/host/lineage-obligations/index.md
 
-    - KPI Services:
-        - Index: kpi/index.md
-        - Overview: kpi/01-overview.md
-        - Metric Registry: kpi/02-metric-registry.md
-        - Metric Catalog: kpi/03-metric-catalog.md
-        - Metric APIs: kpi/04-serving-apis.md
-        - Job Authoring: kpi/05-job-authoring-and-runtime.md
-        - Scheduling: kpi/06-scheduling-and-slo.md
-        - Security: kpi/07-security-and-rbac.md
-        - Variants: kpi/08-variants-and-lineage.md
-        - Observability: kpi/09-observability-and-admin.md
-        - Versioning: kpi/10-versioning-and-lifecycle.md
-        - Extensions: kpi/11-extensions-and-derivations.md
-        - Integrations: kpi/12-anomaly-and-dq-integration.md
-        - Outbound Integrations: kpi/13-outbound-integration.md
+        - Compute Modules:
+            - Overview: modules/compute/index.md
+            - Ingestion: modules/compute/ingestion/index.md
+            - Normalization: modules/compute/normalization/index.md
+            - KPI Build: modules/compute/kpi-build/index.md
+            - Publish: modules/compute/publish/index.md
+            - Orchestration: modules/compute/orchestration/index.md
 
-    - Host App:
-        - Overview: host-app/ha-01-overview.md
-        - Architecture:
-            - Core Architecture: host-app/ha-02-architecture.md
-            - Responsibilities & Boundaries: host-app/ha-02a-scope-boundaries.md
-            - Identity & RBAC: host-app/ha-02b-identity-rbac.md
-            - Contracts Governance: host-app/ha-02c-contracts-governance.md
-            - Tenant Management: host-app/ha-02d-tenant-management.md
-            - Observability (Read-only Health): host-app/ha-02e-observability.md
-            - SLAs & Error Model: host-app/ha-02f-slo-error.md
-            - Non-goals & Risks: host-app/ha-02g-nongoals-risks.md
-        - Database:
-            - Metadata Model (Entities): host-app/ha-03-database.md
-            - Reference Data (Calendars/FX/Org): host-app/ha-03a-refdata.md
-            - Audit & Evidence: host-app/ha-03b-audit.md
-            - Storage & Retention: host-app/ha-03c-storage-retention.md
-        - UI:
-            - Information Architecture: host-app/ha-04-ia.md
-            - Host App UI: host-app/ha-04-ui.md
-            - UX Patterns & Accessibility: host-app/ha-04a-ux-accessibility.md
-        - Summary: host-app/ha-summary.md
+        - Data Storage Modules:
+            - Overview: modules/storage/index.md
+            - Raw Store: modules/storage/raw-store/index.md
+            - GDP Store: modules/storage/gdp-store/index.md
+            - KPI Store: modules/storage/kpi-store/index.md
+            - Published Store: modules/storage/published-store/index.md
+            - Calendar: modules/storage/gdp-calendar/index.md
 
-    - Tenant App:
-        - Overview: tenant/index.md
+        - Consumption Modules:
+            - Overview: modules/consumption/index.md
+            - Activation APIs: modules/consumption/activation-apis/index.md
+            - Exports: modules/consumption/exports/index.md
+            - Webhooks: modules/consumption/webhooks/index.md
+            - Catalog: modules/consumption/catalog/index.md
 
-        - Foundations:
-            - Architecture: tenant/architecture.md
-            - Infrastructure: tenant/infrastructure.md
-            - Security: tenant/security.md
-            - Roles and Permissions: tenant/roles.md
+        - Action Modules:
+            - Overview: modules/action/index.md
+            - Action Engine: modules/action/action-engine/index.md
+            - Action Catalog: modules/action/action-catalog/index.md
+            - Action Delivery: modules/action/action-delivery/index.md
 
-        - Admin Ops:
-            - Onboarding Sources: tenant/onboarding-sources.md
-            - User Management: tenant/user-management.md
-            - Infrastructure Bindings: tenant/infra-bindings.md
+        - Security Modules:
+            - Overview: modules/security/index.md
+            - Gateway: modules/security/gateway/index.md
+            - Network Security: modules/security/network-security/index.md
 
-        - Delivery and Activation:
-            - Health Dashboards: tenant/health.md
-            - Requests and Approvals: tenant/requests.md
-            - Data Access and Reports: tenant/data.md
-            - Activation Panels: tenant/activation.md
+        - Access Modules:
+            - Overview: modules/access/index.md
+            - Authentication: modules/access/authentication/index.md
+            - Authorization: modules/access/authorization/index.md
+            - Subscription Enforcement: modules/access/subscription-enforcement/index.md
 
-        - Developer:
-            - API Guide: tenant/api-guide.md
-            - API Reference: tenant/api-reference.md
+        - Trust Modules:
+            - Overview: modules/trust/index.md
+            - Evidence Ledger: modules/trust/evidence-ledger/index.md
+            - Secrets: modules/trust/secrets/index.md
+            - Encryption: modules/trust/encryption/index.md
 
-        - Operations:
-            - NFRs: tenant/nfr.md
-            - Troubleshooting: tenant/troubleshooting.md
-            - Release Notes: tenant/release-notes.md
+        - Runtime Modules:
+            - Overview: modules/runtime/index.md
+            - Scheduler: modules/runtime/scheduler/index.md
+            - Messaging and Events: modules/runtime/messaging-events/index.md
+            - Observability: modules/runtime/observability/index.md
+            - Error Handling: modules/runtime/error-handling/index.md
+            - Metering: modules/runtime/metering/index.md
 
-    - KPI Actions:
-        - Overview: activation-plane/index.md
-        - API Guide: activation-plane/activation-plane-api-guide.md
-        - API Reference: activation-plane/activation-plane-api-reference.md
-        - Flows: activation-plane/activation-plane-flows.md
-        - Examples: activation-plane/activation-plane-examples.md
+        - Data Utilities Modules:
+            - Overview: modules/utilities/index.md
+            - Schema Registry: modules/utilities/schema-registry/index.md
+            - Catalog and Discovery: modules/utilities/catalog-discovery/index.md
+            - Migration Service: modules/utilities/migration-service/index.md
 
-    - Decisions:
-        - Overview: decisions/decisions-overview.md
-        - ADR-0001: decisions/ADR-0001.md
-        - ADR-0002: decisions/ADR-0002.md
-        - ADR-0003: decisions/ADR-0003.md
-        - ADR-0004: decisions/ADR-0004.md
+    - Architecture:
+        - Principles: architecture/principles.md
+        - Logical Stack: architecture/logical-stack.md
+        - Data Flows: architecture/data-flows.md
+        - Governance: architecture/governance.md
+        - ADRs: architecture/adrs.md
+
+    - Infrastructure:
+        - Deployment Topologies: infrastructure/deployment-topologies.md
+        - Cloud Reference: infrastructure/cloud-reference.md
+        - CI/CD & Packaging: infrastructure/ci-cd.md
+        - Monitoring & SLOs: infrastructure/monitoring-slos.md
+        - Security Baselines: infrastructure/security-baselines.md
+
+    - Admin App:
+        - Overview: applications/admin-app/index.md
+        - Setup: applications/admin-app/setup.md
+        - Features: applications/admin-app/features.md
+        - Roles & Permissions: applications/admin-app/roles-permissions.md
+        - Configuration: applications/admin-app/configuration.md
+        - Troubleshooting: applications/admin-app/troubleshooting.md
+        - Changelog: applications/admin-app/changelog.md
+
+    - Customer App:
+        - Overview: applications/customer-app/index.md
+        - Getting Started: applications/customer-app/getting-started.md
+        - Features: applications/customer-app/features.md
+        - Self Service: applications/customer-app/self-service.md
+        - Configuration: applications/customer-app/configuration.md
+        - Troubleshooting: applications/customer-app/troubleshooting.md
+        - Changelog: applications/customer-app/changelog.md
+
+    - Engineering:
+        - Index: engineering/index.md
+        - Local Development: engineering/local-development.md
+        - Build & Release: engineering/build-release.md
+        - CI/CD: engineering/cicd.md
+        - Best Practices: engineering/best-practices.md
+        - Roadmap: engineering/roadmap.md
+        - Infrastructure: engineering/infrastructure.md
+        - Testing & Quality: engineering/testing-quality.md
+        - Starter Kits: engineering/starter-kits.md
+        - Runbooks:
+            - Index: engineering/runbooks/index.md
 
     - References:
+        - Decisions:
+            - Overview: decisions/decisions-overview.md
+            - ADR-0001: decisions/ADR-0001.md
+            - ADR-0002: decisions/ADR-0002.md
+            - ADR-0003: decisions/ADR-0003.md
+            - ADR-0004: decisions/ADR-0004.md
         - Taxonomy: references/taxonomy.md
         - Glossary: references/glossary.md
+        - Writing Guides:
+            - Documents Writing Guide: references/writing-guides/documents-writing-guide.md
+            - Modules Writing Guide: references/writing-guides/modules-writing-guide.md
+            - API Writing Guide: references/writing-guides/api-writing-guide.md
+        - Dependency Guard: references/dependency-guard.md
+        - Gaps/Open Issues: references/gaps-open-issues.md
+        - Pending Actions: references/pending-actions.md
+
 
 extra_css:
   - stylesheets/overrides.css

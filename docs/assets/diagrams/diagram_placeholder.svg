@@ -5,9 +5,8 @@
     <style>
       .st0 {
         font-family: ArialMT, Arial;
-        font-size: 14px;
+        font-size: 18px;
         isolation: isolate;
-        fill: #808080;
       }
 
       .st1 {

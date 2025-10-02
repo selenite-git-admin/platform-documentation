@@ -1,0 +1,38 @@
+Req ID,Description,Spec Ref,Data Model Entities,API / Screen Refs,Test Case ID(s),Status,Owner,Notes
+FR-DEF-01,"Create KPI contract with owners, sourcing, extensions, validations, SLA",`functional-requirements.md#1-kpi-definition`,"`kpi_contract`, `kpi_version`, `kpi_sla`","Admin: `PUT /admin/kpis/{kpi_id}`; UI: Catalog → KPI Detail (Overview, Versions)",TC-FR-DEF-01-a/b,Draft,,
+FR-DEF-02,Support KPI layers (Primary/Secondary/Composite),`functional-requirements.md#1-kpi-definition`,"`kpi_lineage_edge` (KPI→KPI), `kpi_version`",Calls: `POST /calls/execute` (derived sourcing),TC-FR-DEF-02-a,Draft,,
+FR-DEF-03,Versioned metadata artifacts (DB + YAML/JSON),`functional-requirements.md#1-kpi-definition`,"`kpi_version.artifact_yaml`, `kpi_version.checksum`",Admin: `PUT /admin/kpis/{kpi_id}`; `POST /admin/.../publish`,TC-FR-DEF-03-a/b,Draft,,
+FR-DEF-04,Block publish without required metadata,`functional-requirements.md#1-kpi-definition`,`kpi_version` (validation hook),Admin: `POST /admin/.../publish`,TC-FR-DEF-04-a,Draft,,
+FR-SRC-01,Map inputs to GDP or other KPI with version binding,`functional-requirements.md#2-kpi-sourcing`,"`kpi_lineage_edge`, `kpi_version`",Calls: `POST /calls/execute`; Preview: `POST /calls/preview-sql`,TC-FR-SRC-01-a/b,Draft,,
+FR-SRC-02/03/04,Pre-validate availability/readiness/quality,`kpi-pre-validation.md` (Frameworks),`kpi_run_validation` (phase=pre),Calls: execute (pre-validation step); Logs: `GET /logs/runs/{run_id}`,TC-FR-SRC-02~04,Draft,,
+FR-SRC-05,Fallback to last valid run,`functional-requirements.md#2-kpi-sourcing`,"`kpi_result_registry`, `kpi_run`",Calls: `POST /calls/execute` (option); Admin policy,TC-FR-SRC-05-a,Draft,,
+FR-EXE-01/02,"KPI Call API & options (grain, range, filters, extensions, SCD view)",`apis.md#1-kpi-call-api`,`kpi_run.request_json`,Calls: `POST /calls/execute`,TC-FR-EXE-01~02,Draft,,
+FR-EXE-03/04/05,"Orchestration, schedules, retries/canary","`kpi-orchestration.md`, `kpi-sla.md`","`kpi_job`, `kpi_sla`, `kpi_run`",Admin: schedule & SLA endpoints; Logs: runs list,TC-FR-EXE-03~05,Draft,,
+FR-EXE-06,Post-validation before delivery,`kpi-post-validation.md` (Frameworks),`kpi_run_validation` (phase=post),Logs: `GET /logs/runs/{run_id}`; Monitoring views,TC-FR-EXE-06-a/b,Draft,,
+FR-LOG-01/02,Append-only run log + monitoring views,"`kpi-logging.md`, `kpi-monitoring.md`","`kpi_run`, `kpi_run_validation`; views (`vw_*`)",Logs: `GET /logs/runs`; Monitoring: `GET /monitoring/views/...`,TC-FR-LOG-01~02,Draft,,
+FR-LOG-03,Dependency DAG (GDP→KPI→KPI),`kpi-structure-and-flow.md`,`kpi_lineage_edge`,UI: KPI Detail → Lineage; API: Metadata endpoint,TC-FR-LOG-03-a,Draft,,
+FR-ERR-01/02/03,"Error classes, retries, fallback",`kpi-error-handling.md`,"`kpi_run.error_code`, `kpi_run.status`",Alerts: webhooks; Logs: runs detail,TC-FR-ERR-01~03,Draft,,
+FR-ERR-04/05,SLA breaches logged + state in metadata,`kpi-sla.md`,"`kpi_run.sla_state`, `kpi_alert`",Alerts: `kpi.sla.breach` webhook; Monitoring views,TC-FR-ERR-04~05,Draft,,
+FR-SEC-01..05,"Tenant isolation, sensitivity labels, policy enforcement","`kpi-security.md`, `apis.md#4-security--policy-apis`",`kpi_policy_binding` + tenant posture in tables,Policy: `POST /policy/simulate`; Calls: applied obligations in response,TC-FR-SEC-01~05,Draft,,
+FR-GOV-01..05,"Lifecycle, change requests, impact analysis","`kpi-versioning.md`, `kpi-lifecycle.md`","`kpi_version`, `kpi_change_request`",Admin: change-request endpoints; UI: queue,TC-FR-GOV-01~05,Draft,,
+FR-UI-01..06,"Catalog, Detail tabs, CR queue, rollout, SLA/Incidents","`kpi-admin-dashboard.md`, `screens-and-features.md`",Screens spec (no tables),UI Screens refs; Admin APIs,TC-FR-UI-01~06,Draft,,
+FR-RPT-01..04,"APIs with metadata, SLA reports, alert routing, integrations","`apis.md#5-consumption-apis`, `kpi-alerts-reports.md`","`kpi_alert`, `kpi_run`, `kpi_result_registry`",Exports: `/results/export`; Webhooks; Reports scheduler,TC-FR-RPT-01~04,Draft,,
+""
+---
+""
+## 2) Non-Functional Requirements Coverage
+""
+Req ID,Description,Spec Ref,Data Model Entities,API / Screen Refs,Test Case ID(s),Status,Owner,Notes
+---------------,-----------------------------------------------,---------------------------------------------,-------------------------------------,--------------------------------------------,---------------------,--------,-------,-------
+NFR-AVL-01,≥ 99.5% execution uptime,`non-functional-requirements.md#1-availability--reliability`,N/A,Ops dashboards; health checks,TC-NFR-AVL-01,Draft,,
+NFR-AVL-02,≥ 99.9% admin/API uptime,same,N/A,Ping/SLIs; Gateway metrics,TC-NFR-AVL-02,Draft,,
+NFR-AVL-03/04,Append-only logs; SLA states for all runs,same,"`kpi_run`, `kpi_run_validation`",Logs API; Monitoring views,TC-NFR-AVL-03~04,Draft,,
+NFR-PERF-01,KPI Call < 3s P95,`non-functional-requirements.md#2-performance--latency`,Cache registry for hits/TTLs,Calls: execute,TC-NFR-PERF-01,Draft,,
+NFR-PERF-02,Batch jobs within 5m window (95%),same,"`kpi_job`, `kpi_run`",Schedules; SLA dashboards,TC-NFR-PERF-02,Draft,,
+NFR-SCAL-01,1000+ runs/hour/tenant,`#3-scalability`,N/A,Orchestration metrics,TC-NFR-SCAL-01,Draft,,
+NFR-SEC-01..05,"Isolation, encryption, auth, policy, masking",`#4-security`,Policy binding; tenant posture,Policy simulate; Calls with obligations,TC-NFR-SEC-01~05,Draft,,
+NFR-COST-01..03,"Serverless, pushdown, caching savings",`#5-cost-efficiency`,`kpi_cache_registry`,Cost dashboards,TC-NFR-COST-01~03,Draft,,
+NFR-AUD-01..05,"Audit logs, bundles, SOC2/ISO, GDPR",`#6-auditability--compliance`,"`kpi_run`, `kpi_alert`",Audit bundle export,TC-NFR-AUD-01~05,Draft,,
+NFR-OBS-01..03,"Metrics, tracing, dashboards",`#7-observability`,`kpi_run` (trace_id),Logs/metrics dashboards,TC-NFR-OBS-01~03,Draft,,
+NFR-MAINT-01..04,"Git artifacts, CI/CD, canary/rollback, drift",`#8-maintainability`,`kpi_version.checksum`,Admin: rollout; Drift detector,TC-NFR-MAINT-01~04,Draft,,
+NFR-CON-01..03,"AWS-first, batch/near-RT, single region",`#9-constraints`,N/A,Env configs,TC-NFR-CON-01~03,Draft,,

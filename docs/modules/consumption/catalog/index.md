@@ -1,0 +1,3 @@
+# Catalog Module
+
+Overview stub.

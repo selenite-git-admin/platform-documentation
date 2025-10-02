@@ -1,0 +1,3 @@
+# Secrets Module
+
+Overview stub.
