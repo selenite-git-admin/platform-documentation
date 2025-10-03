@@ -1,3 +1,0 @@
-# Security Domain
-
-Overview stub.

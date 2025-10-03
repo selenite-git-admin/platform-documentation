@@ -1,3 +1,0 @@
-# Compute Domain
-
-Overview stub.

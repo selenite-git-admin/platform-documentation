@@ -1,3 +1,0 @@
-# Encryption Module
-
-Overview stub.

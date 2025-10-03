@@ -45,10 +45,10 @@ Principles
 - Do not expose bindings outside their scope in API responses.
 
 ## Auditability
-- Record administrative actions in `audit_log` with actor, action, target, and timestamp.
-- Record every decision in `evaluations` with a reference to the policy version.
-- Capture evidence references in `evaluation_evidence`.
-- Include `correlation_id` on write operations and propagate through logs.
+- Record administrative actions in audit_log with actor, action, target, and timestamp.
+- Record every decision in evaluations with a reference to the policy version.
+- Capture evidence references in evaluation_evidence.
+- Include correlation_id on write operations and propagate through logs.
 
 ## Input validation and limits
 - Validate policy definitions against a schema before accepting a version.

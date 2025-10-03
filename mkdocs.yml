@@ -158,7 +158,15 @@ nav:
               - Runbook: modules/host/policy-registry/runbook.md
               - Security: modules/host/policy-registry/security.md
 
-            - Data Contract Registry: modules/host/contract-registry/index.md
+            - Data Contract Registry:
+              - Index: modules/host/data-contract-registry/index.md
+              - Data Model: modules/host/data-contract-registry/data-model.md
+              - User Interface: modules/host/data-contract-registry/ui.md
+              - API: modules/host/data-contract-registry/api.md
+              - Observability: modules/host/data-contract-registry/observability.md
+              - Runbook: modules/host/data-contract-registry/runbook.md
+              - Security: modules/host/data-contract-registry/security.md
+
             - Tenant Management: modules/host/tenant-management/index.md
             - Lineage Obligations: modules/host/lineage-obligations/index.md
 
@@ -217,9 +225,10 @@ nav:
             - Metering: modules/runtime/metering/index.md
 
         - Data Utilities Modules:
-            - Overview: modules/utilities/index.md
+            - Index: modules/utilities/index.md
             - Schema Registry: modules/utilities/schema-registry/index.md
             - Catalog and Discovery: modules/utilities/catalog-discovery/index.md
+            - Data Observability: modules/utilities/data-observability/index.md
             - Migration Service: modules/utilities/migration-service/index.md
 
     - Architecture:

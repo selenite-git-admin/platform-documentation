@@ -1,3 +1,0 @@
-# Ingestion Module
-
-Overview stub.

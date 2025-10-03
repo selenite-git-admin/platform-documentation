@@ -1,3 +1,0 @@
-# Gateway Module
-
-Overview stub.

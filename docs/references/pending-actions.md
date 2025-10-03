@@ -14,6 +14,8 @@ Revisit this list when core module pages are complete and reviewed.
 - [ ] Implement and enforce [Dependency Guard](dependency-guard.md)
   Add the guard to the repository, define family order and edges, add module edges, and wire the validator into CI.
 
+- [ ] Update Modules index after all modules are created.
+
 ## Cross references
 
 [Engineering Roadmap](../engineering/roadmap.md)  

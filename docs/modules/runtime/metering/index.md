@@ -1,3 +1,0 @@
-# Metering Module
-
-Stub.

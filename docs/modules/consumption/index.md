@@ -1,3 +1,0 @@
-# Consumption Domain
-
-Overview stub.

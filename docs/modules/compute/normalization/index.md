@@ -1,3 +1,0 @@
-# Normalization Module
-
-Overview stub.

@@ -1,3 +1,0 @@
-# Orchestration Module
-
-Overview stub.

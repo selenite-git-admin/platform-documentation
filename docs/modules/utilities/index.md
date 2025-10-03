@@ -1,3 +1,0 @@
-# Utilities Domain
-
-Overview stub.

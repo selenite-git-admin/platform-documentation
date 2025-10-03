@@ -1,3 +1,0 @@
-# Webhooks Module
-
-Overview stub.

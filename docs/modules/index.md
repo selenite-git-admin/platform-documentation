@@ -1,32 +1,50 @@
-# Platform Modules
+# Modules
 
-## Purpose
-The platform is organized into Modules. Each Module represents an independent architectural unit with a clear boundary, a defined contract, and its own lifecycle. Modules can be developed, deployed, and replaced without impacting unrelated parts of the system.
+## Scope
+This page is the entry point to the BareCount module catalog. It explains how modules are grouped and links to the pages that exist today. The goal is clarity about boundaries, not exhaustiveness.
 
-## Structure
-Modules are grouped into functional categories (Host, Compute, Data Storage, Consumption, Action, Security, Access, Trust, Runtime, Data Utilities). Each category contains one or more Modules that together cover all responsibilities of the platform.
+## Families
+- Host Modules
+- Compute Modules
+- Data Storage Modules
+- Consumption Modules
+- Action Modules
+- Security Modules
+- Access Modules
+- Trust Modules
+- Runtime Modules
+- Data Utilities Modules
 
-- **Host Modules** — manage platform policies, data contracts, tenants, and lineage obligations.
-- **Compute Modules** — ingest, normalize, transform, and publish Golden Data Points (GDPs) and KPIs.
-- **Data Storage Modules** — provide governed storage layers for raw data, GDPs, KPIs, published outputs, and calendar alignment.
-- **Consumption Modules** — expose data products through APIs, exports, webhooks, and catalogs.
-- **Action Modules** — link KPIs to workflows and activate outcomes in external systems.
-- **Security Modules** — provide perimeter security, gateway functions, and network protections.
-- **Access Modules** — handle authentication, authorization, and subscription enforcement.
-- **Trust Modules** — embed evidence, secrets, and encryption into the platform’s core.
-- **Runtime Modules** — power execution with scheduling, messaging, observability, error handling, and metering.
-- **Data Utilities Modules** — supply schema registry, discovery, and migration services.
+## Available module pages
 
-## Navigation
-Each Module has its own documentation with the following structure:
-- **Overview** — purpose, scope, and boundaries
-- **Contracts** — what it guarantees
-- **Interfaces** — how other modules and apps connect
-- **Lifecycle** — deployment, upgrades, and retirement
-- **Operations** — monitoring, runbooks, and SLOs
-- **Dependencies** — internal and external
-- **Storage** — schemas and persistence, if any
-- **Examples** — patterns of use
-- **Changelog** — history of changes
+### Host Modules
 
-Use this section to understand each Module in isolation and in relation to others.
+[Policy Registry](host/policy-registry/index.md)
+Central registry for guardrail policies. Links: [Data Model](host/policy-registry/data-model.md), [UI](host/policy-registry/ui.md), [API](host/policy-registry/api.md), [Observability](host/policy-registry/observability.md), [Runbook](host/policy-registry/runbook.md), [Security](host/policy-registry/security.md)
+
+[Data Contract Registry](host/data-contract-registry/index.md)
+Catalog of dataset contracts and versions with proposal and review workflow. Links: [Data Model](host/data-contract-registry/data-model.md)
+
+## Reading order
+For each module follow this order:
+1. Index
+2. Data Model
+3. UI
+4. API
+5. Observability
+6. Runbook
+7. Security
+
+## Conventions
+- Use the writing guardrails defined in the project
+- Keep responsibilities and constraints concrete
+- Avoid speculative statements
+- Respect the image embedding pattern defined in references
+
+## Progress tracking
+See the engineering roadmap to track which pages exist and what remains.
+[Engineering Roadmap](../engineering/roadmap.md)
+
+## Authoring references
+[API Writing Guide](../references/writing-guides/api-writing-guide.md)  
+[Image Embedding Guidelines](../references/image-embedding-guidelines.md)

@@ -23,7 +23,7 @@ Use these emojis to track status. ✅ = ready, ⚪ = pending.
 |----------------------------|-------|------------|----|-----|---------------|---------|----------|
 | **Host Modules**           |       |            |    |     |               |         |          |
 | Policy Registry            | ✅     | ✅          | ✅  | ✅   | ✅             | ✅       | ✅        |
-| Data Contract Registry     | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
+| Data Contract Registry     | ✅     | ✅          | ✅  | ✅   | ✅             | ✅       | ✅        |
 | Tenant Management          | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
 | Lineage Obligations        | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
 | **Compute Modules**        |       |            |    |     |               |         |          |
@@ -67,6 +67,7 @@ Use these emojis to track status. ✅ = ready, ⚪ = pending.
 | **Data Utilities Modules** |       |            |    |     |               |         |          |
 | Schema Registry            | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
 | Catalog and Discovery      | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
+| Data Observability         | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
 | Migration Service          | ⚪     | ⚪          | ⚪  | ⚪   | ⚪             | ⚪       | ⚪        |
 
 ## Notes

@@ -1,3 +1,0 @@
-# Publish Module
-
-Overview stub.

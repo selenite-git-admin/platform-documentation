@@ -1,9 +1,7 @@
 # Policy Registry
 
 ## Role in the Platform
-Policy Registry defines and enforces guardrails across the BareCount Data Action Platform.
-It stores policy definitions, evaluates them during schema lifecycle events, workflow execution, and tenant lifecycle actions, and produces decisions that downstream modules must respect.
-By centralizing policies, it prevents uncontrolled changes and provides evidence for audits and regulatory exports.
+Policy Registry defines and enforces guardrails across the BareCount Data Action Platform. It stores policy definitions, evaluates them during schema lifecycle events, workflow execution, and tenant lifecycle actions, and produces decisions that downstream modules must respect. By centralizing policies, it prevents uncontrolled changes and provides evidence for audits and regulatory exports.
 
 ## Responsibilities
 - Store and version platform policies
@@ -29,7 +27,7 @@ By centralizing policies, it prevents uncontrolled changes and provides evidence
 - Reads and writes policy objects in the registry store
 - Consumes schema proposals from Data Contract Registry
 - Interacts with workflow execution to gate actions
-- Provides evidence artifacts to Lineage Obligations and Evidence Export
+- Provides evidence artifacts to evidence export services
 
 ## Operational Behavior
 - Evaluates policies synchronously when invoked by workflows or schema changes
@@ -38,9 +36,9 @@ By centralizing policies, it prevents uncontrolled changes and provides evidence
 - Surfaces alerts if mandatory policies are missing or invalid
 
 ## Constraints
-- Does not manage schema definitions directly (owned by Data Contract Registry)
-- Does not perform identity or entitlement checks (handled by Access Modules)
-- Does not run jobs or schedule tasks (Runtime Modules handle execution)
+- Does not manage schema definitions directly
+- Does not perform identity or entitlement checks
+- Does not run jobs or schedule tasks
 - Relies on other modules to act on its decisions
 
 ## Related User Stories
@@ -52,20 +50,18 @@ By centralizing policies, it prevents uncontrolled changes and provides evidence
 ## Examples in Action
 
 Schema change check
-A team proposes a new KPI schema.
-Policy Registry retrieves the relevant policy, validates the schema, and produces a decision: `deny` because required fiscal period fields are missing.
-The change request is blocked, and an audit record is created.
+A team proposes a new KPI schema. Policy Registry retrieves the relevant policy, validates the schema, and produces a decision: deny because required fiscal period fields are missing. The change request is blocked and an audit record is created.
 
 Workflow trigger check
-A workflow execution request includes a financial data export.
-Policy Registry evaluates the policy requiring approval for exports.
-It produces a decision: `require approval`.
-The workflow pauses until an authorized approver validates the action.
+A workflow execution request includes a financial data export. Policy Registry evaluates the policy that requires approval for exports. It produces a decision: require approval. The workflow pauses until an authorized approver validates the action.
 
 ## Module Documentation
 
 [Data Model](data-model.md)
 Database design, ERD, DBML, DDL, and migration details.
+
+[UI](ui.md)
+Screens, placement, API dependencies, and wireframe placeholders.
 
 [API](api.md)
 Endpoints, request and response schemas, and error handling.

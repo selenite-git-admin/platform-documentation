@@ -90,6 +90,7 @@ It ensures that schemas are defined, cataloged, and versioned, and that data can
 
 - **Schema Registry Module** — Stores and governs all schemas.  
 - **Catalog and Discovery Module** — Provides search and metadata.  
+- **Data Observability Module**
 - **Migration Service Module** — Manages schema and dataset migrations.
 
 Together, these modules and their modules ensure that the platform is consistent, auditable, and actionable from raw data to governed actions.

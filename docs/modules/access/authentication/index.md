@@ -1,3 +1,0 @@
-# Authentication Module
-
-Overview stub.

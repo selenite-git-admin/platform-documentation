@@ -1,3 +1,0 @@
-# Storage Domain
-
-Overview stub.
