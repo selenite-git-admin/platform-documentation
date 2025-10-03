@@ -149,26 +149,53 @@ nav:
         - Host Modules:
             - Overview: modules/host/index.md
 
+            - Platform Catalog:
+              - Index: modules/host/platform-catalog/index.md
+              - Data Model: modules/host/platform-catalog/data-model.md
+              - User Interface: modules/host/platform-catalog/ui.md
+              - API: modules/host/platform-catalog/api.md
+              - Observability: modules/host/platform-catalog/observability.md
+              - Runbook: modules/host/platform-catalog/runbook.md
+              - Security: modules/host/platform-catalog/security.md
+
+            - Tenant Management:
+              - Index: modules/host/tenant-management/index.md
+              - Data Model: modules/host/tenant-management/data-model.md
+              - User Interface: modules/host/tenant-management/ui.md
+              - API: modules/host/tenant-management/api.md
+              - Observability: modules/host/tenant-management/observability.md
+              - Runbook: modules/host/tenant-management/runbook.md
+              - Security: modules/host/tenant-management/security.md
+
+        - Governance Modules:
+            - Index: modules/governance/index.md
+
             - Policy Registry:
-              - Index: modules/host/policy-registry/index.md
-              - Data Model: modules/host/policy-registry/data-model.md
-              - User Interface: modules/host/policy-registry/ui.md
-              - API: modules/host/policy-registry/api.md
-              - Observability: modules/host/policy-registry/observability.md
-              - Runbook: modules/host/policy-registry/runbook.md
-              - Security: modules/host/policy-registry/security.md
+                - Index: modules/governance/policy-registry/index.md
+                - Data Model: modules/governance/policy-registry/data-model.md
+                - User Interface: modules/governance/policy-registry/ui.md
+                - API: modules/governance/policy-registry/api.md
+                - Observability: modules/governance/policy-registry/observability.md
+                - Runbook: modules/governance/policy-registry/runbook.md
+                - Security: modules/governance/policy-registry/security.md
 
             - Data Contract Registry:
-              - Index: modules/host/data-contract-registry/index.md
-              - Data Model: modules/host/data-contract-registry/data-model.md
-              - User Interface: modules/host/data-contract-registry/ui.md
-              - API: modules/host/data-contract-registry/api.md
-              - Observability: modules/host/data-contract-registry/observability.md
-              - Runbook: modules/host/data-contract-registry/runbook.md
-              - Security: modules/host/data-contract-registry/security.md
+                - Index: modules/governance/data-contract-registry/index.md
+                - Data Model: modules/governance/data-contract-registry/data-model.md
+                - User Interface: modules/governance/data-contract-registry/ui.md
+                - API: modules/governance/data-contract-registry/api.md
+                - Observability: modules/governance/data-contract-registry/observability.md
+                - Runbook: modules/governance/data-contract-registry/runbook.md
+                - Security: modules/governance/data-contract-registry/security.md
 
-            - Tenant Management: modules/host/tenant-management/index.md
-            - Lineage Obligations: modules/host/lineage-obligations/index.md
+            - Lineage Obligations:
+                - Index: modules/governance/lineage-obligations/index.md
+                - Data Model: modules/governance/lineage-obligations/data-model.md
+                - User Interface: modules/governance/lineage-obligations/ui.md
+                - API: modules/governance/lineage-obligations/api.md
+                - Observability: modules/governance/lineage-obligations/observability.md
+                - Runbook: modules/governance/lineage-obligations/runbook.md
+                - Security: modules/governance/lineage-obligations/security.md
 
         - Compute Modules:
             - Overview: modules/compute/index.md
@@ -225,11 +252,22 @@ nav:
             - Metering: modules/runtime/metering/index.md
 
         - Data Utilities Modules:
-            - Index: modules/utilities/index.md
-            - Schema Registry: modules/utilities/schema-registry/index.md
-            - Catalog and Discovery: modules/utilities/catalog-discovery/index.md
-            - Data Observability: modules/utilities/data-observability/index.md
-            - Migration Service: modules/utilities/migration-service/index.md
+            - Index: modules/data-utilities/index.md
+
+            - Calender Service:
+                - Overview: modules/data-utilities/calendar-service/index.md
+                - Data Model: modules/data-utilities/calendar-service/data-model.md
+                - User Interface: modules/data-utilities/calendar-service/ui.md
+                - Date Table: modules/data-utilities/calendar-service/date-table.md
+                - API: modules/data-utilities/calendar-service/api.md
+                - Observability: modules/data-utilities/calendar-service/observability.md
+                - Runbook: modules/data-utilities/calendar-service/runbook.md
+                - Security: modules/data-utilities/calendar-service/security.md
+
+            - Schema Registry: modules/data-utilities/schema-registry/index.md
+            - Catalog and Discovery: modules/data-utilities/catalog-discovery/index.md
+            - Data Observability: modules/data-utilities/data-observability/index.md
+            - Migration Service: modules/data-utilities/migration-service/index.md
 
     - Architecture:
         - Principles: architecture/principles.md
@@ -288,7 +326,12 @@ nav:
         - Writing Guides:
             - Documents Writing Guide: references/writing-guides/documents-writing-guide.md
             - Modules Writing Guide: references/writing-guides/modules-writing-guide.md
+            - Data Model Writing Guide: references/writing-guides/data-model-writing-guide.md
+            - User Interface Writing Guide: references/writing-guides/ui-writing-guide.md
             - API Writing Guide: references/writing-guides/api-writing-guide.md
+            - Observability Writing Guide: references/writing-guides/observability-writing-guide.md
+            - Runbook Writing Guide: references/writing-guides/runbook-writing-guide.md
+            - Security Writing Guide: references/writing-guides/security-writing-guide.md
         - Dependency Guard: references/dependency-guard.md
         - Gaps/Open Issues: references/gaps-open-issues.md
         - Pending Actions: references/pending-actions.md

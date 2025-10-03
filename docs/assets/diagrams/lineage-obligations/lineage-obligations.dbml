@@ -1,0 +1,83 @@
+Table lineage_assets {
+  asset_id uuid [pk]
+  tenant_id uuid [not null]
+  asset_type text [not null] // dataset | table | view | topic | file
+  qualified_name text [not null, unique] // stable name with namespace
+  layer text [not null] // extraction | raw | gold | consumption
+  contract_ref text // DCR key or id when available
+  tags json // key/value pairs from Platform Catalog taxonomy
+  created_at timestamp
+  updated_at timestamp
+  Indexes { (tenant_id), (layer) }
+}
+
+Table lineage_processes {
+  process_id uuid [pk]
+  tenant_id uuid [not null]
+  name text [not null]
+  system text // engine name
+  code_ref text // repo or artifact ref
+  owner text // owning team or service
+  created_at timestamp
+  updated_at timestamp
+  Indexes { (tenant_id, name) [unique] }
+}
+
+Table lineage_runs {
+  run_id uuid [pk]
+  process_id uuid [not null]
+  started_at timestamp [not null]
+  ended_at timestamp
+  status text [not null] // success | failed | running | aborted
+  correlation_id text // for cross module tracing
+  Indexes { (process_id, started_at) }
+}
+
+Table lineage_edges {
+  edge_id uuid [pk]
+  run_id uuid [not null]
+  src_asset_id uuid [not null]
+  dest_asset_id uuid [not null]
+  op text [not null] // read | write | transform | join
+  columns json // optional column level mapping
+  stats json // optional counts or sample sizes
+  created_at timestamp
+  Indexes { (run_id), (src_asset_id), (dest_asset_id) }
+}
+
+Table obligations {
+  obligation_id uuid [pk]
+  tenant_id uuid [not null]
+  policy_ref text [not null] // Policy Registry key
+  name text [not null]
+  description text
+  check_type text [not null] // required_tag | forbid_flow | require_provenance | freshness_sla
+  params json // check parameters
+  scope json // target assets or runs: by tags, layers, names
+  enabled boolean [not null, default: true]
+  created_at timestamp
+  updated_at timestamp
+  Indexes { (tenant_id, name) [unique] }
+}
+
+Table evaluations {
+  eval_id uuid [pk]
+  obligation_id uuid [not null]
+  run_id uuid
+  asset_id uuid
+  status text [not null] // pass | fail | warn | skip
+  details json
+  evaluated_at timestamp [not null]
+  Indexes { (obligation_id, evaluated_at), (status) }
+}
+
+Table lineage_audit {
+  audit_id uuid [pk]
+  tenant_id uuid
+  actor text
+  action text [not null] // asset | process | run | edge | obligation | evaluation
+  target text
+  old_value json
+  new_value json
+  at timestamp [not null]
+}

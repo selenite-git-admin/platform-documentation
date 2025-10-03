@@ -1,0 +1,102 @@
+Table lineage_assets {
+  asset_id uuid [pk]
+  tenant_id uuid [not null]
+  asset_type text [not null]
+  qualified_name text [not null, unique]
+  layer text [not null]
+  contract_ref text
+  tags json
+  created_at datetime
+  updated_at datetime
+  Indexes {
+  (tenant_id)
+  (layer)
+}
+}
+
+Table lineage_processes {
+  process_id uuid [pk]
+  tenant_id uuid [not null]
+  name text [not null]
+  system text
+  code_ref text
+  owner text
+  created_at datetime
+  updated_at datetime
+  Indexes { (tenant_id, name) [unique] }
+}
+
+Table lineage_runs {
+  run_id uuid [pk]
+  process_id uuid [not null]
+  started_at datetime [not null]
+  ended_at datetime
+  status text [not null]
+  correlation_id text
+  Indexes { (process_id, started_at) }
+}
+
+Table lineage_edges {
+  edge_id uuid [pk]
+  run_id uuid [not null]
+  src_asset_id uuid [not null]
+  dest_asset_id uuid [not null]
+  op text [not null]
+  columns json
+  stats json
+  created_at datetime
+  Indexes {
+  (run_id)
+  (src_asset_id)
+  (dest_asset_id)
+}
+}
+
+Table obligations {
+  obligation_id uuid [pk]
+  tenant_id uuid [not null]
+  policy_ref text [not null]
+  name text [not null]
+  description text
+  check_type text [not null]
+  params json
+  scope json
+  enabled boolean [not null, default: true]
+  created_at datetime
+  updated_at datetime
+  Indexes { (tenant_id, name) [unique] }
+}
+
+Table evaluations {
+  eval_id uuid [pk]
+  obligation_id uuid [not null]
+  run_id uuid
+  asset_id uuid
+  status text [not null]
+  details json
+  evaluated_at datetime [not null]
+  Indexes {
+  (obligation_id, evaluated_at)
+  (status)
+}
+}
+
+Table lineage_audit {
+  audit_id uuid [pk]
+  tenant_id uuid
+  actor text
+  action text [not null]
+  target text
+  old_value json
+  new_value json
+  at datetime [not null]
+  Indexes { (at) }
+}
+
+Ref: lineage_runs.process_id > lineage_processes.process_id
+Ref: lineage_edges.run_id > lineage_runs.run_id
+Ref: lineage_edges.src_asset_id > lineage_assets.asset_id
+Ref: lineage_edges.dest_asset_id > lineage_assets.asset_id
+Ref: evaluations.obligation_id > obligations.obligation_id
+Ref: evaluations.run_id > lineage_runs.run_id
+Ref: evaluations.asset_id > lineage_assets.asset_id

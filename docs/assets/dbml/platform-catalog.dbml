@@ -1,0 +1,75 @@
+Table tenant_types {
+  code text [pk]
+  description text
+}
+
+Table business_units {
+  code text [pk]
+  name text
+}
+
+Table cost_centers {
+  code text [pk]
+  name text
+}
+
+Table environment_codes {
+  code text [pk]
+  description text
+}
+
+Table regions {
+  code text [pk]
+  name text
+  active boolean
+}
+
+Table data_residency_policies {
+  policy_id uuid [pk]
+  name text [not null, unique]
+  requires_encryption boolean
+  effective_from date
+}
+
+Table compliance_profiles {
+  code text [pk]
+  description text
+}
+
+Table namespace_prefixes {
+  prefix text [pk]
+  description text
+}
+
+Table tag_taxonomy {
+  key text [pk]
+  pattern text
+}
+
+Table tag_taxonomy_values {
+  key text [not null, ref: > tag_taxonomy.key]
+  value text [not null]
+  Primary Key (key, value)
+}
+
+Table notification_channels {
+  code text [pk]
+  target text
+  kind text
+}
+
+Table escalation_policies {
+  policy_id uuid [pk]
+  name text
+  rules json
+}
+
+Table catalog_audit {
+  audit_id uuid [pk]
+  actor text
+  action text [not null]
+  target text
+  old_value json
+  new_value json
+  at timestamp [not null]
+}

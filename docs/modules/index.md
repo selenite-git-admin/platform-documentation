@@ -1,50 +1,55 @@
 # Modules
 
-## Scope
-This page is the entry point to the BareCount module catalog. It explains how modules are grouped and links to the pages that exist today. The goal is clarity about boundaries, not exhaustiveness.
-
-## Families
-- Host Modules
-- Compute Modules
-- Data Storage Modules
-- Consumption Modules
-- Action Modules
-- Security Modules
-- Access Modules
-- Trust Modules
-- Runtime Modules
-- Data Utilities Modules
-
-## Available module pages
+## How to use this index
+Start from a family, then drill into the module pages. Host is intentionally small. Governance and Data Utilities hold cross cutting capabilities. Avoid speculative scope; document only what is implemented or approved.
 
 ### Host Modules
+[Tenant Management](host/tenant-management/index.md)
+Onboard and manage tenant identity, lifecycle, residency, and routing tags.
 
-[Policy Registry](host/policy-registry/index.md)
-Central registry for guardrail policies. Links: [Data Model](host/policy-registry/data-model.md), [UI](host/policy-registry/ui.md), [API](host/policy-registry/api.md), [Observability](host/policy-registry/observability.md), [Runbook](host/policy-registry/runbook.md), [Security](host/policy-registry/security.md)
+[Platform Catalog](host/platform-catalog/index.md)
+Infra and service knobs: regions, residency policies, environment codes, namespace prefixes, tag taxonomy, notification channels, escalation policies.
 
-[Data Contract Registry](host/data-contract-registry/index.md)
-Catalog of dataset contracts and versions with proposal and review workflow. Links: [Data Model](host/data-contract-registry/data-model.md)
+### Governance Modules
+[Policy Registry](governance/policy-registry/index.md)
+Central registry for guardrail policies.
 
-## Reading order
-For each module follow this order:
-1. Index
-2. Data Model
-3. UI
-4. API
-5. Observability
-6. Runbook
-7. Security
+Lineage Obligations (planned)
+Location for lineage based governance rules.
 
-## Conventions
-- Use the writing guardrails defined in the project
-- Keep responsibilities and constraints concrete
-- Avoid speculative statements
-- Respect the image embedding pattern defined in references
+### Data Utilities Modules
+[Calendar Service](data-utilities/calendar-service/index.md)
+Time semantics for the platform. Links: [Data Model](data-utilities/calendar-service/data-model.md), [API](data-utilities/calendar-service/api.md), [UI](data-utilities/calendar-service/ui.md), [Date Table](data-utilities/calendar-service/date-table.md), [Observability](data-utilities/calendar-service/observability.md), [Runbook](data-utilities/calendar-service/runbook.md), [Security](data-utilities/calendar-service/security.md).
 
-## Progress tracking
-See the engineering roadmap to track which pages exist and what remains.
-[Engineering Roadmap](../engineering/roadmap.md)
+[Data Contract Registry](data-utilities/data-contract-registry/index.md)
+Contracts for extraction, raw, gold, and consumption layers.
 
-## Authoring references
-[API Writing Guide](../references/writing-guides/api-writing-guide.md)  
-[Image Embedding Guidelines](../references/image-embedding-guidelines.md)
+Schema Registry (planned)
+Engine agnostic schema evolution and compatibility checks.
+
+Catalog and Discovery (planned)
+Metadata and search across datasets and services.
+
+Migration Service (planned)
+Utilities for controlled data and schema migrations.
+
+### Access Modules (planned)
+Authentication, Authorization, Subscription Enforcement.
+
+### Security Modules (planned)
+Gateway, Network Security.
+
+### Compute Modules (planned)
+Ingestion, Normalization, KPI Build, Publish, Orchestration.
+
+### Data Storage Modules (planned)
+Raw Store, GDP Store, KPI Store, Published Store.
+
+### Consumption Modules (planned)
+Activation APIs, Exports, Webhooks, Catalog.
+
+### Action Modules (planned)
+Action Engine, Action Catalog, Action Delivery.
+
+### Runtime Modules (planned)
+Scheduler, Messaging and Events, Observability, Error Handling, Metering.
