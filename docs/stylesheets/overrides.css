@@ -634,3 +634,8 @@ blockquote {
   font-weight: bold;
   color: #000;
 }
+
+nav a[href="#"] {
+   font-weight: bold;
+   color: #333; /* Adjust the color to match your theme */
+}

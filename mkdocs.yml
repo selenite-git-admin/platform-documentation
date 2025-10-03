@@ -167,6 +167,85 @@ nav:
               - Runbook: modules/host/tenant-management/runbook.md
               - Security: modules/host/tenant-management/security.md
 
+        - Connectors Modules:
+            - Index: modules/connectors/index.md
+            - Taxonomy & Naming: modules/connectors/taxonomy.md
+            - Connector Scope: modules/connectors/connector-scope-streams.md
+            - Architecture: modules/connectors/architecture.md
+            - Deployment Options: modules/connectors/deployment-options.md
+            - Manifest Schema: modules/connectors/manifest-schema.md
+            - Incremental State: modules/connectors/incremental-state.md
+            - Observability & Testing: modules/connectors/observability-testing.md
+            - Security & Compliance: modules/connectors/security-compliance.md
+            - Versioning & Lifecycle: modules/connectors/lifecycle.md
+            - Catalog (Dev): modules/connectors/catalog-dev.md
+
+            - Universal Connectors:
+                - File: modules/connectors/vendors/global-connectors/global-file.md
+                - Object Store: modules/connectors/vendors/global-connectors/global-object-store.md
+                - Database (JDBC/ODBC): modules/connectors/vendors/global-connectors/global-db.md
+                - REST API: modules/connectors/vendors/global-connectors/global-api-rest.md
+                - SOAP API: modules/connectors/vendors/global-connectors/global-api-soap.md
+                - GraphQL API: modules/connectors/vendors/global-connectors/global-api-graphql.md
+                - Webhook: modules/connectors/vendors/global-connectors/global-webhook.md
+                - Streaming: modules/connectors/vendors/global-connectors/global-streaming.md
+
+            - Vendor-specific Connectors:
+                - SAP:
+                    - RFC: modules/connectors/vendors/sap-connectors/sap-rfc.md
+                    - OData: modules/connectors/vendors/sap-connectors/sap-odata.md
+                    - CDS: modules/connectors/vendors/sap-connectors/sap-cds.md
+                    - Database Dump: modules/connectors/vendors/sap-connectors/sap-db-dump.md
+                    - CPI: modules/connectors/vendors/sap-connectors/sap-cpi.md
+                    - Excel Upload: modules/connectors/vendors/sap-connectors/sap-excel-upload.md
+
+                - Salesforce:
+                    - REST: modules/connectors/vendors/salesforce-connectors/salesforce-rest.md
+                    - Bulk API: modules/connectors/vendors/salesforce-connectors/salesforce-bulk.md
+                    - Streaming API: modules/connectors/vendors/salesforce-connectors/salesforce-streaming.md
+
+                - NetSuite:
+                    - REST: modules/connectors/vendors/netsuite-connectors/netsuite-rest.md
+                    - REST-let: modules/connectors/vendors/netsuite-connectors/netsuite-restlet.md
+                    - SOAP: modules/connectors/vendors/netsuite-connectors/netsuite-soap.md
+
+                - MS Dynamics 365:
+                    - OData: modules/connectors/vendors/ms-dynamics-connectors/dynamics-erp-odata.md
+                    - Sales API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-sales-webapi.md
+                    - Customer Service API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-customer-service-webapi.md
+                    - Marketing REST: modules/connectors/vendors/ms-dynamics-connectors/dynamics-marketing-rest.md
+                    - Field Service API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-field-service-webapi.md
+                    - Dataverse API Generic: modules/connectors/vendors/ms-dynamics-connectors/dynamics-dataverse-webapi.md
+
+                - Workday:
+                    - REST: modules/connectors/vendors/workday-connectors/workday-rest.md
+                    - SOAP: modules/connectors/vendors/workday-connectors/workday-soap.md
+                    - RAAS: modules/connectors/vendors/workday-connectors/workday-raas.md
+                    - EIB: modules/connectors/vendors/workday-connectors/workday-eib.md
+
+                - Tally:
+                    - ODBC: modules/connectors/vendors/tally-connectors/tally-odbc.md
+                    - XML: modules/connectors/vendors/tally-connectors/tally-xml.md
+                    - Backup Dump: modules/connectors/vendors/tally-connectors/tally-backup-dump.md
+                    - Reference: modules/connectors/vendors/tally-connectors/tally-backup-ingestion.md
+
+                - Google:
+                    - Analytics: modules/connectors/vendors/google-connectors/google-analytics.md
+                    - Ads: modules/connectors/vendors/google-connectors/google-ads.md
+                    - AdSense: modules/connectors/vendors/google-connectors/google-adsense.md
+                    - Search Console: modules/connectors/vendors/google-connectors/google-search-console.md
+                    - YouTube: modules/connectors/vendors/google-connectors/google-youtube.md
+
+                - Meta:
+                    - Ads: modules/connectors/vendors/meta-connectors/meta-ads.md
+                    - Facebook Pages: modules/connectors/vendors/meta-connectors/facebook-pages.md
+                    - Instagram Graph: modules/connectors/vendors/meta-connectors/instagram-graph.md
+                    - Conversions API: modules/connectors/vendors/meta-connectors/meta-conversions-api.md
+
+                - EDGAR:
+                    - REST: modules/connectors/vendors/edgar-connectors/edgar-rest.md
+                    - XBRL: modules/connectors/vendors/edgar-connectors/edgar-xbrl.md
+
         - Governance Modules:
             - Index: modules/governance/index.md
 
@@ -272,6 +351,18 @@ nav:
     - Architecture:
         - Principles: architecture/principles.md
         - Logical Stack: architecture/logical-stack.md
+
+        - System Flows:
+            - Index: architecture/system-flows/index.md
+            - Connector Build and Publish: architecture/system-flows/flow-connector-build-publish.md
+            - Tenant Onboarding: architecture/system-flows/flow-tenant-onboarding.md
+            - Incremental Run Lifecycle: architecture/system-flows/flow-incremental-run.md
+            - Schema Drift Handling: architecture/system-flows/flow-schema-drift.md
+            - Failure and Retry: architecture/system-flows/flow-failure-retry.md
+            - Secrets Access: architecture/system-flows/flow-secrets-access.md
+            - Network Connectivity: architecture/system-flows/flow-network-connectivity.md
+            - Catalog Generation: architecture/system-flows/flow-catalog-generation.md
+
         - Data Flows: architecture/data-flows.md
         - Governance: architecture/governance.md
         - ADRs: architecture/adrs.md
@@ -332,10 +423,10 @@ nav:
             - Observability Writing Guide: references/writing-guides/observability-writing-guide.md
             - Runbook Writing Guide: references/writing-guides/runbook-writing-guide.md
             - Security Writing Guide: references/writing-guides/security-writing-guide.md
+            - Connectors Writing Guide: references/writing-guides/connectors-writing-guide.md
         - Dependency Guard: references/dependency-guard.md
         - Gaps/Open Issues: references/gaps-open-issues.md
         - Pending Actions: references/pending-actions.md
-
 
 extra_css:
   - stylesheets/overrides.css
