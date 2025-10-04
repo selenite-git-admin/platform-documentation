@@ -1,4 +1,4 @@
-site_name: Enterprise Data Platform
+site_name: Enterprise Data Action Platform
 site_description: Technical documentation
 copyright: "© 2025 Selenite®  |  Selenite Business Solutions Pvt. Ltd. All rights reserved."
 
@@ -73,7 +73,7 @@ nav:
     - Home:
         - Index: index.md
 
-    - About Platform:
+    - Platform:
         - Index: about-platform/index.md
         - Problem: about-platform/01-problem.md
         - Root Causes: about-platform/02-root-causes.md
@@ -229,6 +229,24 @@ nav:
             - India Open Data: []
             - OpenWeather: []
 
+    - Pipelines:
+        - Index: pipelines/index.md
+        - Ingestion and Landing: pipelines/02-ingestion-and-landing.md
+        - Raw Stage: pipelines/03-raw-stage.md
+        - GDP Transform: pipelines/04-gdp-transform.md
+        - KPI Materialization: pipelines/05-kpi-materialization.md
+        - Orchestration and Scheduling: pipelines/06-orchestration-and-scheduling.md
+        - Data Quality and Validation: pipelines/07-data-quality-and-validation.md
+        - Lineage and Evidence: pipelines/08-lineage-and-evidence.md
+        - Observability, SLO, and Alerts: pipelines/09-observability-slo-and-alerts.md
+        - Recovery, Replay, and DLQ: pipelines/10-recovery-replay-and-dlq.md
+        - Cost Controls and Scaling: pipelines/11-cost-controls-and-scaling.md
+        - Pipeline Configuration: pipelines/12-pipeline-configuration.md
+        - Pipeline APIs: pipelines/13-pipeline-apis.md
+        - Runners and Execution: pipelines/14-runners-and-execution.md
+        - Scheduler Options: pipelines/15-scheduler-options.md
+        - Anomaly Integration: pipelines/16-anomaly-integration.md
+
     - Modules:
         - Index: modules/index.md
 
@@ -283,13 +301,17 @@ nav:
                 - Runbook: modules/governance/lineage-obligations/runbook.md
                 - Security: modules/governance/lineage-obligations/security.md
 
-        - Compute:
-            - Overview: modules/compute/index.md
-            - Ingestion: modules/compute/ingestion/index.md
-            - Normalization: modules/compute/normalization/index.md
-            - KPI Build: modules/compute/kpi-build/index.md
-            - Publish: modules/compute/publish/index.md
-            - Orchestration: modules/compute/orchestration/index.md
+        - Runners:
+            - Index: modules/runners/index.md
+            - Runner Classes: modules/runners/runner-classes.md
+            - Serverless: modules/runners/serverless.md
+            - Container: modules/runners/container.md
+            - Managed ETL: modules/runners/managed-etl.md
+            - Dedicated Compute: modules/runners/dedicated-compute.md
+            - Network Profiles: modules/runners/network-profiles.md
+            - Selection Guide: modules/runners/selection-guide.md
+            - Governance and Guardrails: modules/runners/governance-and-guardrails.md
+            - Operations and Observability: modules/runners/operations-and-observability.md
 
         - Data Storage:
             - Overview: modules/storage/index.md
@@ -436,10 +458,6 @@ nav:
         - Pending Actions: references/pending-actions.md
 
     - Strategies:
-        - Branding: []
-        - Advertising: []
-        - Networking: []
-        - Customer Experience: []
 
         - GTM:
             - Index: strategies/gtm/index.md
@@ -470,6 +488,11 @@ nav:
             - Security and Compliance Red Flags: strategies/risk-mitigation/red-flags-security-compliance.md
             - Support and SLAs Red Flags: strategies/risk-mitigation/red-flags-support-slas.md
             - Vendor and Partner Red Flags: strategies/risk-mitigation/red-flags-vendor-partner.md
+
+        - Branding: [ ]
+        - Advertising: [ ]
+        - Networking: [ ]
+        - Customer Experience: [ ]
 
 extra_css:
   - stylesheets/overrides.css
