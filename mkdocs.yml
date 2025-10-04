@@ -143,10 +143,96 @@ nav:
                 - Anomaly Engine: user-stories/16-anomaly-engine.md
                 - Anomaly Tuning: user-stories/17-anomaly-tuning.md
 
+    - Connectors:
+        - Index: connectors/index.md
+        - Taxonomy & Naming: connectors/taxonomy.md
+        - Connector Scope: connectors/connector-scope-streams.md
+        - Architecture: connectors/architecture.md
+        - Deployment Options: connectors/deployment-options.md
+        - Manifest Schema: connectors/manifest-schema.md
+        - Incremental State: connectors/incremental-state.md
+        - Observability & Testing: connectors/observability-testing.md
+        - Security & Compliance: connectors/security-compliance.md
+        - Versioning & Lifecycle: connectors/lifecycle.md
+        - Catalog (Dev): connectors/catalog-dev.md
+
+        - Standard Connectors:
+            - File: connectors/standard-connectors/global-file.md
+            - Object Store: connectors/standard-connectors/global-object-store.md
+            - Database (JDBC/ODBC): connectors/standard-connectors/global-db.md
+            - REST API: connectors/standard-connectors/global-api-rest.md
+            - SOAP API: connectors/standard-connectors/global-api-soap.md
+            - GraphQL API: connectors/standard-connectors/global-api-graphql.md
+            - Webhook: connectors/standard-connectors/global-webhook.md
+            - Streaming: connectors/standard-connectors/global-streaming.md
+
+        - Enterprise Connectors:
+            - SAP:
+                - RFC: connectors/enterprise-connectors/sap-connectors/sap-rfc.md
+                - OData: connectors/enterprise-connectors/sap-connectors/sap-odata.md
+                - CDS: connectors/enterprise-connectors/sap-connectors/sap-cds.md
+                - Database Dump: connectors/enterprise-connectors/sap-connectors/sap-db-dump.md
+                - CPI: connectors/enterprise-connectors/sap-connectors/sap-cpi.md
+                - Excel Upload: connectors/enterprise-connectors/sap-connectors/sap-excel-upload.md
+
+            - Salesforce:
+                - REST: connectors/enterprise-connectors/salesforce-connectors/salesforce-rest.md
+                - Bulk API: connectors/enterprise-connectors/salesforce-connectors/salesforce-bulk.md
+                - Streaming API: connectors/enterprise-connectors/salesforce-connectors/salesforce-streaming.md
+
+            - NetSuite:
+                - REST: connectors/enterprise-connectors/netsuite-connectors/netsuite-rest.md
+                - REST-let: connectors/enterprise-connectors/netsuite-connectors/netsuite-restlet.md
+                - SOAP: connectors/enterprise-connectors/netsuite-connectors/netsuite-soap.md
+
+            - MS Dynamics 365:
+                - OData: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-erp-odata.md
+                - Sales API: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-sales-webapi.md
+                - Customer Service API: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-customer-service-webapi.md
+                - Marketing REST: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-marketing-rest.md
+                - Field Service API: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-field-service-webapi.md
+                - Dataverse API Generic: connectors/enterprise-connectors/ms-dynamics-connectors/dynamics-dataverse-webapi.md
+
+            - Workday:
+                - REST: connectors/enterprise-connectors/workday-connectors/workday-rest.md
+                - SOAP: connectors/enterprise-connectors/workday-connectors/workday-soap.md
+                - RAAS: connectors/enterprise-connectors/workday-connectors/workday-raas.md
+                - EIB: connectors/enterprise-connectors/workday-connectors/workday-eib.md
+
+            - Tally:
+                - ODBC: connectors/enterprise-connectors/tally-connectors/tally-odbc.md
+                - XML: connectors/enterprise-connectors/tally-connectors/tally-xml.md
+                - Backup Dump: connectors/enterprise-connectors/tally-connectors/tally-backup-dump.md
+                - Reference: connectors/enterprise-connectors/tally-connectors/tally-backup-ingestion.md
+
+            - Google:
+                - Analytics: connectors/enterprise-connectors/google-connectors/google-analytics.md
+                - Ads: connectors/enterprise-connectors/google-connectors/google-ads.md
+                - AdSense: connectors/enterprise-connectors/google-connectors/google-adsense.md
+                - Search Console: connectors/enterprise-connectors/google-connectors/google-search-console.md
+                - YouTube: connectors/enterprise-connectors/google-connectors/google-youtube.md
+
+            - Meta:
+                - Ads: connectors/enterprise-connectors/meta-connectors/meta-ads.md
+                - Facebook Pages: connectors/enterprise-connectors/meta-connectors/facebook-pages.md
+                - Instagram Graph: connectors/enterprise-connectors/meta-connectors/instagram-graph.md
+                - Conversions API: connectors/enterprise-connectors/meta-connectors/meta-conversions-api.md
+
+            - ServiceNow: []
+            - SymphonyAI Summit: []
+
+        - Public Data Connectors:
+            - EDGAR:
+                - REST: connectors/public-data-connectors/edgar-connectors/edgar-rest.md
+                - XBRL: connectors/public-data-connectors/edgar-connectors/edgar-xbrl.md
+            - Open Exchange Rates: []
+            - India Open Data: []
+            - OpenWeather: []
+
     - Modules:
         - Index: modules/index.md
 
-        - Host Modules:
+        - Host:
             - Overview: modules/host/index.md
 
             - Platform Catalog:
@@ -167,86 +253,7 @@ nav:
               - Runbook: modules/host/tenant-management/runbook.md
               - Security: modules/host/tenant-management/security.md
 
-        - Connectors Modules:
-            - Index: modules/connectors/index.md
-            - Taxonomy & Naming: modules/connectors/taxonomy.md
-            - Connector Scope: modules/connectors/connector-scope-streams.md
-            - Architecture: modules/connectors/architecture.md
-            - Deployment Options: modules/connectors/deployment-options.md
-            - Manifest Schema: modules/connectors/manifest-schema.md
-            - Incremental State: modules/connectors/incremental-state.md
-            - Observability & Testing: modules/connectors/observability-testing.md
-            - Security & Compliance: modules/connectors/security-compliance.md
-            - Versioning & Lifecycle: modules/connectors/lifecycle.md
-            - Catalog (Dev): modules/connectors/catalog-dev.md
-
-            - Universal Connectors:
-                - File: modules/connectors/vendors/global-connectors/global-file.md
-                - Object Store: modules/connectors/vendors/global-connectors/global-object-store.md
-                - Database (JDBC/ODBC): modules/connectors/vendors/global-connectors/global-db.md
-                - REST API: modules/connectors/vendors/global-connectors/global-api-rest.md
-                - SOAP API: modules/connectors/vendors/global-connectors/global-api-soap.md
-                - GraphQL API: modules/connectors/vendors/global-connectors/global-api-graphql.md
-                - Webhook: modules/connectors/vendors/global-connectors/global-webhook.md
-                - Streaming: modules/connectors/vendors/global-connectors/global-streaming.md
-
-            - Vendor-specific Connectors:
-                - SAP:
-                    - RFC: modules/connectors/vendors/sap-connectors/sap-rfc.md
-                    - OData: modules/connectors/vendors/sap-connectors/sap-odata.md
-                    - CDS: modules/connectors/vendors/sap-connectors/sap-cds.md
-                    - Database Dump: modules/connectors/vendors/sap-connectors/sap-db-dump.md
-                    - CPI: modules/connectors/vendors/sap-connectors/sap-cpi.md
-                    - Excel Upload: modules/connectors/vendors/sap-connectors/sap-excel-upload.md
-
-                - Salesforce:
-                    - REST: modules/connectors/vendors/salesforce-connectors/salesforce-rest.md
-                    - Bulk API: modules/connectors/vendors/salesforce-connectors/salesforce-bulk.md
-                    - Streaming API: modules/connectors/vendors/salesforce-connectors/salesforce-streaming.md
-
-                - NetSuite:
-                    - REST: modules/connectors/vendors/netsuite-connectors/netsuite-rest.md
-                    - REST-let: modules/connectors/vendors/netsuite-connectors/netsuite-restlet.md
-                    - SOAP: modules/connectors/vendors/netsuite-connectors/netsuite-soap.md
-
-                - MS Dynamics 365:
-                    - OData: modules/connectors/vendors/ms-dynamics-connectors/dynamics-erp-odata.md
-                    - Sales API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-sales-webapi.md
-                    - Customer Service API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-customer-service-webapi.md
-                    - Marketing REST: modules/connectors/vendors/ms-dynamics-connectors/dynamics-marketing-rest.md
-                    - Field Service API: modules/connectors/vendors/ms-dynamics-connectors/dynamics-field-service-webapi.md
-                    - Dataverse API Generic: modules/connectors/vendors/ms-dynamics-connectors/dynamics-dataverse-webapi.md
-
-                - Workday:
-                    - REST: modules/connectors/vendors/workday-connectors/workday-rest.md
-                    - SOAP: modules/connectors/vendors/workday-connectors/workday-soap.md
-                    - RAAS: modules/connectors/vendors/workday-connectors/workday-raas.md
-                    - EIB: modules/connectors/vendors/workday-connectors/workday-eib.md
-
-                - Tally:
-                    - ODBC: modules/connectors/vendors/tally-connectors/tally-odbc.md
-                    - XML: modules/connectors/vendors/tally-connectors/tally-xml.md
-                    - Backup Dump: modules/connectors/vendors/tally-connectors/tally-backup-dump.md
-                    - Reference: modules/connectors/vendors/tally-connectors/tally-backup-ingestion.md
-
-                - Google:
-                    - Analytics: modules/connectors/vendors/google-connectors/google-analytics.md
-                    - Ads: modules/connectors/vendors/google-connectors/google-ads.md
-                    - AdSense: modules/connectors/vendors/google-connectors/google-adsense.md
-                    - Search Console: modules/connectors/vendors/google-connectors/google-search-console.md
-                    - YouTube: modules/connectors/vendors/google-connectors/google-youtube.md
-
-                - Meta:
-                    - Ads: modules/connectors/vendors/meta-connectors/meta-ads.md
-                    - Facebook Pages: modules/connectors/vendors/meta-connectors/facebook-pages.md
-                    - Instagram Graph: modules/connectors/vendors/meta-connectors/instagram-graph.md
-                    - Conversions API: modules/connectors/vendors/meta-connectors/meta-conversions-api.md
-
-                - EDGAR:
-                    - REST: modules/connectors/vendors/edgar-connectors/edgar-rest.md
-                    - XBRL: modules/connectors/vendors/edgar-connectors/edgar-xbrl.md
-
-        - Governance Modules:
+        - Governance:
             - Index: modules/governance/index.md
 
             - Policy Registry:
@@ -276,7 +283,7 @@ nav:
                 - Runbook: modules/governance/lineage-obligations/runbook.md
                 - Security: modules/governance/lineage-obligations/security.md
 
-        - Compute Modules:
+        - Compute:
             - Overview: modules/compute/index.md
             - Ingestion: modules/compute/ingestion/index.md
             - Normalization: modules/compute/normalization/index.md
@@ -284,7 +291,7 @@ nav:
             - Publish: modules/compute/publish/index.md
             - Orchestration: modules/compute/orchestration/index.md
 
-        - Data Storage Modules:
+        - Data Storage:
             - Overview: modules/storage/index.md
             - Raw Store: modules/storage/raw-store/index.md
             - GDP Store: modules/storage/gdp-store/index.md
@@ -292,37 +299,37 @@ nav:
             - Published Store: modules/storage/published-store/index.md
             - Calendar: modules/storage/gdp-calendar/index.md
 
-        - Consumption Modules:
+        - Consumption:
             - Overview: modules/consumption/index.md
             - Activation APIs: modules/consumption/activation-apis/index.md
             - Exports: modules/consumption/exports/index.md
             - Webhooks: modules/consumption/webhooks/index.md
             - Catalog: modules/consumption/catalog/index.md
 
-        - Action Modules:
+        - Action:
             - Overview: modules/action/index.md
             - Action Engine: modules/action/action-engine/index.md
             - Action Catalog: modules/action/action-catalog/index.md
             - Action Delivery: modules/action/action-delivery/index.md
 
-        - Security Modules:
+        - Security:
             - Overview: modules/security/index.md
             - Gateway: modules/security/gateway/index.md
             - Network Security: modules/security/network-security/index.md
 
-        - Access Modules:
+        - Access:
             - Overview: modules/access/index.md
             - Authentication: modules/access/authentication/index.md
             - Authorization: modules/access/authorization/index.md
             - Subscription Enforcement: modules/access/subscription-enforcement/index.md
 
-        - Trust Modules:
+        - Trust:
             - Overview: modules/trust/index.md
             - Evidence Ledger: modules/trust/evidence-ledger/index.md
             - Secrets: modules/trust/secrets/index.md
             - Encryption: modules/trust/encryption/index.md
 
-        - Runtime Modules:
+        - Runtime:
             - Overview: modules/runtime/index.md
             - Scheduler: modules/runtime/scheduler/index.md
             - Messaging and Events: modules/runtime/messaging-events/index.md
@@ -330,7 +337,7 @@ nav:
             - Error Handling: modules/runtime/error-handling/index.md
             - Metering: modules/runtime/metering/index.md
 
-        - Data Utilities Modules:
+        - Data Utilities:
             - Index: modules/data-utilities/index.md
 
             - Calender Service:
@@ -427,6 +434,42 @@ nav:
         - Dependency Guard: references/dependency-guard.md
         - Gaps/Open Issues: references/gaps-open-issues.md
         - Pending Actions: references/pending-actions.md
+
+    - Strategies:
+        - Branding: []
+        - Advertising: []
+        - Networking: []
+        - Customer Experience: []
+
+        - GTM:
+            - Index: strategies/gtm/index.md
+            - Ideal Customer Profile: strategies/gtm/01-ICP.md
+            - Discovery Questionnaire: strategies/gtm/02-Discovery-Questionnaire.md
+            - Pricing Guardrails: strategies/gtm/03-Pricing-Guardrails.md
+            - Objection Handling: strategies/gtm/04-Objection-Handling.md
+            - Proof of Value Playbook: strategies/gtm/05-POV-Playbook.md
+            - Proof of Value Success Criteria: strategies/gtm/06-POV-Success-Criteria.md
+            - Go-To-Market Playbook: strategies/gtm/07-GTM-Playbook.md
+            - Partner Strategy: strategies/gtm/08-Partner-Strategy.md
+            - Competition Strategy: strategies/gtm/09-Competition-Strategy.md
+            - Sales Process: strategies/gtm/10-Sales-Process.md
+            - Expansion Playbook: strategies/gtm/11-Expansion-Playbook.md
+            - Traps to Avoid: strategies/gtm/12-Traps-to-Avoid.md
+
+        - Risk Mitigation:
+            - Index: strategies/risk-mitigation/index.md
+            - Customer Interaction Red Flags: strategies/risk-mitigation/red-flags-customer-interaction.md
+            - Customer Pitching Red Flags: strategies/risk-mitigation/red-flags-customer-pitching.md
+            - Customer Onboarding Red Flags: strategies/risk-mitigation/red-flags-customer-onboarding.md
+            - Data Contracts and Data Quality Red Flags: strategies/risk-mitigation/red-flags-data-contracts-quality.md
+            - Implementation and Governance Red Flags: strategies/risk-mitigation/red-flags-implementation-governance.md
+            - Pricing and Commercial Red Flags: strategies/risk-mitigation/red-flags-pricing-commercial.md
+            - Legal and IP Red Flags: strategies/risk-mitigation/red-flags-legal-ip.md
+            - Product Development Red Flags: strategies/risk-mitigation/red-flags-product-development.md
+            - Product Vision and Roadmap Red Flags: strategies/risk-mitigation/red-flags-product-vision.md
+            - Security and Compliance Red Flags: strategies/risk-mitigation/red-flags-security-compliance.md
+            - Support and SLAs Red Flags: strategies/risk-mitigation/red-flags-support-slas.md
+            - Vendor and Partner Red Flags: strategies/risk-mitigation/red-flags-vendor-partner.md
 
 extra_css:
   - stylesheets/overrides.css
