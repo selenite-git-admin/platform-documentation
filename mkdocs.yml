@@ -312,6 +312,7 @@ nav:
             - Selection Guide: modules/runners/selection-guide.md
             - Governance and Guardrails: modules/runners/governance-and-guardrails.md
             - Operations and Observability: modules/runners/operations-and-observability.md
+            - Runners Provisioning: modules/runners/runner-provisioning-runbook.md
 
         - Data Storage:
             - Overview: modules/storage/index.md
