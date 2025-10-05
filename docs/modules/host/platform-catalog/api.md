@@ -24,7 +24,7 @@ Read heavy APIs for Platform Catalog with guarded admin writes. Endpoints return
 | [List tag taxonomy](#list-tag-taxonomy) | `GET /platform-catalog/v1/tag-taxonomy` |
 | [List compliance profiles](#list-compliance-profiles) | `GET /platform-catalog/v1/compliance-profiles` |
 
-Calendars moved to Calendar Service. See [Calendar Service API](../../data-utilities/calendar-service/api.md).
+Calendars moved to Calendar Service. See [Calendar Service API](../../utilities/calendar-service/api.md).
 ## Error model
 ```json
 {"code":"invalid_request","message":"unknown region code","correlation_id":"..."}

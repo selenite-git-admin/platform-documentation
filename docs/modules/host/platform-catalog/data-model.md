@@ -40,7 +40,7 @@ Notifications
 - `notification_channels`, `escalation_policies`
 
 Calendars
-Moved to Calendar Service. See [Calendar Service](../../data-utilities/calendar-service/index.md)
+Moved to Calendar Service. See [Calendar Service](../../utilities/calendar-service/index.md)
 
 ## DBML
 ```dbml

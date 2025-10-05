@@ -1,163 +1,183 @@
 # Modules
 
-## Purpose
-Modules describe the core building blocks of the BareCount Data Action Platform. Each module owns a clear responsibility and integrates with Pipelines, which are the backbone of the platform. The goal is a consistent, governed path from source data to activated outcomes.
+> **Audience:** Builders and operators. Short, prescriptive, and testable.  
+> **Contract:** Each module owns a capability, exposes stable interfaces, and integrates with Pipelines (the backbone).
 
-## Context
-Enterprises face fragmented tools and undocumented handoffs. BareCount standardizes the data lifecycle through Pipelines, while Modules provide the platform capabilities that feed, govern, execute, store, expose, and secure those pipelines. Every module below explains its role and how it connects to Pipelines so that teams can reason about the whole system, not just parts.
+## Tenets
+- **Pipelines first.** Modules exist to feed, govern, execute, store, expose, and secure pipeline work.
+- **Contracts over code.** Every surface is documented, versioned, and additive.
+- **Evidence by default.** Material events emit receipts, lineage, and metrics.
+- **Least surprise.** Shared patterns: 7-file docs set, cursor paging, idempotent writes, standard errors.
 
-## Pipelines as the Backbone
-Pipelines define the lifecycle of data from ingestion and raw capture to GDP, KPI, and publication. All modules either feed pipelines, constrain them with governance, execute them with runners, store their checkpoints, expose their outputs, or secure and observe their operation.
-See Pipelines for the full lifecycle and stage details: [Pipelines](../pipelines/index.md)
+## How Modules Relate to Pipelines
+Pipelines move data from **ingestion → raw → GDP → KPI → published**. Modules wrap that motion with platform capabilities:
+
+- **Feed:** Host, Connectors
+- **Constrain:** Governance (contracts, policies, obligations)
+- **Execute:** Runtime (orchestrator, compute, streaming), Runners
+- **Store:** Storage (raw, GDP, KPI, published, calendar)
+- **Expose:** **Delivery** (APIs, catalog, exports, webhooks, dashboards)
+- **Secure & Prove:** Access, Security, Trust & Integrity
+
+See the full pipeline lifecycle: [Pipelines](../pipelines/index.md).
+
+---
 
 ## Module Families
 
 ### Host
-Provides the administrative surface for the platform. Hosts tenants, catalogs, and operational controls.
+Administrative surface for the platform. Hosts tenants, catalogs, and operational controls.
 
-How it connects to Pipelines
-- Tenant creation, connector onboarding, and resource assignment prepare streams that feed ingestion
-- Platform Catalog exposes pipeline, contract, and dataset metadata for operators and auditors
+**Pipeline touchpoints**
+- Tenant creation, connector onboarding, and resource assignment prepare streams for ingestion.
+- Platform Catalog exposes pipeline, contract, and dataset metadata for operators and auditors.
 
-Start here:
-- [Host Overview](host/index.md)
-- [Platform Catalog](host/platform-catalog/index.md)
-- [Tenant Management](host/tenant-management/index.md)
+**Start here**
+- [Host Overview](host/index.md) · [Platform Catalog](host/platform-catalog/index.md) · [Tenant Management](host/tenant-management/index.md)
+
+---
+
+### Access
+Identity and permissions for people and systems that invoke pipeline surfaces.
+
+**Pipeline touchpoints**
+- Authentication and Authorization protect pipeline APIs, manifests, and outputs.
+- Subscription Enforcement ties tenant entitlements to pipeline features.
+
+**Start here**
+- [Access Overview](access/index.md) · [Authentication](access/authentication/index.md) · [Authorization](access/authorization/index.md) · [Subscription Enforcement](access/subscription-enforcement/index.md)
+
+---
 
 ### Governance
 Defines and enforces policies that make pipelines trustworthy.
 
-How it connects to Pipelines
-- Data Contract Registry validates extractor schemas during ingestion
-- Policy Registry and Lineage Obligations set blocking and warning rules for pipeline runs
+**Pipeline touchpoints**
+- **Data Contract Registry** validates extractor schemas during ingestion.
+- **Policy Registry** and **Lineage Obligations** set blocking/warning rules for runs and publication.
 
-Start here:
-- [Governance Overview](governance/index.md)
-- [Policy Registry](governance/policy-registry/index.md)
-- [Data Contract Registry](governance/data-contract-registry/index.md)
-- [Lineage Obligations](governance/lineage-obligations/index.md)
+**Start here**
+- [Governance Overview](governance/index.md) · [Policy Registry](governance/policy-registry/index.md) · [Data Contract Registry](governance/data-contract-registry/index.md) · [Lineage Obligations](governance/lineage-obligations/index.md)
 
-### Runners
-Provides execution contexts for pipelines. Abstracts AWS Lambda, Fargate, Glue, and EC2 so logic remains portable.
+---
 
-How it connects to Pipelines
-- Pipeline manifests select runner type and network profile
-- Orchestration triggers runs on the chosen runners with consistent observability and evidence
+### Trust & Integrity
+Integrity guarantees and operational secrets for pipeline runs.
 
-Start here:
-- [Runners Overview](runners/index.md)
-- [Ingestion Runner](runners/ingestion/index.md)
-- [Normalization Runner](runners/normalization/index.md)
-- [KPI Build Runner](runners/kpi-build/index.md)
-- [Publish Runner](runners/publish/index.md)
-- [Orchestration Runner](runners/orchestration/index.md)
+**Pipeline touchpoints**
+- **Evidence Ledger** records lineage and evidence at every stage.
+- **Secrets** and **Encryption** secure credentials and data at rest/in transit.
 
-### Data Storage
-Implements durable stores for each pipeline checkpoint to preserve lineage and reproducibility.
+**Start here**
+- [Trust Overview](trust/index.md) · [Evidence Ledger](trust/evidence-ledger/index.md) · [Secrets](trust/secrets/index.md) · [Encryption](trust/encryption/index.md)
 
-How it connects to Pipelines
-- Raw Store captures immutable ingested data
-- GDP Store holds conformed entities
-- KPI Store and Published Store expose governed outputs to consumers
-- Calendar provides reusable time scaffolding for backfills and KPI windows
-
-Start here:
-- [Storage Overview](storage/index.md)
-- [Raw Store](storage/raw-store/index.md)
-- [GDP Store](storage/gdp-store/index.md)
-- [KPI Store](storage/kpi-store/index.md)
-- [Published Store](storage/published-store/index.md)
-- [Calendar](storage/gdp-calendar/index.md)
-
-### Consumption
-Delivers pipeline outputs to applications and users.
-
-How it connects to Pipelines
-- Activation APIs, exports, and webhooks publish GDP and KPI products from the Published Store
-- Catalog provides searchable access to datasets and versions produced by pipelines
-
-Start here:
-- [Consumption Overview](consumption/index.md)
-- [Activation APIs](consumption/activation-apis/index.md)
-- [Exports](consumption/exports/index.md)
-- [Webhooks](consumption/webhooks/index.md)
-- [Catalog](consumption/catalog/index.md)
-
-### Action
-Turns pipeline outputs into enterprise actions.
-
-How it connects to Pipelines
-- Action Engine consumes KPI events and thresholds
-- Action Delivery pushes outcomes to enterprise systems for follow up
-
-Start here:
-- [Action Overview](action/index.md)
-- [Action Engine](action/action-engine/index.md)
-- [Action Catalog](action/action-catalog/index.md)
-- [Action Delivery](action/action-delivery/index.md)
+---
 
 ### Security
-Applies platform security controls to pipeline execution and data access.
+Edge and network defenses on all pipeline-accessible surfaces.
 
-How it connects to Pipelines
-- Gateway secures API access to pipeline products
-- Network Security enforces runner connectivity choices such as PrivateLink and VPN
+**Pipeline touchpoints**
+- **Gateway** secures API access to pipeline products.
+- **Network Security** enforces runner connectivity (PrivateLink, VPN, egress control).
 
-Start here:
-- [Security Overview](security/index.md)
-- [Gateway](security/gateway/index.md)
-- [Network Security](security/network-security/index.md)
+**Start here**
+- [Security Overview](security/index.md) · [Gateway](security/gateway/index.md) · [Network Security](security/network-security/index.md)
 
-### Access
-Controls identity and permissions for people and systems interacting with pipelines.
+---
 
-How it connects to Pipelines
-- Authentication and Authorization protect pipeline APIs, manifests, and outputs
-- Subscription Enforcement ties tenant entitlements to pipeline features
+### Connectors
+Standardized ingestion/egress into enterprise systems and public data sources.
 
-Start here:
-- [Access Overview](access/index.md)
-- [Authentication](access/authentication/index.md)
-- [Authorization](access/authorization/index.md)
-- [Subscription Enforcement](access/subscription-enforcement/index.md)
+**Pipeline touchpoints**
+- Connector deployments initialize ingestion streams and schemas under contract.
+- Health, state, and backpressure are emitted for orchestration.
 
-### Trust
-Provides integrity guarantees and operational secrets for pipeline runs.
+**Start here**
+- [Connectors Overview](../connectors/index.md) (family lives under Connectors)
 
-How it connects to Pipelines
-- Evidence Ledger records lineage and evidence for every stage
-- Secrets and Encryption secure credentials and data at rest and in transit
-
-Start here:
-- [Trust Overview](trust/index.md)
-- [Evidence Ledger](trust/evidence-ledger/index.md)
-- [Secrets](trust/secrets/index.md)
-- [Encryption](trust/encryption/index.md)
+---
 
 ### Runtime
-Delivers shared platform services that keep pipelines reliable.
+Shared platform services that keep pipelines reliable.
 
-How it connects to Pipelines
-- Scheduler and Messaging coordinate runs and events
-- Observability, Error Handling, and Metering provide health, reliability, and cost signals
+**Pipeline touchpoints**
+- **Orchestrator** schedules and coordinates runs and events.
+- **Compute Fabric** executes tasks with isolation and quotas.
+- **Streaming Bus** handles events, DLQ, and retries.
+- **Observability, Error Handling, Metering** provide health and cost signals.
 
-Start here:
-- [Runtime Overview](runtime/index.md)
-- [Scheduler](runtime/scheduler/index.md)
-- [Messaging and Events](runtime/messaging-events/index.md)
-- [Observability](runtime/observability/index.md)
-- [Error Handling](runtime/error-handling/index.md)
-- [Metering](runtime/metering/index.md)
+**Start here**
+- [Runtime Overview](runtime/index.md) · [Orchestrator](runtime/orchestrator/index.md) · [Compute Fabric](runtime/compute-fabric/index.md) · [Streaming Bus](runtime/streaming-bus/index.md) · [Observability](runtime/observability/index.md) · [Error Handling](runtime/error-handling/index.md) · [Metering](runtime/metering/index.md)
+
+---
+
+### Storage
+Durable stores for each pipeline checkpoint to preserve lineage and reproducibility.
+
+**Pipeline touchpoints**
+- **Raw Store** captures immutable ingested data.
+- **GDP Store** holds conformed entities.
+- **KPI Store** and **Published Store** expose governed outputs.
+- **GDP Calendar** provides time scaffolding for backfills and KPI windows.
+
+**Start here**
+- [Storage Overview](storage/index.md) · [Raw Store](storage/raw-store/index.md) · [GDP Store](storage/gdp-store/index.md) · [KPI Store](storage/kpi-store/index.md) · [Published Store](storage/published-store/index.md) · [GDP Calendar](storage/gdp-calendar/index.md)
+
+---
+
+### Delivery
+Delivers published outputs to applications and users with zero engineering lift.
+
+**Pipeline touchpoints**
+- **Delivery APIs**, **Exports**, and **Webhooks** publish GDP/KPI products from the Published Store.
+- **Delivery Catalog** provides searchable access to datasets and versions produced by pipelines.
+- **Dashboards** render governed views on top of Delivery APIs.
+
+**Start here**
+- [Delivery Overview](delivery/index.md) · [Delivery APIs](delivery/apis/index.md) · [Exports](delivery/exports/index.md) · [Webhooks](delivery/webhooks/index.md) · [Delivery Catalog](delivery/catalog/index.md) · [Dashboards](delivery/dashboards/index.md)
+
+---
+
+### Action
+Turns published outputs into enterprise actions.
+
+**Pipeline touchpoints**
+- **Action Engine** consumes KPI events/thresholds and evaluates guardrails.
+- **Action Delivery** pushes outcomes to enterprise systems and captures receipts.
+
+**Start here**
+- [Action Overview](action/index.md) · [Action Engine](action/action-engine/index.md) · [Action Catalog](action/action-catalog/index.md) · [Action Delivery](action/action-delivery/index.md)
+
+---
+
+### Runners
+Execution contexts abstracting AWS Lambda, Fargate, Glue, and EC2 so logic remains portable.
+
+**Pipeline touchpoints**
+- Pipeline manifests select runner type and network profile.
+- Orchestration triggers runs on chosen runners with consistent telemetry and evidence.
+
+**Start here**
+- [Runners Overview](runners/index.md) · (see specific runner classes under Runners)
+
+---
 
 ### Data Utilities
-Provides shared reference data and helpers that pipelines depend on.
+Shared reference data and helpers that pipelines depend on.
 
-How it connects to Pipelines
-- Calendar Service standardizes fiscal calendars, holidays, and working days for backfills and KPI windows
+**Pipeline touchpoints**
+- **Calendar Service** standardizes fiscal calendars, holidays, and working days for backfills and KPI windows.
 
-Start here:
-- [Data Utilities](data-utilities/index.md)
-- [Calendar Service](data-utilities/calendar-service/index.md)
+**Start here**
+- [Utilities Overview](utilities/index.md) · [Calendar Service](utilities/calendar-service/index.md)
 
-## Notes
-Treat Pipelines as the backbone of BareCount. Design and review every module in terms of how it supplies, governs, executes, stores, exposes, or secures pipeline work. This alignment keeps the platform coherent and auditable end to end.
+---
+
+## Responsibilities & Non‑Goals (checklist per module)
+- **Owns**: clear capability surface, SLIs/SLOs, and runbooks.
+- **Exposes**: stable APIs, schemas, and UI where applicable.
+- **Integrates**: emits traces/metrics/logs; participates in evidence and lineage.
+- **Does not**: duplicate pipeline logic, bypass governance, or leak cross‑tenant data.
+
+## Operational Readiness (gate)
+- Contracts reviewed and versioned · Access scopes mapped · Evidence on writes · Alerts wired · Rollback steps documented.

@@ -48,10 +48,10 @@ API
 - [Upsert tag taxonomy entry](api.md#upsert-tag-taxonomy-entry)
 
 ## Calendars
-Calendars moved to Calendar Service. See [Calendar Service UI](../../data-utilities/calendar-service/ui.md).
+Calendars moved to Calendar Service. See [Calendar Service UI](../../utilities/calendar-service/ui.md).
 
 ## Tenant calendar overlay
-Tenant overlays moved to Calendar Service. See [Calendar Service UI](../../data-utilities/calendar-service/ui.md).
+Tenant overlays moved to Calendar Service. See [Calendar Service UI](../../utilities/calendar-service/ui.md).
 
 ## Telemetry
 - ui.catalog.region.upsert

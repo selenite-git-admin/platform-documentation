@@ -18,10 +18,10 @@ Lineage Obligations (planned)
 Location for lineage based governance rules.
 
 ## Data Utilities Modules
-[Calendar Service](../modules/data-utilities/calendar-service/index.md)
+[Calendar Service](../modules/utilities/calendar-service/index.md)
 Time semantics for the platform including calendars, tenant overlays, fiscal periods, working time utilities, and the Date Table used by BI.
 
-[Data Contract Registry](../modules/data-utilities/data-contract-registry/index.md)
+[Data Contract Registry](../modules/utilities/data-contract-registry/index.md)
 Catalog of dataset contracts and versions across layers: extraction, raw, gold, and consumption. Producers and consumers align on these contracts.
 
 Schema Registry (planned)

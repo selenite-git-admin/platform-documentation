@@ -66,4 +66,4 @@ Classification, access control, auditability, and safeguards.
 
 
 Calendars
-Moved to Calendar Service. See [Calendar Service](../../data-utilities/calendar-service/index.md)
+Moved to Calendar Service. See [Calendar Service](../../utilities/calendar-service/index.md)
