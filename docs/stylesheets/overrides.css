@@ -50,8 +50,8 @@
   /* Typography */
   --md-text-font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
                   Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --md-code-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-                  Consolas, "Liberation Mono", "Courier New", monospace;
+  --md-code-font: "IBM Plex Mono", "Ubuntu Mono", "Inconsolata", 
+                monospace;
 
   /* Text tones */
   --cf-text:    var(--cf-gray-900);
@@ -312,11 +312,20 @@
   border-radius: 4px;
   padding: .12em .34em;
   background: var(--cf-code-bg);
+  word-break: break-word;
+}
+.md-typeset pre {
+  overflow-x: visible;
 }
 .md-typeset pre > code {
   border-radius: var(--cf-radius-2);
   box-shadow: var(--cf-shadow-1);
   background: var(--cf-code-bg);
+  display: block;
+  overflow-x: visible;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Admonitions – unified sizing + colors */
@@ -345,11 +354,23 @@
 
 /* Tables */
 .md-typeset table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
+  display: table;
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
   border-radius: var(--cf-radius-1);
   border: 1px solid var(--cf-border);
+  font-size: 0.65rem;
+}
+.md-typeset table th,
+.md-typeset table td {
+  padding: 0.2rem 0.35rem;
+  line-height: 1 !important;
+}
+.md-typeset table thead th {
+  font-weight: 500 !important;
+  background: var(--cf-gray-100);
+  border-bottom: 2px solid var(--cf-border);
 }
 .md-typeset table tbody tr:nth-child(odd) {
   background: color-mix(in oklab, var(--cf-surface) 70%, transparent);
@@ -602,12 +623,25 @@ blockquote {
 .image-modal img {
   display: block;
   padding: 20px;
-  max-width: calc(100% - 40px);
-  max-height: calc(100% - 40px);
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
   margin: auto;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+}
+
+.image-modal img:hover {
+  transform: scale(1.1);
+}
+
+.image-modal img:active {
+  transform: scale(1.5);
+  cursor: zoom-out;
 }
 
 .image-link img {

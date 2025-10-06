@@ -595,6 +595,33 @@ nav:
                 - Security: modules/action/action-delivery/security.md
                 - UI: modules/action/action-delivery/ui.md
 
+        - Commercial Ops:
+            - Overview: modules/commercial-ops/index.md
+            - Plan Pricing:
+                - Metric Definition: modules/commercial-ops/plan-pricing/metrics-definition.md
+                - AWS Cost Mapping: modules/commercial-ops/plan-pricing/aws-cost-mapping.md
+                - Plan Parameters: modules/commercial-ops/plan-pricing/plan-parameters.md
+                - Dashboard Design: modules/commercial-ops/plan-pricing/dashboard-design.md
+                - Top-up & Upgrade Policy: modules/commercial-ops/plan-pricing/topup-upgrade-policy.md
+                - Examples: modules/commercial-ops/plan-pricing/examples.md
+            - AWS Cost Integration:
+                - CUR Ingestion: modules/commercial-ops/aws-cost-integration/cur-ingestion.md
+                - Tag Strategy: modules/commercial-ops/aws-cost-integration/tag-strategy.md
+                - Tag Allocation: modules/commercial-ops/aws-cost-integration/tag-allocation-rules.md
+                - Budgets & Alerts: modules/commercial-ops/aws-cost-integration/budgets-alerts.md
+                - Reconciliation: modules/commercial-ops/aws-cost-integration/reconciliation.md
+                - Troubleshooting: modules/commercial-ops/aws-cost-integration/troubleshooting.md
+            - Cost Factors:
+                Data-Services: modules/commercial-ops/cost-factors/data-services.md
+                Compute-Networking: modules/commercial-ops/cost-factors/compute-networking.md
+            - Data Model: modules/commercial-ops/data-model.md
+            - API: modules/commercial-ops/api.md
+            - Observability: modules/commercial-ops/observability.md
+            - Runbook: modules/commercial-ops/runbook.md
+            - Security: modules/commercial-ops/security.md
+            - UI: modules/commercial-ops/ui.md
+            - Parked Scope: modules/commercial-ops/parked-scope.md
+
     - Pipelines:
         - Index: pipelines/index.md
         - Ingestion and Landing: pipelines/02-ingestion-and-landing.md
@@ -652,6 +679,10 @@ nav:
 extra_css:
   - stylesheets/overrides.css
   - stylesheets/print-block.css
+  - https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap
+
 
 extra_javascript:
   - javascripts/tablesort.js
+  - javascripts/table-pagination.js
+  - javascripts/datatables-init.js
