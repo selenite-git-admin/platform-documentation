@@ -74,7 +74,7 @@ Legend: **M**=Manage, **A**=Approve, **C**=Configure, **R**=Read.
 ```json
 {
   "Effect": "Allow",
-  "Action": ["workflow:Execute", "schema:Rollback"],
+  "Action": ["workflow:Execute", "schema-registry:Rollback"],
   "Resource": ["tenant/${tenant_id}/*"],
   "Condition": {
     "Bool": {"approval:ticket_open": true},
@@ -87,7 +87,7 @@ Legend: **M**=Manage, **A**=Approve, **C**=Configure, **R**=Read.
 ```json
 {
   "Effect": "Allow",
-  "Action": ["schema:Publish", "kpi:Publish", "workflow:Publish"],
+  "Action": ["schema-registry:Publish", "kpi:Publish", "workflow:Publish"],
   "Resource": ["tenant/${tenant_id}/*"],
   "Condition": {"Bool": {"approval:dual_signed": true}}
 }

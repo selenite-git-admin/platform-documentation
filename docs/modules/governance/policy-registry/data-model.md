@@ -161,7 +161,7 @@ create table if not exists policy_bindings (
   binding_id uuid primary key,
   policy_id uuid not null references policies(policy_id),
   version_id uuid references policy_versions(version_id),
-  scope_type text not null check (scope_type in ('tenant','schema','workflow')),
+  scope_type text not null check (scope_type in ('tenant','schema-registry','workflow')),
   scope_ref text not null,
   status text not null default 'active' check (status in ('active','disabled')),
   created_at timestamptz not null default now(),

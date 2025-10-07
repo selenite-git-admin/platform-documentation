@@ -92,7 +92,7 @@ nav:
             - Setting up Platform:
                 - Infra Deployment: user-stories/00a-platform-infrastructure-deployment.md
                 - Connector Deployment: user-stories/00b-connector-deployment.md
-                - Schema Seeding: user-stories/00c-schema-templates-seeding.md
+                - Schema Seeding: user-stories/00c-schema-registry-templates-seeding.md
                 - Access Baseline: user-stories/00d-access-rbac-baseline.md
 
             - Managing Tenant:
@@ -110,11 +110,11 @@ nav:
                 - Automated Housekeeping & Cost Controls: user-stories/05b-housekeeping-cost-controls.md
 
             - Managing Schemas:
-                - Source (Raw) Schema Lifecycle: user-stories/03a-raw-schema-lifecycle.md
-                - GDP Schema Lifecycle: user-stories/03b-gdp-schema-lifecycle.md
-                - KPI Schema Lifecycle: user-stories/03c-kpi-schema-lifecycle.md
-                - Tenant Schema Change Request: user-stories/03d-tenant-schema-change-request.md
-                - Tenant-Specific Schema Extension: user-stories/03e-tenant-specific-schema-extension.md
+                - Source (Raw) Schema Lifecycle: user-stories/03a-raw-schema-registry-lifecycle.md
+                - GDP Schema Lifecycle: user-stories/03b-gdp-schema-registry-lifecycle.md
+                - KPI Schema Lifecycle: user-stories/03c-kpi-schema-registry-lifecycle.md
+                - Tenant Schema Change Request: user-stories/03d-tenant-schema-registry-change-request.md
+                - Tenant-Specific Schema Extension: user-stories/03e-tenant-specific-schema-registry-extension.md
                 - Safe Rollout & Rollback: user-stories/03f-safe-rollout-rollback.md
                 - Impact Analysis & Notifications: user-stories/03g-impact-analysis-notifications.md
 
@@ -154,7 +154,7 @@ nav:
                 - Connector Build and Publish: architecture/system-flows/flow-connector-build-publish.md
                 - Tenant Onboarding: architecture/system-flows/flow-tenant-onboarding.md
                 - Incremental Run Lifecycle: architecture/system-flows/flow-incremental-run.md
-                - Schema Drift Handling: architecture/system-flows/flow-schema-drift.md
+                - Schema Drift Handling: architecture/system-flows/flow-schema-registry-drift.md
                 - Failure and Retry: architecture/system-flows/flow-failure-retry.md
                 - Secrets Access: architecture/system-flows/flow-secrets-access.md
                 - Network Connectivity: architecture/system-flows/flow-network-connectivity.md
@@ -306,7 +306,7 @@ nav:
             - Connector Scope: connectors/connector-scope-streams.md
             - Architecture: connectors/architecture.md
             - Deployment Options: connectors/deployment-options.md
-            - Manifest Schema: connectors/manifest-schema.md
+            - Manifest Schema: connectors/manifest-schema-registry.md
             - Incremental State: connectors/incremental-state.md
             - Observability & Testing: connectors/observability-testing.md
             - Security & Compliance: connectors/security-compliance.md
@@ -429,20 +429,34 @@ nav:
                 - Security: modules/runtime/config-flags/security.md
                 - UI: modules/runtime/config-flags/ui.md
 
-        - Schema:
-            - Overview: modules/schema/index.md
+        - Schema Registry:
+            - Index: modules/schema-registry/index.md
+            - Overview: modules/schema-registry/overview.md
+            - Construction: modules/schema-registry/construction.md
+            - Meta-Schema: modules/schema-registry/schemas/schema-registry-meta-schema.md
             - Lifecycle:
-                - Taxonomy & Naming: modules/schema/lifecycle/taxonomy.md
-                - Versioning & Evolution: modules/schema/lifecycle/versioning.md
-                - Validation & Enforcement: modules/schema/lifecycle/validation.md
-                - Publishing & Propagation: modules/schema/lifecycle/publishing.md
+                - Taxonomy: modules/schema-registry/lifecycle/schema-registry-taxonomy.md
+                - Versioning: modules/schema-registry/lifecycle/schema-registry-versioning.md
+                - Validation: modules/schema-registry/lifecycle/schema-registry-validation.md
+                - Publishing: modules/schema-registry/lifecycle/schema-registry-publishing.md
+            - Governance: modules/schema-registry/schema-registry-governance.md
+            - Extractor Schema: modules/schema-registry/schemas/schema-registry-extractor-schemas.md
+            - Raw Schema: modules/schema-registry/schemas/schema-registry-raw-schemas.md
+            - GDP Schema: modules/schema-registry/schemas/schema-registry-gdp-schemas.md
+            - KPI Schema: modules/schema-registry/schemas/schema-registry-kpi-schemas.md
+            - Validation:
+                - Index: modules/schema-registry/validation/index.md
+                - Envelope & Payload: modules/schema-registry/validation/envelope-and-payload.md
+                - Drift & Quarantine: modules/schema-registry/validation/drift-and-quarantine.md
+            - Pipelines Integration: modules/schema-registry/pipelines-integration.md
+            - Observability: modules/schema-registry/observability.md
+            - Runbook: modules/schema-registry/runbook.md
+            - Security: modules/schema-registry/security.md
+            - UI: modules/schema-registry/ui.md
             - API:
-                - REST: modules/schema/api/rest.md
-                - CLI: modules/schema/api/cli.md
-            - Observability: modules/schema/observability.md
-            - Runbook: modules/schema/runbook.md
-            - Security: modules/schema/security.md
-            - UI: modules/schema/ui.md
+                - REST: modules/schema-registry/api/rest.md
+                - CLI: modules/schema-registry/api/cli.md
+            - Parked Scope: modules/schema-registry/schema-registry-parked-scope.md
 
         - Catalog:
             - Overview: modules/catalog/index.md
@@ -620,7 +634,7 @@ nav:
             - Runbook: modules/commercial-ops/runbook.md
             - Security: modules/commercial-ops/security.md
             - UI: modules/commercial-ops/ui.md
-            - Parked Scope: modules/commercial-ops/parked-scope.md
+            - Parked Scope: modules/commercial-ops/commercial-ops-parked-scope.md
 
     - Pipelines:
         - Index: pipelines/index.md

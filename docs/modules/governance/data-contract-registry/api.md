@@ -168,7 +168,7 @@ Response 200
   "layer": "gold",
   "version": 2,
   "schema_json": { "...": "..." },
-  "schema_registry_id": "srn:schema:12345",
+  "schema_registry_id": "srn:schema-registry:12345",
   "compatibility": "backward",
   "is_current": true,
   "created_at": "2025-03-05T12:00:00Z"

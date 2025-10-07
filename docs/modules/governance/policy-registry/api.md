@@ -213,7 +213,7 @@ Request
   "subject_ref": "kpi:finance:monthly_revenue:v2",
   "context": {
     "fields_present": ["period_start", "period_end", "currency"],
-    "actor": "svc-schema-checker@svc",
+    "actor": "svc-schema-registry-checker@svc",
     "requested_at": "2025-02-01T08:00:00Z"
   }
 }
@@ -254,7 +254,7 @@ Errors use HTTP status codes and a common body.
 ```json
 {
   "code": "invalid_request",
-  "message": "scope_type must be one of tenant, schema, workflow",
+  "message": "scope_type must be one of tenant, schema-registry, workflow",
   "details": {
     "field": "scope_type"
   },
