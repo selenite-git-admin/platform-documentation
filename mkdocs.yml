@@ -181,7 +181,7 @@ nav:
     - Modules:
         - Index: modules/index.md
 
-        - Host:
+        - Host (*removal pending):
             - Overview: modules/host/index.md
             - Platform Catalog:
                 - Index: modules/host/platform-catalog/index.md
@@ -199,6 +199,46 @@ nav:
                 - Observability: modules/host/tenant-management/observability.md
                 - Runbook: modules/host/tenant-management/runbook.md
                 - Security: modules/host/tenant-management/security.md
+
+        - Tenancy:
+            - Overview: modules/tenancy/tenancy-overview.md
+            - Architecture: modules/tenancy/tenancy-architecture.md
+            - Configuration: modules/tenancy/tenancy-configuration.md
+            - APIs: modules/tenancy/tenancy-apis.md
+            - Integration: modules/tenancy/tenancy-integration.md
+            - Tenant Life Cycle: modules/tenancy/tenancy-tenant-life-cycle.md
+            - Troubleshooting: modules/tenancy/tenancy-troubleshooting.md
+            - Examples: modules/tenancy/tenancy-examples.md
+            - Data Models:
+                - Tenancy DB Schema: modules/tenancy/data-models/tenancy-db-schema.md
+                - Sample Records: modules/tenancy/data-models/sample-records.md
+
+        - Commercial Operations:
+            - Overview: modules/commercial-ops/index.md
+            - Plan Pricing:
+                - Metric Definition: modules/commercial-ops/plan-pricing/metrics-definition.md
+                - AWS Cost Mapping: modules/commercial-ops/plan-pricing/aws-cost-mapping.md
+                - Plan Parameters: modules/commercial-ops/plan-pricing/plan-parameters.md
+                - Dashboard Design: modules/commercial-ops/plan-pricing/dashboard-design.md
+                - Top-up & Upgrade Policy: modules/commercial-ops/plan-pricing/topup-upgrade-policy.md
+                - Examples: modules/commercial-ops/plan-pricing/examples.md
+            - AWS Cost Integration:
+                - CUR Ingestion: modules/commercial-ops/aws-cost-integration/cur-ingestion.md
+                - Tag Strategy: modules/commercial-ops/aws-cost-integration/tag-strategy.md
+                - Tag Allocation: modules/commercial-ops/aws-cost-integration/tag-allocation-rules.md
+                - Budgets & Alerts: modules/commercial-ops/aws-cost-integration/budgets-alerts.md
+                - Reconciliation: modules/commercial-ops/aws-cost-integration/reconciliation.md
+                - Troubleshooting: modules/commercial-ops/aws-cost-integration/troubleshooting.md
+            - Cost Factors:
+                Data-Services: modules/commercial-ops/cost-factors/data-services.md
+                Compute-Networking: modules/commercial-ops/cost-factors/compute-networking.md
+            - Data Model: modules/commercial-ops/data-model.md
+            - API: modules/commercial-ops/api.md
+            - Observability: modules/commercial-ops/observability.md
+            - Runbook: modules/commercial-ops/runbook.md
+            - Security: modules/commercial-ops/security.md
+            - UI: modules/commercial-ops/ui.md
+            - Parked Scope: modules/commercial-ops/commercial-ops-parked-scope.md
 
         - Access:
             - Overview: modules/access/index.md
@@ -582,7 +622,7 @@ nav:
                 - Security: modules/delivery/dashboards/security.md
                 - UI: modules/delivery/dashboards/ui.md
 
-        - Action:
+        - Executive Actions:
             - Overview: modules/action/index.md
             - Action Catalog:
                 - Overview: modules/action/action-catalog/index.md
@@ -609,32 +649,16 @@ nav:
                 - Security: modules/action/action-delivery/security.md
                 - UI: modules/action/action-delivery/ui.md
 
-        - Commercial Ops:
-            - Overview: modules/commercial-ops/index.md
-            - Plan Pricing:
-                - Metric Definition: modules/commercial-ops/plan-pricing/metrics-definition.md
-                - AWS Cost Mapping: modules/commercial-ops/plan-pricing/aws-cost-mapping.md
-                - Plan Parameters: modules/commercial-ops/plan-pricing/plan-parameters.md
-                - Dashboard Design: modules/commercial-ops/plan-pricing/dashboard-design.md
-                - Top-up & Upgrade Policy: modules/commercial-ops/plan-pricing/topup-upgrade-policy.md
-                - Examples: modules/commercial-ops/plan-pricing/examples.md
-            - AWS Cost Integration:
-                - CUR Ingestion: modules/commercial-ops/aws-cost-integration/cur-ingestion.md
-                - Tag Strategy: modules/commercial-ops/aws-cost-integration/tag-strategy.md
-                - Tag Allocation: modules/commercial-ops/aws-cost-integration/tag-allocation-rules.md
-                - Budgets & Alerts: modules/commercial-ops/aws-cost-integration/budgets-alerts.md
-                - Reconciliation: modules/commercial-ops/aws-cost-integration/reconciliation.md
-                - Troubleshooting: modules/commercial-ops/aws-cost-integration/troubleshooting.md
-            - Cost Factors:
-                Data-Services: modules/commercial-ops/cost-factors/data-services.md
-                Compute-Networking: modules/commercial-ops/cost-factors/compute-networking.md
-            - Data Model: modules/commercial-ops/data-model.md
-            - API: modules/commercial-ops/api.md
-            - Observability: modules/commercial-ops/observability.md
-            - Runbook: modules/commercial-ops/runbook.md
-            - Security: modules/commercial-ops/security.md
-            - UI: modules/commercial-ops/ui.md
-            - Parked Scope: modules/commercial-ops/commercial-ops-parked-scope.md
+        - Anomaly Detection:
+            - Overview: modules/anomaly-detection/overview.md
+            - Architecture: modules/anomaly-detection/architecture.md
+            - Configuration: modules/anomaly-detection/configuration.md
+            - API: modules/anomaly-detection/api.md
+            - Data Model: modules/anomaly-detection/anomaly-db-schema.md
+            - Troubleshooting: modules/anomaly-detection/troubleshooting.md
+            - Examples: modules/anomaly-detection/examples.md
+
+        - Prediction System: []
 
     - Pipelines:
         - Index: pipelines/index.md
