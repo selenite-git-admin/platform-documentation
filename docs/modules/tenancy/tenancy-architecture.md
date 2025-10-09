@@ -1,233 +1,230 @@
+# Tenancy Module Architecture
 
-# Tenancy Module - Architecture
+## Position In The Platform
 
-Audience: Platform engineers, solution architects, SRE  
-Status: Refactor v1.0  
-Purpose: Describe the logical architecture of Tenancy and how it provides isolation, identity, and lifecycle across multi tenant and single tenant profiles. Security controls from the former Host Tenant Management are folded in here.
+The tenancy architecture sits in the control plane layer of the platform. It governs lifecycle management, resource mapping, and policy enforcement across all tenant contexts. It provides the single source of truth for tenant identity, isolation mode, region placement, and policy state.
 
----
+Tenancy integrates with the following major subsystems:
+- Governance for residency, encryption, and retention validation
+- Commercial Operations for subscription plan binding and quota limits
+- Access for identity binding and authentication domain setup
+- Runtime for environment provisioning and workload orchestration
+- Observability for metrics, logging, and incident traceability
 
-## 1. Position in the platform
+The design ensures that every lifecycle event in any of these modules can be traced back to a consistent tenant identity.
 
-Tenancy is the control plane for where workloads run, how data is isolated, and what policies apply. Every subsystem consumes a tenant scoped context that includes identifiers, policy, topology, quotas, and environment. The same context is used in both multi tenant and single tenant deployments.
+## Objectives
 
----
+The architecture aims to provide a deterministic and repeatable way to manage tenants at scale while maintaining isolation, auditability, and operational safety.
 
-## 2. Objectives
+Key objectives:
+- Support both shared and dedicated tenancy modes with identical lifecycle logic
+- Ensure strong policy enforcement before any mutating action
+- Maintain a uniform control model for provisioning, updates, and archival
+- Provide clear operational semantics through observability and predictable events
+- Guarantee recovery and replayability of tenant lifecycle actions
 
-- Isolation by design across storage, compute, network, and secrets  
-- Equal support for multi tenant and single tenant without branching code  
-- Declarative lifecycle through manifests and idempotent controllers  
-- Full auditability for every change and action  
-- Stable integration points for Access, Governance, Commercial Ops, Runtime, and Schema Registry
+## Deployment Profiles
 
----
+### Multi Tenant Profile
+Multi tenant mode uses shared infrastructure for multiple tenants while maintaining logical separation. Isolation is achieved using schema boundaries, tenant scoped credentials, and policy enforcement in the control and data planes. This model enables faster provisioning, lower cost, and centralized governance.
 
-## 3. Deployment profiles
+### Single Tenant Profile
+Single tenant mode provisions dedicated resources for a specific customer. It isolates compute, storage, and network at the physical or virtual level. This mode is used for customers with strict compliance or performance requirements. It provides maximal control at the expense of cost and provisioning time.
 
-### 3.1 Multi tenant
-Use when you need fast onboarding and efficient cost. Isolation is logical using schemas, namespaces, IAM, and per tenant encryption contexts. Noise is controlled with quotas, rate limits, and separate workload queues.
+The same manifest schema, tenant identifier format, and API surface are used in both modes.
 
-### 3.2 Single tenant
-Use when you require strict isolation or regional placement by policy. Isolation is physical or logical at VPC, database, object store, and runtime worker pools. Change windows and upgrades can be tenant specific.
+## Logical Components
 
-Tenant context is identical in both profiles. The isolation strategy and resource mapping differ.
+The architecture is composed of the following primary components. Each runs independently and communicates through well defined APIs and event streams.
 
----
+### Tenant Registry
+A persistent and authoritative store for all tenant identities, metadata, and configuration parameters. It maintains versioned records of tenant state transitions and provides APIs for search, retrieval, and audit. The registry enforces immutability of tenant IDs and keeps lineage for all changes.
 
-## 4. Logical components
+### Tenant Controller
+A stateless control loop responsible for reconciling desired tenant state against runtime reality. It runs continuously, consumes events from queues, and performs create, update, suspend, resume, or archive operations as needed.  
+Controllers are horizontally scalable, idempotent, and resilient to transient failures. Every operation is retried with exponential backoff and correlated through request IDs and manifest versions. The control loop ensures that eventual consistency is achieved even during failures or restarts.
 
-- Tenant Registry. Source of truth for identity, metadata, policy, and state  
-- Tenant Controller. Reconciles desired state from manifests into resources  
-- Isolation Strategy. Pluggable layer that maps tenant context to resources  
-- Resource Mappers. Storage, compute, secrets, and network mappers  
-- Lifecycle Orchestrator. Workflows for provision, suspend, archive, delete  
-- Event bus and webhooks. Publish lifecycle and policy events to consumers
+### Isolation Strategy Layer
+Defines how each tenant’s resources are separated within the infrastructure. It determines schema-per-tenant for multi tenant models or full stack separation for single tenant deployments. This layer emits placement and residency metadata to the provisioning and governance systems. It ensures that every tenant resource can be traced to its isolation boundary.
 
-```mermaid
-graph TD
-  REG[Tenant Registry] --> CTRL[Tenant Controller]
-  CTRL --> ISO[Isolation Strategy]
-  ISO --> SM[Storage Mapper]
-  ISO --> CM[Compute Mapper]
-  ISO --> SE[Secrets Mapper]
-  CTRL --> LC[Lifecycle Orchestrator]
-  LC --> PJ[Provisioning Jobs]
-  LC --> SP[Suspend or Resume]
-  LC --> AR[Archive or Delete]
-  ACC[Access] --> REG
-  GOV[Governance] --> REG
-  RNT[Runtime] --> REG
-  COP[Commercial Ops] --> REG
-```
-Explanation  
-The registry stores immutable identifiers and mutable attributes. The controller reads manifest input and reconciles it using the selected isolation strategy. The orchestrator executes workflows and pushes progress to a job resource.
+### Lifecycle Orchestrator
+Coordinates complex workflows that span multiple modules such as activation, suspension, migration, and archival. It sequences API calls, validates policy gates, and monitors step completion.  
+The orchestrator publishes detailed progress events, handles retries with backoff, and guarantees that workflows are idempotent. If any sub step fails, the orchestrator records the state and resumes from the last successful checkpoint during retries.
 
----
+### Policy And Audit Hooks
+Provide enforcement and observability across all actions. Policy hooks evaluate compliance rules before operations proceed. Audit hooks log every successful or failed transition with correlation metadata.  
+An operation that cannot be audited is treated as a failed operation. Audit trails are immutable and feed downstream analytics for compliance reporting.
 
-## 5. Isolation strategy
+## Control Plane Execution Model
 
-Interface with two first class implementations.
+The control plane uses declarative manifests to define desired state for every tenant. Controllers and orchestrators continuously reconcile this state with the actual environment.
 
-- Strategy MT  
-  - Database. Schema or database per tenant with strict roles  
-  - Object store. Per tenant prefixes with per tenant encryption keys  
-  - Runtime. Per tenant queues or namespaces with limits
+Execution flow:
+1. A tenant manifest is submitted through the API.
+2. Validation ensures policy, plan, and region constraints are satisfied.
+3. The manifest is written to the registry with a version identifier.
+4. Controllers detect the version change and enqueue a reconcile task.
+5. The reconcile worker processes the task, applies resource mutations, and emits events.
+6. Observability and audit systems record results and latency metrics.
 
-- Strategy ST  
-  - Database. Dedicated database or cluster per tenant with network separation  
-  - Object store. Bucket per tenant with policy scoped keys  
-  - Runtime. Dedicated worker pools with independent autoscaling
+The control plane is event driven and uses distributed work queues. Every task includes correlation identifiers and retry policies.  
+Workers run idempotent handlers, so reprocessing the same task does not cause duplication. Backoff intervals are used to avoid congestion, and queue depth is monitored to maintain steady state throughput.
 
-Selector  
-A profile on the tenant decides the strategy. Profiles include mt standard, st dedicated, and st byoc.
+## Eventing And Webhooks
 
----
+All major lifecycle changes generate structured events that are published to the internal event bus and optionally to external subscribers through webhooks.
 
-## 6. Resource mapping examples
+**Event Types:** created, activated, suspended, resumed, archived, deleted, plan updated, region migrated.  
+**Delivery Guarantees:** at least once delivery with sequence numbers and replay support.  
+**Payloads:** signed JSON structures that include tenant ID, correlation ID, previous state, new state, and timestamp.  
+**Failure Handling:** webhook retries follow exponential backoff with jitter. After maximum attempts, undelivered messages are placed in a dead letter stream for operator review and requeue.
 
-| Resource | Multi tenant | Single tenant |
-|---|---|---|
-| Database | warehouse.shared with schema t_{id} | warehouse_{id} |
-| Object store | data.shared with prefix tenants/{id} | data-{id} |
-| Runtime | queue jobs with partition key {id} | queue jobs-{id} |
-| Secrets | secrets/{id}/* with unique keys | secrets/{id}/* with dedicated KMS and policy |
-| Network | shared VPC and per environment NSG | VPC per tenant and environment |
+Operators can monitor delivery metrics, view webhook failure counts, and requeue messages manually or through automation.  
+Every webhook invocation is logged with latency, status code, and retry count to support audit and incident review.
 
----
+## Placement And Residency
 
-## 7. Security posture
+Placement decisions determine the physical or logical region where tenant resources are deployed. Residency rules enforce compliance with data locality requirements.
 
-The security section from Host Tenant Management is now authoritative here.
+**Inputs:** tenant manifest, allowed regions list, preferred region, plan code, and residency policy.  
+**Decision Process:** a placement resolver selects a valid region and isolation mode.  
+**Outputs:** placement metadata stored in the registry and emitted to provisioning pipelines.  
+Out of policy requests are rejected early with clear error responses. Policy evaluation is mandatory and consistent across all modules.
 
-Ownership boundaries  
-- Tenancy stores tenant identity and metadata only  
-- Application data and secrets belong to other modules
+Region migration follows a controlled workflow managed by the Lifecycle Orchestrator. The process validates residency, provisions target resources, copies configuration and data, verifies cutover, and retires old resources.
 
-Data classification and retention  
-- Contact information and external identifiers are sensitive  
-- Audit entries are append only and retained per policy
+## Quotas And Rate Limits
 
-Protection controls  
-- TLS for all API calls and private endpoints for data planes  
-- Encryption at rest for all persistence layers  
-- Per tenant encryption contexts for storage and object keys  
-- Least privilege IAM with resource level constraints  
-- Rate limits on authoring routes and quotas per tenant
+Quota and rate limit enforcement occur at the control plane and API gateway levels.
 
-Auditability  
-- Every write produces an audit record with actor, action, target, correlation id, and timestamp  
-- Events are signed and delivered to Governance and to configured webhooks
+**Quota Enforcement:**  
+Each tenant has quotas derived from their plan code and modified by active policies. Quotas cover compute units, storage, events, and concurrent operations. Controllers check quotas before provisioning or scale up actions. Quota violations generate clear error messages and are logged for governance reporting.
 
-Incident hooks  
-- Correlate incidents using correlation id across services  
-- Use Runbook and Troubleshooting for procedures and mitigations
+**Rate Limiting:**  
+API endpoints apply rate limits per tenant and per method. Exceeding rate limits returns HTTP 429 with recommended retry headers. Administrative overrides can be configured temporarily for recovery operations but must be audited.
 
----
+Quota and rate limit data are stored in the registry and versioned to allow historical comparison and billing alignment.
 
-## 8. Lifecycle integration
+## Migration And Failover
 
-Lifecycle is defined in Tenant Life Cycle and is not repeated here. When a transition occurs, the controller validates policies with Governance, applies resource changes through the selected strategy, and emits events and job progress updates.
+Migration workflows support movement between tenancy modes or regions. The architecture defines standardized paths for each type of migration.
 
----
+**Multi Tenant To Single Tenant Migration:**  
+- Validation of current resource usage and plan eligibility  
+- Creation of dedicated infrastructure stack for the tenant  
+- Controlled data migration with dual write window if required  
+- Verification and cutover with rollback capability  
+- Audit of all steps with timestamps and actor identity  
 
-## 9. Configuration surfaces
+**Region Failover:**  
+- Definition of standby region and replication strategy  
+- Validation of data synchronization and readiness  
+- Execution of failover runbook when the primary region is degraded  
+- Verification and post failover consistency checks  
+- Update of placement metadata and notification of dependent systems  
 
-- Tenant manifest for desired state and profile selection  
-- Controller configuration for reconciliation intervals, retries, and concurrency  
-- Policy registry for residency, encryption, retention, and plan checks
+The orchestrator handles these workflows with checkpointing and rollback safety. All steps emit audit and metric events.
 
-See Configuration for schemas and examples.
+## Observability And SLOs
 
----
+Observability ensures operational visibility across controllers, orchestrators, and APIs. All actions emit structured logs and metrics tagged with tenant and region identifiers.
 
-## 10. Cross module contracts
+**Metrics:**  
+- Reconcile duration and success rate  
+- Queue depth and processing throughput  
+- Webhook delivery latency and failure counts  
+- Policy evaluation latency and decision distribution  
+- Controller error frequency by category  
 
-- Access. Resolve role bindings and validate tenant scope before issuing tokens  
-- Commercial Ops. Receive usage reports and enforce plan limits during operations  
-- Governance. Receive lifecycle and policy events and return enforcement results  
-- Runtime. Request topology and execution limits per tenant and environment  
-- Schema Registry. Apply migration sets per tenant and environment
+**Alerts:**  
+- Repeated reconcile failures for a tenant  
+- Event backlog above threshold  
+- Policy service unavailability  
+- Webhook delivery rate below SLO  
 
----
+**Dashboards:**  
+Visualizations show per region, per tenant, and per controller performance. Dashboards link directly to runbook procedures.  
+Alerts include runbook references to guide incident response. SLOs define acceptable thresholds for latency and reliability.
 
-## 11. Invariants
+## Audit Model
 
-- Tenant identifiers and metadata model remain the same across profiles  
-- API and event schema remain stable across releases  
-- Audit and observability hooks are mandatory for every change
+The audit layer records every meaningful change and operational event. Each audit record includes tenant ID, actor, action, target resource, previous state, new state, request ID, and correlation ID.  
+Audit logs are immutable and stored in a write optimized repository. They are indexed for search and exported periodically to compliance systems.
 
----
+Audit integrity is guaranteed by digital signing and write acknowledgment. Any operation that fails to record an audit entry is automatically rolled back or retried until successful.  
+Audit data supports incident reconstruction, compliance validation, and usage analysis.
 
-Summary  
-Tenancy provides a single tenant contract across multi tenant and single tenant deployments. Isolation is selected by strategy under a common control plane. Security and audit controls are built in and are the source of truth for downstream modules.
+## Resource Mapping Examples
 
+| Tenant Type | Isolation Strategy | Example Mapping |
+|--------------|--------------------|-----------------|
+| Multi Tenant | Schema per tenant | database: shared, schema: tenant_id |
+| Single Tenant | Dedicated database | database: tenant_id, schema: public |
+| Hybrid | Shared control plane, isolated data plane | control DB shared, data DB isolated |
 
----
+Mapping examples must be used only as guidance. Production deployment uses manifests and policies to define actual topology.
 
-## Design and Security Notes Restored
+## Security Posture
 
-- # Tenancy Module — Architecture > **Audience:** Platform engineers, solution architects, SRE > **Status:** Draft v0.1 (self-contained deep brief) > **Summary:** This document defines the architecture of the Tenancy module and describes how the platform delivers both **multi-tenant (shared)** and **single-tenant (dedicated)** deployment profiles without fragmenting the codebase or operational model.
-- Why Tenancy is the Control Plane Tenancy is not an access convenience; it is the *control plane* that determines where and how workloads execute, how data is isolated, which configurations apply, and how lifecycle events are governed.
-- Without a formal tenancy model, isolation drifts into ad‑hoc tables, prefixes, and IAM hacks that do not scale across customers or environments.
-- This module provides one **canonical contract** that every subsystem consumes: *a tenant-scoped context* (IDs, policy, topology, quotas).
-- All provisioning, orchestration, schema changes, metric collection, and billing flows are **tenant-aware by default**.
-- Design Objectives - **Isolation by design.** Enforce hard boundaries for data, compute, and configuration.
-- - **Dual deployment profiles.** Support **Multi‑Tenant (MT)** and **Single‑Tenant (ST)** **without duplicating code**.
-- - **Declarative lifecycle.** Tenants are created/changed through manifests and idempotent controllers.
-- - **Auditability.** Every tenant mutation emits a governance event with immutable IDs.
-- - **Composability.** Downstream modules (Access, Governance, Schema, Runtime, Commercial‑Ops) consume the same tenant context API.
-- Deployment Profiles (Two Options, One Model) We offer two deployment profiles.
-- They share the **same logical model** and **API surface**.
-- The difference is the **isolation strategy layer** and **resource mapping**.
-- ### 3.1 Multi‑Tenant (MT, shared infra) - **Use case.** Fast onboarding, cost efficiency for SMB/MSE, burstable workloads.
-- - **Isolation.** Logical isolation via namespace/schema per tenant; strict IAM policies; per‑tenant encryption contexts and secrets.
-- - **Blast radius.** Strictly limited through per‑tenant quotas, rate limits, and workload queues.
-- - **Trade‑offs.** Lower cost, higher density; requires stronger guardrails to avoid noisy neighbors.
-- ### 3.2 Single‑Tenant (ST, dedicated infra) - **Use case.** Regulated industries, strict data residency, bespoke SLAs, bring‑your‑own‑cloud.
-- - **Isolation.** Physical/logical separation at VPC, database, and object store; dedicated runtime workers.
-- - **Blast radius.** Tenant failures are fully contained; change windows can be negotiated independently.
-- - **Trade‑offs.** Higher cost; more infra to manage; slower fleet‑wide updates.
-- > **Principle:** The **Tenant Context** (ID, policy, topology) is identical in both profiles.
-- Only the **Isolation Strategy** and **Resource Mapping** differ.
-- Logical Architecture **Explanation.** The **Tenant Registry** is the source of truth (immutable IDs, metadata, policy).
-- The **Tenant Controller** reconciles desired state from manifests into actual resources via the **Isolation Strategy** and **Mappers** (storage/compute/secrets).
-- The **Lifecycle Orchestrator** executes workflows (provision, suspend, archive).
-- Isolation Strategy (Pluggable Layer) The isolation layer is a **strategy interface** with two built‑in implementations.
-- Additional strategies can be added without changing callers.
-- - `IsolationStrategyMT` (shared): - DB: per‑tenant schema or database; strict roles; row‑level policies optional but discouraged.
-- - Object store: `s3://bucket/tenants/{tenant_id}/...` with per‑tenant KMS keys.
-- - Runtime: per‑tenant queues or namespaces; concurrency and rate limits per tenant.
-- - `IsolationStrategyST` (dedicated): - DB: dedicated cluster or database per tenant; network‑level separation (VPC/VNet).
-- - Object store: dedicated bucket/prefix with tenant‑scoped KMS keys and bucket policies.
-- - Runtime: dedicated worker pool; isolated autoscaling.
-- **Selector.** The strategy is chosen by policy on the **Tenant Profile** (e.g., `profile: mt-standard | st-dedicated | st-byoc`).
-- Resource Mapping (Examples) | Resource | MT (shared) | ST (dedicated) | |---|---|---| | Database | `warehouse.shared` → schema `t_{id}` | `warehouse_{id}` (cluster/db per tenant) | | Object Store | Bucket `data.shared` → prefix `/tenants/{id}` | Bucket `data-{id}` | | Runtime | Queue `jobs` → partition key `{id}` | Queue `jobs-{id}` | | Secrets | `secrets/{id}/*` | `secrets/{id}/*` (but isolated KMS + access path) | | Network | Shared VPC; NSG per env | VPC per tenant/env | --- ## 7.
-- Tenant Lifecycle (Event-Driven) **State changes** are idempotent; retries are safe.
-- *Suspend* freezes runtime and access; *Archive* moves data to cold storage; *Delete* enforces retention policies.
-- Data & Compute Isolation Rules - **No cross‑tenant joins** in MT; service boundaries prevent accidental leakage.
-- - **Per‑tenant encryption contexts** (KMS keys and audit trails) regardless of profile.
-- - **Access module** resolves identities to `(tenant_id, env)` before issuing tokens.
-- - **All APIs require tenant scope**; server‑side validates against the registry.
-- - **Observability tags** always include `{tenant_id, env, region}` for filtering and cost allocation.
-- Configuration Surfaces - **Manifest (declarative):** - **Controller flags (operational):** enable/disable strategies, default quotas, safety limits.
-- - **Policy registry:** links compliance obligations (retention, residency) to tenants.
-- Cross‑Module Contracts - **Access:** role bindings are tenant‑scoped; admin roles may span envs, not tenants.
-- - **Schema‑Registry:** migration sets are referenced as `(tenant_id, env, app_version)`.
-- - **Runtime/Orchestrator:** queue names or partitions are derived from `(tenant_id, env)`.
-- - **Commercial‑Ops:** usage meters emit `{tenant_id, resource, amount, ts}`.
-- - **Governance:** all controller actions emit `TENANCY_*` events with immutable IDs.
-- Scaling & Failure Domains - **MT:** scale via sharding (by tenant hash) and horizontal autoscaling of workers; noisy neighbors mitigated with per‑tenant quotas and back‑pressure.
-- - **ST:** scale by adding dedicated nodes/workers; change windows and upgrades can be tenant‑specific.
-- - **Controller resilience:** reconciliation loops are idempotent; partial failures requeue with exponential backoff.
-- Security Posture - **Least privilege IAM** with resource‑level constraints.
-- - **Per‑tenant secrets** with rotation policies and break‑glass procedures.
-- - **Network isolation**: private endpoints; no public data planes.
-- - **Audit completeness**: every create/update/delete produces signed governance records.
-- Trade‑Offs and Decision Guide - Choose **MT** when cost efficiency and fast provisioning dominate and compliance allows shared substrates.
-- - Choose **ST** when residency, isolation, or bespoke SLAs are non‑negotiable.
-- - Migration path exists: **MT→ST** by replaying the tenant manifest with an ST profile; data is rehydrated into dedicated resources with a cutover window.
-- What Stays Invariant (Regardless of Option) - Tenant IDs and metadata model.
-- - Governance, billing, and observability integration points.
-- - Declarative lifecycle via manifests and reconciliation.
-- --- **Outcome:** By treating isolation as a pluggable strategy underneath a single tenant contract, the platform can support both Multi‑Tenant and Single‑Tenant customers without duplicating services or fragmenting developer workflows.
+The architecture inherits and enforces all platform security baselines.
+
+**Identity and Access:**  
+Controllers, orchestrators, and API layers use scoped roles. Credentials are rotated automatically and scoped per environment. Break glass roles require governance approval and are time limited.
+
+**Encryption:**  
+All data at rest and in transit is encrypted using platform managed keys. Each tenant may have unique encryption materials depending on isolation level.
+
+**Secrets Management:**  
+Secrets are stored in a secure store with access control enforced by service identity. No secret is stored in manifests or logs.  
+Decryption is handled at runtime with short lived tokens.
+
+**Audit and Compliance:**  
+All access to tenant data or configuration is logged. Policy checks are mandatory before any data retrieval or modification. Compliance reports are generated from audit logs without manual intervention.
+
+## Lifecycle Integration
+
+Tenancy controllers integrate tightly with Governance and Commercial Operations modules to maintain consistent lifecycle semantics.  
+Governance validates each state transition against residency, encryption, and retention policies.  
+Commercial Operations binds plan codes, adjusts quotas, and emits billing events when lifecycle changes occur.
+
+The lifecycle sequence follows the canonical states: Draft, Active, Suspended, Archived, Deleted. Each state transition is recorded and validated.
+
+## Configuration Surfaces
+
+The architecture exposes configuration through:
+- Declarative YAML manifests for tenant definition and updates
+- Management APIs for runtime control
+- Operator CLI for diagnostics and maintenance
+- Observability dashboards for metrics and logs
+- Event streams and webhooks for integrations
+
+Manifests are the source of truth. Runtime configuration is read only. Any manual drift is corrected automatically by controllers.
+
+## Cross Module Contracts
+
+The following contracts are stable and versioned:
+- Tenant manifest schema  
+- Event payload definitions  
+- API endpoints and response structures  
+- Audit record format  
+- Policy evaluation request and response model  
+- Webhook payload structure  
+
+Versioning ensures backward compatibility and safe upgrades. All breaking changes follow a deprecation process with communication to dependent teams.
+
+## Invariants
+
+- Tenant identity is immutable  
+- Every lifecycle transition is auditable  
+- Policy enforcement precedes mutation  
+- Controllers are idempotent  
+- All operations are recoverable through replay  
+- No state change bypasses the control plane  
+- Observability data must be emitted for every reconcile run  
+
+## Design And Security Notes Restored
+
+The architecture has been reviewed for fault tolerance, policy isolation, and operational scalability. The design supports linear growth in tenants and ensures that adding new controllers or orchestrators does not affect existing tenants. The system design favors strong consistency of control data and eventual consistency of runtime resources.  
+
+Tenancy remains the anchor for all platform-level guarantees around identity, policy, and isolation. Future versions may introduce controller sharding, event partitioning, and predictive scaling but the core principles of declarative intent, auditability, and safety will remain unchanged.

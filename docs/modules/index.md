@@ -33,7 +33,7 @@ Administrative surface for the platform. Hosts tenants, catalogs, and operationa
 - Platform Catalog exposes pipeline, contract, and dataset metadata for operators and auditors.
 
 **Start here**
-- [Host Overview](host/index.md) · [Platform Catalog](host/platform-catalog/index.md) · [Tenant Management](host/tenant-management/index.md)
+- [Host Overview](host/index.md) · [Platform Catalog](master/index.md) · [Tenant Management](host/tenant-management/index.md)
 
 ---
 
@@ -169,7 +169,7 @@ Shared reference data and helpers that pipelines depend on.
 - **Calendar Service** standardizes fiscal calendars, holidays, and working days for backfills and KPI windows.
 
 **Start here**
-- [Utilities Overview](utilities/index.md) · [Calendar Service](utilities/calendar-service/index.md)
+- [Utilities Overview](utilities/index.md) · [Calendar Service](calendar-service/index.md)
 
 ---
 

@@ -1,518 +1,398 @@
+# Tenancy Module APIs
 
-# Tenancy Module - APIs
+**Audience:** Backend engineers, integration developers, platform SREs  
+**Status:** Working draft  
+**Purpose:** Provide a complete, self contained specification of the Tenancy HTTP APIs. This document defines resource models, endpoints, required headers, idempotency, versioning, pagination, search, lifecycle operations, residency and plan surfaces, webhook contracts, rate limits, and error semantics. Content merges the Tenancy baseline with the Tenant Management API conventions so integrators can build once and operate safely at scale.
 
-Audience: Platform engineers, service owners, integration developers  
-Status: Draft v0.1  
-Scope: REST endpoints, payload schemas, headers, versioning, idempotency, pagination, error model, webhooks, and event contracts. Includes internal and integration-facing APIs.
+## Principles
 
----
+**Consistency first:** The same resource model and error semantics are used across read and write APIs.  
+**Predictable behavior:** Every mutating call is idempotent. Every response is cache aware.  
+**Security by default:** Authentication and authorization are required for all endpoints. Least privilege roles are enforced.  
+**Observability built in:** Correlation identifiers and audit fields are present in every response.  
+**Backwards compatibility:** Versioning rules ensure non breaking evolution.
 
-## 1. Principles
+## Base Path And Media Types
 
-- Tenant context is explicit and required for all data plane calls.  
-- All write operations are idempotent using a client supplied request identifier.  
-- Versioning is path based and additive.  
-- Responses are consistent across services. Errors use a common problem format.  
-- Webhooks and event streams provide near real time notifications for lifecycle and policy changes.
+**Base path:** `/tenant-management/v1`  
+**Media types:** `application/json` for requests and responses.  
+**Character encoding:** UTF-8.  
+**Time format:** RFC 3339 with timezone designator.
 
----
+## Common Headers
 
-## 2. Common Headers
+**Request headers**
+- `Authorization: Bearer <token>`
+- `Idempotency-Key: <uuid>` for POST and state changing PUT operations
+- `If-None-Match: <etag>` for conditional reads
+- `X-Request-Id: <uuid>` for client side correlation
 
-```
-X-Tenant-Id: t_7f3c2a
-X-Env: prod          # dev | stage | prod
-X-Request-Id: 3b1a2d...   # client generated UUID for idempotency
-X-Client-Version: 1.12.0  # optional
-Authorization: Bearer <access_token>
-Content-Type: application/json
-```
+**Response headers**
+- `ETag: <hash>` for caching
+- `X-Request-Id: <uuid>` echoed back for tracing
+- `X-Correlation-Id: <uuid>` for cross service tracing
+- `Retry-After: <seconds>` on 429 responses
 
-Notes  
-- X-Tenant-Id and X-Env are required for tenant scoped calls.  
-- Authorization tokens are issued by Access module and validated centrally.  
-- X-Request-Id is required for POST, PUT, PATCH, DELETE.
+## Versioning
 
----
+**URI versioning** is used through the base path. Minor, non breaking changes are additive. Removing or changing fields in incompatible ways requires a new version. Version deprecation follows a communicated schedule and dual run period.
 
-## 3. Versioning
+## Authentication And Authorization
 
-- Base path format: `/api/tenancy/v1/...`  
-- Backward compatible fields may be added without a new version.  
-- Breaking changes require a new version. Old versions are supported until end of life.
+**Auth model:** OAuth 2.0 bearer tokens issued by the Access module.  
+**Scopes:** read tenancy, write tenancy, manage webhooks, admin override.  
+**Least privilege:** tokens are scoped to tenant or environment where possible. Mutating endpoints require write tenancy or admin override scope.
 
----
+## Resource Model
 
-## 4. Resource Model
-
-- Organization  
-- Tenant  
-- Environment  
-- Workspace (optional)  
-- Policy binding references
-
-Identifiers are opaque strings. Clients must not infer meaning from identifier formats.
-
----
-
-## 5. Registry APIs
-
-### 5.1 Create Tenant
-
-```
-POST /api/tenancy/v1/tenants
-Headers: X-Request-Id, Authorization
-Body:
+**Tenant resource**
+```json
 {
-  "tenantId": "t_7f3c2a",
-  "organizationId": "org_acme",
-  "profile": "mt-standard",
-  "environments": ["dev", "stage", "prod"],
-  "quotas": { "storageGiB": 500, "concurrentJobs": 10 },
-  "policies": { "dataResidency": "in-region-only", "encryption": "kms-per-tenant" },
-  "billing": { "plan": "professional", "costCenter": "fin-ops" },
-  "network": { "region": "ap-south-1", "privateEndpoint": true },
-  "tags": { "owner": "team-analytics", "priority": "high" }
+  "tenantId": "t_123456",
+  "displayName": "Example Corp",
+  "state": "Active",
+  "profile": "singleTenant",
+  "planCode": "ENTERPRISE_PLUS",
+  "residency": {
+    "allowedRegions": ["ap-south-1","eu-central-1"],
+    "preferredRegion": "ap-south-1",
+    "dataSovereigntyRequired": true
+  },
+  "isolation": {
+    "strategy": "dedicatedDatabase",
+    "networkMode": "dedicatedVpc"
+  },
+  "quotas": {
+    "storageGb": 5000,
+    "eventsPerMinute": 3000,
+    "connections": 200
+  },
+  "contacts": {
+    "technical": "tech.ops@example.com",
+    "billing": "ar@example.com",
+    "incident": "oncall@example.com"
+  },
+  "externalIds": {
+    "billing": "BILL-00988",
+    "crm": "SFDC-ACCT-44A"
+  },
+  "tags": ["enterprise","finance"],
+  "createdAt": "2025-10-08T10:00:00Z",
+  "updatedAt": "2025-10-08T10:05:00Z",
+  "etag": "W/"c5598-abc""
+}
+```
+
+## Pagination And Search
+
+**Query parameters**
+- `page` default 1
+- `pageSize` default 50, maximum 500
+- `q` prefix search on display name and tags
+- `filter` state equals Active, planCode equals ENTERPRISE_PLUS, region equals ap-south-1
+
+**Response envelope**
+```json
+{
+  "items": [ /* array of resources */ ],
+  "page": 1,
+  "pageSize": 50,
+  "total": 1240
+}
+```
+
+## Registry APIs
+
+### Create Tenant
+`POST /tenant-management/v1/tenants`
+
+Request uses `Idempotency-Key`. A repeated POST with the same key must be treated as the same operation.
+
+```json
+{
+  "displayName": "Example Corp",
+  "profile": "singleTenant",
+  "planCode": "ENTERPRISE_PLUS",
+  "residency": {
+    "allowedRegions": ["ap-south-1"],
+    "preferredRegion": "ap-south-1"
+  },
+  "isolation": {
+    "strategy": "dedicatedDatabase",
+    "networkMode": "dedicatedVpc"
+  },
+  "contacts": {
+    "technical": "tech.ops@example.com",
+    "billing": "ar@example.com",
+    "incident": "oncall@example.com"
+  },
+  "externalIds": {
+    "billing": "BILL-00988",
+    "crm": "SFDC-ACCT-44A"
+  },
+  "tags": ["enterprise"]
 }
 ```
 
 Response 201
-```
+```json
 {
-  "id": "t_7f3c2a",
+  "tenantId": "t_123456",
   "state": "Draft",
-  "createdAt": "2025-10-08T16:30:00Z",
-  "links": {
-    "self": "/api/tenancy/v1/tenants/t_7f3c2a"
+  "etag": "W/"a1b2c3""
+}
+```
+
+### Get Tenant
+`GET /tenant-management/v1/tenants/{tenantId}`
+
+Supports `If-None-Match`. Returns 304 when unchanged.
+
+### List Tenants
+`GET /tenant-management/v1/tenants`
+
+Supports pagination, filtering, and prefix search. Returns a response envelope.
+
+### Update Tenant
+`PUT /tenant-management/v1/tenants/{tenantId}`
+
+Requires `Idempotency-Key`. Entire resource is replaced except for immutable fields. Returns new `etag`.
+
+### Patch Tenant
+`PATCH /tenant-management/v1/tenants/{tenantId}`
+
+Supports JSON Merge Patch for selective field updates. Immutable fields cannot be changed.
+
+### Delete Tenant
+`DELETE /tenant-management/v1/tenants/{tenantId}`
+
+Deletion is allowed for test tenants or when policy permits. Requires admin scope and audit.
+
+## Lifecycle APIs
+
+### Activate
+`POST /tenant-management/v1/tenants/{tenantId}:activate`
+
+Transitions from Draft to Active. Policy checks validate residency, quotas, and plan eligibility. Orchestrator begins provisioning and returns a job reference when asynchronous.
+
+Response 202
+```json
+{"jobId":"job_7002","state":"running"}
+```
+
+### Suspend
+`POST /tenant-management/v1/tenants/{tenantId}:suspend`
+
+Requires justification in the request body for audit. Access is restricted according to policy.
+
+### Resume
+`POST /tenant-management/v1/tenants/{tenantId}:resume`
+
+Resumes from Suspended to Active after validation passes.
+
+### Archive
+`POST /tenant-management/v1/tenants/{tenantId}:archive`
+
+Moves tenant to Archived. Retention policy applies to data handling.
+
+## Residency And Regions APIs
+
+### Get Regions
+`GET /tenant-management/v1/tenants/{tenantId}/regions`
+
+Returns allowed and preferred regions. Useful for UI prompts and validations.
+
+### Put Regions
+`PUT /tenant-management/v1/tenants/{tenantId}/regions`
+
+Updates allowed and preferred regions. Policy service validates residency before persisting.
+
+### Get Residency
+`GET /tenant-management/v1/tenants/{tenantId}/residency`
+
+Returns resolved residency status and flags such as data sovereignty required.
+
+### Put Residency
+`PUT /tenant-management/v1/tenants/{tenantId}/residency`
+
+Updates residency policy references for the tenant.
+
+## Plan And Quotas APIs
+
+### Get Plan
+`GET /tenant-management/v1/tenants/{tenantId}/plan`
+
+Returns current plan code and derived features.
+
+### Put Plan
+`PUT /tenant-management/v1/tenants/{tenantId}/plan`
+
+Updates plan code. Quotas and features are recalculated and stored. Returns change summary for audit.
+
+### Get Quotas
+`GET /tenant-management/v1/tenants/{tenantId}/quotas`
+
+Returns effective quotas including policy overrides.
+
+### Put Quotas
+`PUT /tenant-management/v1/tenants/{tenantId}/quotas`
+
+Administrative override with ttl and reason required. Writes an audit entry.
+
+## Contacts, External Ids, And Tags APIs
+
+### Get Contacts
+`GET /tenant-management/v1/tenants/{tenantId}/contacts`
+
+### Put Contacts
+`PUT /tenant-management/v1/tenants/{tenantId}/contacts`
+
+### Get External Ids
+`GET /tenant-management/v1/tenants/{tenantId}/external-ids`
+
+### Put External Ids
+`PUT /tenant-management/v1/tenants/{tenantId}/external-ids`
+
+### Get Tags
+`GET /tenant-management/v1/tenants/{tenantId}/tags`
+
+### Put Tags
+`PUT /tenant-management/v1/tenants/{tenantId}/tags`
+
+Tags follow the platform taxonomy. Validation provides actionable error messages for unknown tags.
+
+## Search APIs
+
+`GET /tenant-management/v1/tenants:search?q=<query>&filter=<expr>&page=1&pageSize=50`
+
+Filter examples
+- `state eq Active`
+- `planCode eq ENTERPRISE_PLUS`
+- `region eq ap-south-1`
+
+Search supports prefix queries on display name and tags. Complex queries must be served by the registry’s indexes configured in the data model.
+
+## Webhook Management APIs
+
+### List Webhooks
+`GET /tenant-management/v1/tenants/{tenantId}/webhooks`
+
+### Create Webhook
+`POST /tenant-management/v1/tenants/{tenantId}/webhooks`
+
+Body
+```json
+{
+  "name":"billing-sync",
+  "url":"https://billing.example.com/hooks/tenancy",
+  "events":["TENANCY_ACTIVATED","TENANCY_SUSPENDED"],
+  "signingKeyRef":"secret://tenancy/webhooks/signing",
+  "retry":{"maxRetries":12,"backoffSeconds":30,"jitter":true}
+}
+```
+
+### Delete Webhook
+`DELETE /tenant-management/v1/tenants/{tenantId}/webhooks/{webhookId}`
+
+### Requeue Dead Letters
+`POST /tenant-management/v1/tenants/{tenantId}/webhooks:requeue`
+
+Body
+```json
+{"sequenceFrom":1800,"sequenceTo":1900}
+```
+
+## Idempotency And Caching
+
+**Idempotency**
+- Provide `Idempotency-Key` on POST and state changing PUT. The server stores request hash and result for a dedupe window. Replays return the original response and status.
+- Lifecycle transitions implement idempotent handlers so repeated calls do not create duplicate operations.
+
+**Caching**
+- `ETag` is returned on all GET responses. Clients use `If-None-Match` to avoid transfer when unchanged.
+- Cache control headers may be set to limit staleness for directory style endpoints.
+
+## Rate Limits
+
+**Global limits**
+- Read per tenant per minute and write per tenant per minute are enforced by the API gateway.
+- Burst multiplier allows short spikes with token bucket semantics.
+
+**Error signaling**
+- 429 is returned when limits are exceeded. `Retry-After` communicates backoff guidance. Clients must implement exponential backoff.
+
+## Error Model
+
+**Structure**
+```json
+{
+  "error": {
+    "code": "RESIDENCY_OUT_OF_POLICY",
+    "message": "Preferred region eu-west-1 is not allowed by residency policy",
+    "requestId": "req_9f3a",
+    "correlationId": "corr_1c77",
+    "details": {
+      "allowedRegions": ["ap-south-1","eu-central-1"]
+    }
   }
 }
 ```
 
-Idempotency rules  
-- If the same X-Request-Id and body are seen again, return 201 with the original response.  
-- If the same X-Request-Id and a different body are seen, return 409 conflict with details.
-
-### 5.2 Get Tenant
-
-```
-GET /api/tenancy/v1/tenants/{tenantId}
-```
-
-Query params  
-- include=topology,policies,quotas,tags
-
-### 5.3 List Tenants
-
-```
-GET /api/tenancy/v1/tenants?org={orgId}&state=Active&limit=50&cursor=eyJwYWdlIjoxfQ==
-```
-
-Pagination  
-- Use `limit` and `cursor`.  
-- Response includes `nextCursor` when more results exist.
-
-### 5.4 Update Tenant
-
-```
-PUT /api/tenancy/v1/tenants/{tenantId}
-Body: same shape as create. Partial update is not allowed for PUT.
-```
-
-### 5.5 Patch Tenant
-
-```
-PATCH /api/tenancy/v1/tenants/{tenantId}
-Body:
-{
-  "profile": "st-dedicated",
-  "quotas": { "storageGiB": 800 }
-}
-```
-
-### 5.6 Delete Tenant
-
-```
-DELETE /api/tenancy/v1/tenants/{tenantId}
-Query: force=false   # when true, skips archive and executes permanent delete if retention allows
-```
-
-Response 202 with lifecycle job reference. Deletion is asynchronous.
-
----
-
-## 6. Environment APIs
-
-### 6.1 Create Environment
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}/environments
-Body:
-{
-  "name": "stage",
-  "region": "ap-south-1",
-  "storageGiB": 300,
-  "computeQuota": 10,
-  "isolation": { "level": "strict" },
-  "retentionDays": 90
-}
-```
-
-### 6.2 Get Environment
-
-```
-GET /api/tenancy/v1/tenants/{tenantId}/environments/{name}
-```
-
-### 6.3 List Environments
-
-```
-GET /api/tenancy/v1/tenants/{tenantId}/environments
-```
-
-### 6.4 Update or Patch Environment
-
-```
-PUT /api/tenancy/v1/tenants/{tenantId}/environments/{name}
-PATCH /api/tenancy/v1/tenants/{tenantId}/environments/{name}
-```
-
-### 6.5 Delete Environment
-
-```
-DELETE /api/tenancy/v1/tenants/{tenantId}/environments/{name}
-```
-
----
-
-## 7. Lifecycle APIs
-
-Lifecycle actions are event driven and idempotent. All actions return a job resource that can be polled.
-
-### 7.1 Activate Tenant
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}:activate
-```
-
-### 7.2 Suspend Tenant
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}:suspend
-Body: { "reason": "billing" }
-```
-
-### 7.3 Resume Tenant
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}:resume
-```
-
-### 7.4 Archive Tenant
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}:archive
-Body: { "retentionDays": 365 }
-```
-
-### 7.5 Delete Tenant
-
-```
-POST /api/tenancy/v1/tenants/{tenantId}:delete
-Body: { "force": false }
-```
-
-### 7.6 Job Status
-
-```
-GET /api/tenancy/v1/jobs/{jobId}
-```
-
-Response
-```
-{
-  "id": "job_19asf",
-  "state": "Running",
-  "progress": 0.42,
-  "createdAt": "2025-10-08T16:31:00Z",
-  "updatedAt": "2025-10-08T16:32:00Z",
-  "logs": [ "... recent controller message ..." ]
-}
-```
-
----
-
-## 8. Topology Discovery
-
-Provides handles that other modules use to map storage, compute, secrets, and network resources.
-
-```
-GET /api/tenancy/v1/tenants/{tenantId}/topology?env=prod
-```
-
-Response
-```
-{
-  "profile": "mt-standard",
-  "db": { "type": "postgres", "database": "warehouse.shared", "schema": "t_7f3c2a" },
-  "objectStore": { "bucket": "data.shared", "prefix": "tenants/t_7f3c2a/prod" },
-  "runtime": { "queue": "jobs", "partitionKey": "t_7f3c2a" },
-  "secrets": { "path": "secrets/t_7f3c2a/*" },
-  "network": { "vpc": "vpc-main", "privateEndpoint": true }
-}
-```
-
-For single tenant profile, values reflect dedicated resources.
-
----
-
-## 9. Integration-facing APIs
-
-### 9.1 Access Module
-
-Resolve role bindings and validate scope.
-
-```
-POST /api/tenancy/v1/access/resolve
-Body:
-{
-  "userId": "u_123",
-  "tenantId": "t_7f3c2a",
-  "env": "prod",
-  "scopes": ["read:data", "write:jobs"]
-}
-```
-Response
-```
-{
-  "allowed": true,
-  "roles": ["tenant-admin"],
-  "expiresAt": "2025-10-08T17:30:00Z"
-}
-```
-
-### 9.2 Commercial Ops
-
-Report usage signals and request plan validation.
-
-```
-POST /api/tenancy/v1/billing/usage
-Body:
-{
-  "tenantId": "t_7f3c2a",
-  "env": "prod",
-  "resource": "storageGiBHours",
-  "amount": 120.5,
-  "timestamp": "2025-10-08T16:40:00Z"
-}
-```
-
-Plan validation
-```
-POST /api/tenancy/v1/billing/validate
-Body: { "tenantId": "t_7f3c2a", "action": "provision_environment", "params": { "name": "stage" } }
-```
-
-### 9.3 Governance
-
-Emit audit events and fetch policy bindings.
-
-```
-POST /api/tenancy/v1/governance/events
-Body:
-{
-  "eventType": "TENANCY_SUSPENDED",
-  "tenantId": "t_7f3c2a",
-  "actor": "system",
-  "metadata": { "reason": "billing" },
-  "occurredAt": "2025-10-08T16:45:00Z"
-}
-```
-
-Fetch current policy bindings
-```
-GET /api/tenancy/v1/governance/policies?tenantId=t_7f3c2a&env=prod
-```
-
-### 9.4 Runtime and Orchestrator
-
-Obtain execution context for job submission.
-
-```
-POST /api/tenancy/v1/runtime/context
-Body: { "tenantId": "t_7f3c2a", "env": "prod", "workload": "pipeline_ingest" }
-```
-
-Response
-```
-{
-  "queue": "jobs",
-  "partitionKey": "t_7f3c2a",
-  "concurrencyLimit": 5,
-  "rateLimitPerSecond": 20
-}
-```
-
-### 9.5 Schema Registry
-
-Associate migration sets with tenant context.
-
-```
-POST /api/tenancy/v1/schema/migrations
-Body: {
-  "tenantId": "t_7f3c2a",
-  "env": "prod",
-  "appVersion": "2.3.0",
-  "migrationSetId": "ms_9821"
-}
-```
-
----
-
-## 10. Webhooks
-
-Tenancy can call back to your service when lifecycle transitions occur.
-
-### 10.1 Configure Webhook
-
-```
-POST /api/tenancy/v1/webhooks
-Body:
-{
-  "url": "https://ops.example.com/hooks/tenancy",
-  "events": ["TENANCY_ACTIVATED", "TENANCY_SUSPENDED", "TENANCY_RESUMED", "TENANCY_ARCHIVED", "TENANCY_DELETED"],
-  "secret": "whsec_...",
-  "retryPolicy": { "maxRetries": 8, "backoffSeconds": 30 }
-}
-```
-
-Webhook delivery payload
-```
-{
-  "id": "evt_78a2",
-  "type": "TENANCY_ACTIVATED",
-  "tenantId": "t_7f3c2a",
-  "env": "prod",
-  "timestamp": "2025-10-08T16:50:00Z",
-  "data": { "profile": "mt-standard" },
-  "signatures": ["t=...,v1=..."]
-}
-```
-
-Verification  
-- Compute HMAC SHA256 over the raw body using the configured secret.  
-- Compare the signature with the v1 value.
-
----
-
-## 11. Event Stream Contracts
-
-Topic name examples  
-- tenancy.events.v1.lifecycle  
-- tenancy.events.v1.policy  
-- tenancy.events.v1.usage
-
-Lifecycle event example
-```
-{
-  "type": "TENANCY_SUSPENDED",
-  "tenantId": "t_7f3c2a",
-  "env": "prod",
-  "reason": "billing",
-  "actor": "system",
-  "occurredAt": "2025-10-08T16:55:00Z",
-  "correlationId": "3b1a2d..."
-}
-```
-
----
-
-## 12. Error Model
-
-Tenancy uses a Problem Details style payload.
-
-```
-HTTP 409
-Content-Type: application/problem+json
-
-{
-  "type": "https://errors.example.com/conflict",
-  "title": "Conflict",
-  "status": 409,
-  "detail": "Tenant already exists with different attributes for this request id",
-  "instance": "/api/tenancy/v1/tenants/t_7f3c2a",
-  "correlationId": "3b1a2d...",
-  "errors": [
-    { "field": "profile", "message": "cannot change profile during draft" }
-  ]
-}
-```
-
-Common error codes  
-- 400 invalid input  
-- 401 unauthorized  
-- 403 forbidden  
-- 404 not found  
-- 409 conflict  
-- 422 unprocessable entity  
-- 429 too many requests  
-- 500 internal error  
-- 503 service unavailable
-
----
-
-## 13. Pagination
-
-List endpoints accept `limit` and `cursor`. The response includes `nextCursor` when there are more items.
-
-```
-GET /api/tenancy/v1/tenants?limit=100&cursor=eyJwYWdlIjoxfQ==
-```
-
-Response
-```
-{
-  "items": [ ... ],
-  "nextCursor": "eyJwYWdlIjoyfQ=="
-}
-```
-
----
-
-## 14. Security Notes
-
-- All APIs require TLS.  
-- Access tokens are short lived and audience scoped.  
-- Every call is logged with tenant id, environment, and request id.  
-- Sensitive fields are redacted in logs.  
-- Rate limits and quotas are enforced per tenant.
-
----
-
-## 15. Examples
-
-Create and activate a tenant
-
-```
-curl -X POST https://api.example.com/api/tenancy/v1/tenants   -H "Authorization: Bearer $TOKEN"   -H "X-Request-Id: $(uuidgen)"   -H "Content-Type: application/json"   -d '{
-    "tenantId":"t_7f3c2a",
-    "organizationId":"org_acme",
-    "profile":"mt-standard",
-    "environments":["prod"],
-    "quotas":{"storageGiB":200,"concurrentJobs":5},
-    "policies":{"dataResidency":"in-region-only","encryption":"kms-per-tenant"}
-  }'
-```
-
-```
-curl -X POST https://api.example.com/api/tenancy/v1/tenants/t_7f3c2a:activate   -H "Authorization: Bearer $TOKEN"   -H "X-Request-Id: $(uuidgen)"
-```
-
-Fetch topology
-```
-curl -s https://api.example.com/api/tenancy/v1/tenants/t_7f3c2a/topology?env=prod   -H "Authorization: Bearer $TOKEN"
-```
-
----
-
-Summary  
-These APIs provide a clear and stable contract for creating, operating, and integrating with tenant scoped resources. Internal controllers and external services use the same identifiers and headers, which simplifies debugging and supports consistent governance and billing.
+**Common codes**
+- `VALIDATION_FAILED`
+- `RESIDENCY_OUT_OF_POLICY`
+- `PLAN_NOT_FOUND`
+- `QUOTA_EXCEEDED`
+- `RATE_LIMITED`
+- `NOT_FOUND`
+- `CONFLICT`
+- `UNAUTHORIZED`
+- `FORBIDDEN`
+- `INTERNAL_ERROR`
+
+Every error is logged with request id and correlation id. Sensitive information is not included in error strings.
+
+## Observability
+
+**Metrics**
+- Request latency and error rate per endpoint
+- Webhook delivery latency and failure counts
+- Policy evaluation latency for mutating calls
+
+**Logging**
+- Structured JSON logs include tenant id, endpoint, method, status code, request id, correlation id, and user agent.
+
+**Tracing**
+- Correlation ids are propagated to downstream services for end to end tracing.
+
+## CLI And Tooling
+
+**CLI wrappers** provide convenience for creating, listing, and transitioning tenants. The CLI uses the same API contract and headers. Admin commands require explicit confirmation and write audit records.
+
+## Backwards Compatibility And Deprecation
+
+**Policy**
+- Additive changes only in a given API version.
+- Field removals or behavior changes require a new version path.
+- Deprecations are announced with timelines, migration notes, and parallel availability of both versions for a defined period.
+
+## Examples
+
+**Create and activate flow**
+1. Create tenant with POST. State is Draft.
+2. Update residency or plan if necessary.
+3. Activate with lifecycle endpoint. Response returns job id.
+4. Poll job id or subscribe to webhooks for completion.
+5. Read tenant to confirm state Active and placement metadata.
+
+**Search and filter**
+1. List tenants filtered by plan code and region.
+2. Page through results using page and pageSize.
+3. Use ETag caching to avoid repeated payloads on unchanged reads.
+
+## Security Notes
+
+**Least privilege and audit**
+- Tokens are scoped to necessary actions only.
+- All mutating calls require audit and policy checks before execution.
+- Sensitive fields are redacted from logs and error messages.

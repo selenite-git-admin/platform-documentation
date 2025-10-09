@@ -179,41 +179,37 @@ nav:
         - Glossary: about-platform/glossary.md
 
     - Modules:
+
         - Index: modules/index.md
 
-        - Host (*removal pending):
-            - Overview: modules/host/index.md
-            - Platform Catalog:
-                - Index: modules/host/platform-catalog/index.md
-                - Data Model: modules/host/platform-catalog/data-model.md
-                - User Interface: modules/host/platform-catalog/ui.md
-                - API: modules/host/platform-catalog/api.md
-                - Observability: modules/host/platform-catalog/observability.md
-                - Runbook: modules/host/platform-catalog/runbook.md
-                - Security: modules/host/platform-catalog/security.md
-            - Tenant Management:
-                - Index: modules/host/tenant-management/index.md
-                - Data Model: modules/host/tenant-management/data-model.md
-                - User Interface: modules/host/tenant-management/ui.md
-                - API: modules/host/tenant-management/api.md
-                - Observability: modules/host/tenant-management/observability.md
-                - Runbook: modules/host/tenant-management/runbook.md
-                - Security: modules/host/tenant-management/security.md
+        - Master Data:
+            - Index: modules/master/index.md
+            - Data Model: modules/master/data-model.md
+            - User Interface: modules/master/ui.md
+            - API: modules/master/api.md
+            - Observability: modules/master/observability.md
+            - Runbook: modules/master/runbook.md
+            - Security: modules/master/security.md
 
         - Tenancy:
             - Overview: modules/tenancy/tenancy-overview.md
             - Architecture: modules/tenancy/tenancy-architecture.md
+            - Data Model: modules/tenancy/tenancy-data-model.md
+            - Sample Records: modules/tenancy/tenancy-sample-records.md
             - Configuration: modules/tenancy/tenancy-configuration.md
             - APIs: modules/tenancy/tenancy-apis.md
             - Integration: modules/tenancy/tenancy-integration.md
-            - Tenant Life Cycle: modules/tenancy/tenancy-tenant-life-cycle.md
+            - User Interface: modules/tenancy/tenancy-ui.md
+            - Tenant Life Cycle: modules/tenancy/tenancy-life-cycle.md
+            - Tenancy Policies: modules/tenancy/tenancy-policies.md
+            - Security: modules/tenancy/tenancy-security.md
+            - Observability: modules/tenancy/tenancy-observability.md
+            - Runbook: modules/tenancy/tenancy-runbook.md
             - Troubleshooting: modules/tenancy/tenancy-troubleshooting.md
             - Examples: modules/tenancy/tenancy-examples.md
-            - Data Models:
-                - Tenancy DB Schema: modules/tenancy/data-models/tenancy-db-schema.md
-                - Sample Records: modules/tenancy/data-models/sample-records.md
+            - Parked Scope: modules/tenancy/tenancy-parked-scope.md
 
-        - Commercial Operations:
+        - Subscription:
             - Overview: modules/commercial-ops/index.md
             - Plan Pricing:
                 - Metric Definition: modules/commercial-ops/plan-pricing/metrics-definition.md
@@ -469,74 +465,26 @@ nav:
                 - Security: modules/runtime/config-flags/security.md
                 - UI: modules/runtime/config-flags/ui.md
 
-        - Schema Registry:
-            - Index: modules/schema-registry/index.md
-            - Overview: modules/schema-registry/overview.md
-            - Construction: modules/schema-registry/construction.md
-            - Meta-Schema: modules/schema-registry/schemas/schema-registry-meta-schema.md
-            - Lifecycle:
-                - Taxonomy: modules/schema-registry/lifecycle/schema-registry-taxonomy.md
-                - Versioning: modules/schema-registry/lifecycle/schema-registry-versioning.md
-                - Validation: modules/schema-registry/lifecycle/schema-registry-validation.md
-                - Publishing: modules/schema-registry/lifecycle/schema-registry-publishing.md
-            - Governance: modules/schema-registry/schema-registry-governance.md
-            - Extractor Schema: modules/schema-registry/schemas/schema-registry-extractor-schemas.md
-            - Raw Schema: modules/schema-registry/schemas/schema-registry-raw-schemas.md
-            - GDP Schema: modules/schema-registry/schemas/schema-registry-gdp-schemas.md
-            - KPI Schema: modules/schema-registry/schemas/schema-registry-kpi-schemas.md
-            - Validation:
-                - Index: modules/schema-registry/validation/index.md
-                - Envelope & Payload: modules/schema-registry/validation/envelope-and-payload.md
-                - Drift & Quarantine: modules/schema-registry/validation/drift-and-quarantine.md
-            - Pipelines Integration: modules/schema-registry/pipelines-integration.md
-            - Observability: modules/schema-registry/observability.md
-            - Runbook: modules/schema-registry/runbook.md
-            - Security: modules/schema-registry/security.md
-            - UI: modules/schema-registry/ui.md
-            - API:
-                - REST: modules/schema-registry/api/rest.md
-                - CLI: modules/schema-registry/api/cli.md
-            - Parked Scope: modules/schema-registry/schema-registry-parked-scope.md
+        - Calendar:
+            - Overview: modules/calendar-service/index.md
+            - API: modules/calendar-service/api.md
+            - Data Model: modules/calendar-service/data-model.md
+            - Date Table: modules/calendar-service/date-table.md
+            - Observability: modules/calendar-service/observability.md
+            - Runbook: modules/calendar-service/runbook.md
+            - Security: modules/calendar-service/security.md
+            - UI: modules/calendar-service/ui.md
 
-        - Catalog:
-            - Overview: modules/catalog/index.md
-            - API: modules/catalog/api.md
-            - Data Model: modules/catalog/data-model.md
-            - Observability: modules/catalog/observability.md
-            - Runbook: modules/catalog/runbook.md
-            - Security: modules/catalog/security.md
-            - UI: modules/catalog/ui.md
+        - Migration:
+            - Overview: modules/migration-service/index.md
+            - API: modules/migration-service/api.md
+            - Data Model: modules/migration-service/data-model.md
+            - Observability: modules/migration-service/observability.md
+            - Runbook: modules/migration-service/runbook.md
+            - Security: modules/migration-service/security.md
+            - UI: modules/migration-service/ui.md
 
-        - Data Observability:
-            - Overview: modules/data-observability/index.md
-            - API: modules/data-observability/api.md
-            - Data Model: modules/data-observability/data-model.md
-            - Observability: modules/data-observability/observability.md
-            - Runbook: modules/data-observability/runbook.md
-            - Security: modules/data-observability/security.md
-            - UI: modules/data-observability/ui.md
-
-        - Utilities:
-            - Index: modules/utilities/index.md
-            - Calendar Service:
-                - Overview: modules/utilities/calendar-service/index.md
-                - API: modules/utilities/calendar-service/api.md
-                - Data Model: modules/utilities/calendar-service/data-model.md
-                - Date Table: modules/utilities/calendar-service/date-table.md
-                - Observability: modules/utilities/calendar-service/observability.md
-                - Runbook: modules/utilities/calendar-service/runbook.md
-                - Security: modules/utilities/calendar-service/security.md
-                - UI: modules/utilities/calendar-service/ui.md
-            - Migration Service:
-                - Overview: modules/utilities/migration-service/index.md
-                - API: modules/utilities/migration-service/api.md
-                - Data Model: modules/utilities/migration-service/data-model.md
-                - Observability: modules/utilities/migration-service/observability.md
-                - Runbook: modules/utilities/migration-service/runbook.md
-                - Security: modules/utilities/migration-service/security.md
-                - UI: modules/utilities/migration-service/ui.md
-
-        - Storage:
+        - Stores:
             - Overview: modules/storage/index.md
             - Raw Store:
                 - Overview: modules/storage/raw-store/index.md
@@ -578,6 +526,50 @@ nav:
                 - Runbook: modules/storage/gdp-calendar/runbook.md
                 - Security: modules/storage/gdp-calendar/security.md
                 - UI: modules/storage/gdp-calendar/ui.md
+
+        - Schema Registry:
+            - Index: modules/schema-registry/index.md
+            - Overview: modules/schema-registry/overview.md
+            - Construction: modules/schema-registry/construction.md
+            - Meta-Schema: modules/schema-registry/schemas/schema-registry-meta-schema.md
+            - Lifecycle:
+                - Taxonomy: modules/schema-registry/lifecycle/schema-registry-taxonomy.md
+                - Versioning: modules/schema-registry/lifecycle/schema-registry-versioning.md
+                - Validation: modules/schema-registry/lifecycle/schema-registry-validation.md
+                - Publishing: modules/schema-registry/lifecycle/schema-registry-publishing.md
+            - Governance: modules/schema-registry/schema-registry-governance.md
+            - Extractor Schema: modules/schema-registry/schemas/schema-registry-extractor-schemas.md
+            - Raw Schema: modules/schema-registry/schemas/schema-registry-raw-schemas.md
+            - GDP Schema: modules/schema-registry/schemas/schema-registry-gdp-schemas.md
+            - KPI Schema: modules/schema-registry/schemas/schema-registry-kpi-schemas.md
+            - Validation:
+                - Index: modules/schema-registry/validation/index.md
+                - Envelope & Payload: modules/schema-registry/validation/envelope-and-payload.md
+                - Drift & Quarantine: modules/schema-registry/validation/drift-and-quarantine.md
+            - Pipelines Integration: modules/schema-registry/pipelines-integration.md
+            - Observability: modules/schema-registry/observability.md
+            - Runbook: modules/schema-registry/runbook.md
+            - Security: modules/schema-registry/security.md
+            - UI: modules/schema-registry/ui.md
+            - API:
+                - REST: modules/schema-registry/api/rest.md
+                - CLI: modules/schema-registry/api/cli.md
+            - Parked Scope: modules/schema-registry/schema-registry-parked-scope.md
+
+        - Data Observability:
+            - Overview: modules/data-observability/index.md
+            - API: modules/data-observability/api.md
+            - Data Model: modules/data-observability/data-model.md
+            - Observability: modules/data-observability/observability.md
+            - Runbook: modules/data-observability/runbook.md
+            - Security: modules/data-observability/security.md
+            - UI: modules/data-observability/ui.md
+
+        - DQC:
+            - Overview: modules/dqc/dqc-overview.md
+            - API: modules/dqc/dqc-apis.md
+            - DQC Rules: modules/dqc/dqc-rule-packs.md
+            - Runbook: modules/dqc/dqc-runbook.md
 
         - Delivery:
             - Overview: modules/delivery/index.md
@@ -622,7 +614,7 @@ nav:
                 - Security: modules/delivery/dashboards/security.md
                 - UI: modules/delivery/dashboards/ui.md
 
-        - Executive Actions:
+        - Executive Workflows:
             - Overview: modules/action/index.md
             - Action Catalog:
                 - Overview: modules/action/action-catalog/index.md
@@ -658,7 +650,9 @@ nav:
             - Troubleshooting: modules/anomaly-detection/troubleshooting.md
             - Examples: modules/anomaly-detection/examples.md
 
-        - Prediction System: []
+        - Predictive Streams:
+            - Predictive Streams: modules/forecast/predictive-streams-overview.md
+            - Parked Scope: modules/forecast/predictions-parked-scope.md
 
     - Pipelines:
         - Index: pipelines/index.md
@@ -721,6 +715,7 @@ extra_css:
 
 
 extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - javascripts/tablesort.js
   - javascripts/table-pagination.js
   - javascripts/datatables-init.js
