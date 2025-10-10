@@ -45,7 +45,7 @@ Identity and permissions for people and systems that invoke pipeline surfaces.
 - Subscription Enforcement ties tenant entitlements to pipeline features.
 
 **Start here**
-- [Access Overview](access/index.md) · [Authentication](access/authentication/index.md) · [Authorization](access/authorization/index.md) · [Subscription Enforcement](access/subscription-enforcement/index.md)
+- [Access Overview](access/index.md) · [Authentication](authentication/index.md) · [Authorization](authorization/index.md) · [Subscription Enforcement](subscription-enforcement/index.md)
 
 ---
 
@@ -57,7 +57,7 @@ Defines and enforces policies that make pipelines trustworthy.
 - **Policy Registry** and **Lineage Obligations** set blocking/warning rules for runs and publication.
 
 **Start here**
-- [Governance Overview](governance/index.md) · [Policy Registry](governance/policy-registry/index.md) · [Data Contract Registry](governance/data-contract-registry/index.md) · [Lineage Obligations](governance/lineage-obligations/index.md)
+- [Governance Overview](governance/index.md) · [Policy Registry](policy-registry/index.md) · [Data Contract Registry](data-contract-registry/index.md) · [Lineage Obligations](lineage-obligations/index.md)
 
 ---
 
@@ -69,7 +69,7 @@ Integrity guarantees and operational secrets for pipeline runs.
 - **Secrets** and **Encryption** secure credentials and data at rest/in transit.
 
 **Start here**
-- [Trust Overview](trust/index.md) · [Evidence Ledger](trust/evidence-ledger/index.md) · [Secrets](trust/secrets/index.md) · [Encryption](trust/encryption/index.md)
+- [Trust Overview](trust/index.md) · [Evidence Ledger](evidence-ledger/index.md) · [Secrets](secrets/index.md) · [Encryption](encryption/index.md)
 
 ---
 
@@ -81,7 +81,7 @@ Edge and network defenses on all pipeline-accessible surfaces.
 - **Network Security** enforces runner connectivity (PrivateLink, VPN, egress control).
 
 **Start here**
-- [Security Overview](security/index.md) · [Gateway](security/gateway/index.md) · [Network Security](security/network-security/index.md)
+- [Security Overview](security/index.md) · [Gateway](gateway/index.md) · [Network Security](network-security/index.md)
 
 ---
 

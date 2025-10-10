@@ -252,4 +252,4 @@ join calendar_definitions d on d.calendar_id = m.calendar_id;
 - Normalize when read patterns need it, otherwise keep tables simple and denormalized
 
 
-Features and limits moved to Access: [Subscription Enforcement](../access/subscription-enforcement/index.md)
+Features and limits moved to Access: [Subscription Enforcement](../subscription-enforcement/index.md)

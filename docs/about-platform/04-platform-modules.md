@@ -11,7 +11,7 @@ Owns tenant identity, lifecycle, residency, and routing tags. Other modules read
 Authoritative infra and service knobs such as regions, residency policies, environment codes, namespace prefixes, tag taxonomy, notification channels, and escalation policies.
 
 ## Governance Modules
-[Policy Registry](../modules/governance/policy-registry/index.md)
+[Policy Registry](../modules/policy-registry/index.md)
 Central registry for guardrail policies that other modules reference at decision time.
 
 Lineage Obligations (planned)

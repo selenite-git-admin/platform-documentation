@@ -92,7 +92,7 @@ nav:
             - Setting up Platform:
                 - Infra Deployment: user-stories/00a-platform-infrastructure-deployment.md
                 - Connector Deployment: user-stories/00b-connector-deployment.md
-                - Schema Seeding: user-stories/00c-schema-registry-templates-seeding.md
+                - Schema Seeding: user-stories/00c-schema-templates-seeding.md
                 - Access Baseline: user-stories/00d-access-rbac-baseline.md
 
             - Managing Tenant:
@@ -110,11 +110,11 @@ nav:
                 - Automated Housekeeping & Cost Controls: user-stories/05b-housekeeping-cost-controls.md
 
             - Managing Schemas:
-                - Source (Raw) Schema Lifecycle: user-stories/03a-raw-schema-registry-lifecycle.md
-                - GDP Schema Lifecycle: user-stories/03b-gdp-schema-registry-lifecycle.md
-                - KPI Schema Lifecycle: user-stories/03c-kpi-schema-registry-lifecycle.md
-                - Tenant Schema Change Request: user-stories/03d-tenant-schema-registry-change-request.md
-                - Tenant-Specific Schema Extension: user-stories/03e-tenant-specific-schema-registry-extension.md
+                - Source (Raw) Schema Lifecycle: user-stories/03a-raw-schema-lifecycle.md
+                - GDP Schema Lifecycle: user-stories/03b-gdp-schema-lifecycle.md
+                - KPI Schema Lifecycle: user-stories/03c-kpi-schema-lifecycle.md
+                - Tenant Schema Change Request: user-stories/03d-tenant-schema-change-request.md
+                - Tenant-Specific Schema Extension: user-stories/03e-tenant-specific-schema-extension.md
                 - Safe Rollout & Rollback: user-stories/03f-safe-rollout-rollback.md
                 - Impact Analysis & Notifications: user-stories/03g-impact-analysis-notifications.md
 
@@ -154,7 +154,7 @@ nav:
                 - Connector Build and Publish: architecture/system-flows/flow-connector-build-publish.md
                 - Tenant Onboarding: architecture/system-flows/flow-tenant-onboarding.md
                 - Incremental Run Lifecycle: architecture/system-flows/flow-incremental-run.md
-                - Schema Drift Handling: architecture/system-flows/flow-schema-registry-drift.md
+                - Schema Drift Handling: architecture/system-flows/flow-schema-drift.md
                 - Failure and Retry: architecture/system-flows/flow-failure-retry.md
                 - Secrets Access: architecture/system-flows/flow-secrets-access.md
                 - Network Connectivity: architecture/system-flows/flow-network-connectivity.md
@@ -233,108 +233,105 @@ nav:
             - Observability: modules/commercial-ops/observability.md
             - Runbook: modules/commercial-ops/runbook.md
             - Security: modules/commercial-ops/security.md
-            - UI: modules/commercial-ops/ui.md
+            - User Interface: modules/commercial-ops/ui.md
             - Parked Scope: modules/commercial-ops/commercial-ops-parked-scope.md
 
-        - Access:
-            - Overview: modules/access/index.md
-            - Authentication:
-                - Overview: modules/access/authentication/index.md
-                - API: modules/access/authentication/api.md
-                - Data Model: modules/access/authentication/data-model.md
-                - Observability: modules/access/authentication/observability.md
-                - Runbook: modules/access/authentication/runbook.md
-                - Security: modules/access/authentication/security.md
-                - UI: modules/access/authentication/ui.md
-            - Authorization:
-                - Overview: modules/access/authorization/index.md
-                - API: modules/access/authorization/api.md
-                - Data Model: modules/access/authorization/data-model.md
-                - Observability: modules/access/authorization/observability.md
-                - Runbook: modules/access/authorization/runbook.md
-                - Security: modules/access/authorization/security.md
-                - UI: modules/access/authorization/ui.md
-            - Subscription Enforcement:
-                - Overview: modules/access/subscription-enforcement/index.md
-                - API: modules/access/subscription-enforcement/api.md
-                - Data Model: modules/access/subscription-enforcement/data-model.md
-                - Observability: modules/access/subscription-enforcement/observability.md
-                - Runbook: modules/access/subscription-enforcement/runbook.md
-                - Security: modules/access/subscription-enforcement/security.md
-                - UI: modules/access/subscription-enforcement/ui.md
+        - Authentication:
+            - Overview: modules/authentication/index.md
+            - API: modules/authentication/api.md
+            - Data Model: modules/authentication/data-model.md
+            - Observability: modules/authentication/observability.md
+            - Runbook: modules/authentication/runbook.md
+            - Security: modules/authentication/security.md
+            - User Interface: modules/authentication/ui.md
 
-        - Governance:
-            - Index: modules/governance/index.md
-            - Policy Registry:
-                - Index: modules/governance/policy-registry/index.md
-                - Data Model: modules/governance/policy-registry/data-model.md
-                - User Interface: modules/governance/policy-registry/ui.md
-                - API: modules/governance/policy-registry/api.md
-                - Observability: modules/governance/policy-registry/observability.md
-                - Runbook: modules/governance/policy-registry/runbook.md
-                - Security: modules/governance/policy-registry/security.md
-            - Data Contract Registry:
-                - Overview: modules/governance/data-contract-registry/index.md
-                - Data Model: modules/governance/data-contract-registry/data-model.md
-                - User Interface: modules/governance/data-contract-registry/ui.md
-                - API: modules/governance/data-contract-registry/api.md
-                - Observability: modules/governance/data-contract-registry/observability.md
-                - Runbook: modules/governance/data-contract-registry/runbook.md
-                - Security: modules/governance/data-contract-registry/security.md
-            - Lineage Obligations:
-                - Overview: modules/governance/lineage-obligations/index.md
-                - Data Model: modules/governance/lineage-obligations/data-model.md
-                - User Interface: modules/governance/lineage-obligations/ui.md
-                - API: modules/governance/lineage-obligations/api.md
-                - Observability: modules/governance/lineage-obligations/observability.md
-                - Runbook: modules/governance/lineage-obligations/runbook.md
-                - Security: modules/governance/lineage-obligations/security.md
+        - Authorization:
+            - Overview: modules/authorization/index.md
+            - API: modules/authorization/api.md
+            - Data Model: modules/authorization/data-model.md
+            - Observability: modules/authorization/observability.md
+            - Runbook: modules/authorization/runbook.md
+            - Security: modules/authorization/security.md
+            - User Interface: modules/authorization/ui.md
 
-        - Trust & Integrity:
-            - Overview: modules/trust/index.md
-            - Encryption:
-                - Overview: modules/trust/encryption/index.md
-                - API: modules/trust/encryption/api.md
-                - Data Model: modules/trust/encryption/data-model.md
-                - Observability: modules/trust/encryption/observability.md
-                - Runbook: modules/trust/encryption/runbook.md
-                - Security: modules/trust/encryption/security.md
-                - UI: modules/trust/encryption/ui.md
-            - Secrets:
-                - Overview: modules/trust/secrets/index.md
-                - API: modules/trust/secrets/api.md
-                - Data Model: modules/trust/secrets/data-model.md
-                - Observability: modules/trust/secrets/observability.md
-                - Runbook: modules/trust/secrets/runbook.md
-                - Security: modules/trust/secrets/security.md
-                - UI: modules/trust/secrets/ui.md
-            - Evidence Ledger:
-                - Overview: modules/trust/evidence-ledger/index.md
-                - API: modules/trust/evidence-ledger/api.md
-                - Data Model: modules/trust/evidence-ledger/data-model.md
-                - Observability: modules/trust/evidence-ledger/observability.md
-                - Runbook: modules/trust/evidence-ledger/runbook.md
-                - Security: modules/trust/evidence-ledger/security.md
-                - UI: modules/trust/evidence-ledger/ui.md
+        - Subscription Enforcement:
+            - Overview: modules/subscription-enforcement/index.md
+            - API: modules/subscription-enforcement/api.md
+            - Data Model: modules/subscription-enforcement/data-model.md
+            - Observability: modules/subscription-enforcement/observability.md
+            - Runbook: modules/subscription-enforcement/runbook.md
+            - Security: modules/subscription-enforcement/security.md
+            - User Interface: modules/subscription-enforcement/ui.md
 
-        - Security:
-            - Overview: modules/security/index.md
-            - Gateway:
-                - Overview: modules/security/gateway/index.md
-                - API: modules/security/gateway/api.md
-                - Data Model: modules/security/gateway/data-model.md
-                - Observability: modules/security/gateway/observability.md
-                - Runbook: modules/security/gateway/runbook.md
-                - Security: modules/security/gateway/security.md
-                - UI: modules/security/gateway/ui.md
-            - Network Security:
-                - Overview: modules/security/network-security/index.md
-                - API: modules/security/network-security/api.md
-                - Data Model: modules/security/network-security/data-model.md
-                - Observability: modules/security/network-security/observability.md
-                - Runbook: modules/security/network-security/runbook.md
-                - Security: modules/security/network-security/security.md
-                - UI: modules/security/network-security/ui.md
+        - Policy Registry:
+            - Index: modules/policy-registry/index.md
+            - Data Model: modules/policy-registry/data-model.md
+            - User Interface: modules/policy-registry/ui.md
+            - API: modules/policy-registry/api.md
+            - Observability: modules/policy-registry/observability.md
+            - Runbook: modules/policy-registry/runbook.md
+            - Security: modules/policy-registry/security.md
+
+        - Data Contract Registry:
+            - Overview: modules/data-contract-registry/index.md
+            - Data Model: modules/data-contract-registry/data-model.md
+            - User Interface: modules/data-contract-registry/ui.md
+            - API: modules/data-contract-registry/api.md
+            - Observability: modules/data-contract-registry/observability.md
+            - Runbook: modules/data-contract-registry/runbook.md
+            - Security: modules/data-contract-registry/security.md
+
+        - Lineage Obligations:
+            - Overview: modules/lineage-obligations/index.md
+            - Data Model: modules/lineage-obligations/data-model.md
+            - User Interface: modules/lineage-obligations/ui.md
+            - API: modules/lineage-obligations/api.md
+            - Observability: modules/lineage-obligations/observability.md
+            - Runbook: modules/lineage-obligations/runbook.md
+            - Security: modules/lineage-obligations/security.md
+
+        - Encryption:
+            - Overview: modules/encryption/index.md
+            - API: modules/encryption/api.md
+            - Data Model: modules/encryption/data-model.md
+            - Observability: modules/encryption/observability.md
+            - Runbook: modules/encryption/runbook.md
+            - Security: modules/encryption/security.md
+            - User Interface: modules/encryption/ui.md
+        - Secrets:
+            - Overview: modules/secrets/index.md
+            - API: modules/secrets/api.md
+            - Data Model: modules/secrets/data-model.md
+            - Observability: modules/secrets/observability.md
+            - Runbook: modules/secrets/runbook.md
+            - Security: modules/secrets/security.md
+            - User Interface: modules/secrets/ui.md
+        - Evidence Ledger:
+            - Overview: modules/evidence-ledger/index.md
+            - API: modules/evidence-ledger/api.md
+            - Data Model: modules/evidence-ledger/data-model.md
+            - Observability: modules/evidence-ledger/observability.md
+            - Runbook: modules/evidence-ledger/runbook.md
+            - Security: modules/evidence-ledger/security.md
+            - User Interface: modules/evidence-ledger/ui.md
+
+        - Gateway:
+            - Overview: modules/gateway/index.md
+            - API: modules/gateway/api.md
+            - Data Model: modules/gateway/data-model.md
+            - Observability: modules/gateway/observability.md
+            - Runbook: modules/gateway/runbook.md
+            - Security: modules/gateway/security.md
+            - User Interface: modules/gateway/ui.md
+
+        - Network Security:
+            - Overview: modules/network-index.md
+            - API: modules/network-api.md
+            - Data Model: modules/network-data-model.md
+            - Observability: modules/network-observability.md
+            - Runbook: modules/network-runbook.md
+            - Security: modules/network-security.md
+            - User Interface: modules/network-security/ui.md
 
         - Connectors:
             - Index: connectors/index.md
@@ -342,7 +339,7 @@ nav:
             - Connector Scope: connectors/connector-scope-streams.md
             - Architecture: connectors/architecture.md
             - Deployment Options: connectors/deployment-options.md
-            - Manifest Schema: connectors/manifest-schema-registry.md
+            - Manifest Schema: connectors/manifest-schema.md
             - Incremental State: connectors/incremental-state.md
             - Observability & Testing: connectors/observability-testing.md
             - Security & Compliance: connectors/security-compliance.md
@@ -400,7 +397,7 @@ nav:
                 - Meta:
                     - Ads: connectors/enterprise-connectors/meta-connectors/meta-ads.md
                     - Facebook Pages: connectors/enterprise-connectors/meta-connectors/facebook-pages.md
-                    - Instagram Graph: connectors/enterprise-connectors/instagram-graph.md
+                    - Instagram Graph: connectors/enterprise-connectors/meta-connectors/instagram-graph.md
                     - Conversions API: connectors/enterprise-connectors/meta-connectors/meta-conversions-api.md
                 - ServiceNow: [ ]
                 - SymphonyAI Summit: [ ]
@@ -431,7 +428,7 @@ nav:
                 - Observability: modules/runtime/orchestrator/observability.md
                 - Runbook: modules/runtime/orchestrator/runbook.md
                 - Security: modules/runtime/orchestrator/security.md
-                - UI: modules/runtime/orchestrator/ui.md
+                - User Interface: modules/runtime/orchestrator/ui.md
             - Compute Fabric:
                 - Overview: modules/runtime/compute-fabric/index.md
                 - API: modules/runtime/compute-fabric/api.md
@@ -439,7 +436,7 @@ nav:
                 - Observability: modules/runtime/compute-fabric/observability.md
                 - Runbook: modules/runtime/compute-fabric/runbook.md
                 - Security: modules/runtime/compute-fabric/security.md
-                - UI: modules/runtime/compute-fabric/ui.md
+                - User Interface: modules/runtime/compute-fabric/ui.md
             - Streaming Bus:
                 - Overview: modules/runtime/streaming-bus/index.md
                 - API: modules/runtime/streaming-bus/api.md
@@ -447,7 +444,7 @@ nav:
                 - Observability: modules/runtime/streaming-bus/observability.md
                 - Runbook: modules/runtime/streaming-bus/runbook.md
                 - Security: modules/runtime/streaming-bus/security.md
-                - UI: modules/runtime/streaming-bus/ui.md
+                - User Interface: modules/runtime/streaming-bus/ui.md
             - Metering:
                 - Overview: modules/runtime/metering/index.md
                 - API: modules/runtime/metering/api.md
@@ -455,7 +452,7 @@ nav:
                 - Observability: modules/runtime/metering/observability.md
                 - Runbook: modules/runtime/metering/runbook.md
                 - Security: modules/runtime/metering/security.md
-                - UI: modules/runtime/metering/ui.md
+                - User Interface: modules/runtime/metering/ui.md
             - Config & Flags:
                 - Overview: modules/runtime/config-flags/index.md
                 - API: modules/runtime/config-flags/api.md
@@ -463,7 +460,7 @@ nav:
                 - Observability: modules/runtime/config-flags/observability.md
                 - Runbook: modules/runtime/config-flags/runbook.md
                 - Security: modules/runtime/config-flags/security.md
-                - UI: modules/runtime/config-flags/ui.md
+                - User Interface: modules/runtime/config-flags/ui.md
 
         - Calendar:
             - Overview: modules/calendar-service/index.md
@@ -473,7 +470,7 @@ nav:
             - Observability: modules/calendar-service/observability.md
             - Runbook: modules/calendar-service/runbook.md
             - Security: modules/calendar-service/security.md
-            - UI: modules/calendar-service/ui.md
+            - User Interface: modules/calendar-service/ui.md
 
         - Migration:
             - Overview: modules/migration-service/index.md
@@ -482,9 +479,23 @@ nav:
             - Observability: modules/migration-service/observability.md
             - Runbook: modules/migration-service/runbook.md
             - Security: modules/migration-service/security.md
-            - UI: modules/migration-service/ui.md
+            - User Interface: modules/migration-service/ui.md
 
-        - Stores:
+        - UUID: []
+
+        - Error Handling: []
+
+        - Notifications: []
+
+        - Messaging: []
+
+        - Ticketing: []
+
+        - Health: []
+
+        - Synthetic Data: []
+
+        - Data Stores:
             - Overview: modules/storage/index.md
             - Raw Store:
                 - Overview: modules/storage/raw-store/index.md
@@ -493,7 +504,7 @@ nav:
                 - Observability: modules/storage/raw-store/observability.md
                 - Runbook: modules/storage/raw-store/runbook.md
                 - Security: modules/storage/raw-store/security.md
-                - UI: modules/storage/raw-store/ui.md
+                - User Interface: modules/storage/raw-store/ui.md
             - GDP Store:
                 - Overview: modules/storage/gdp-store/index.md
                 - API: modules/storage/gdp-store/api.md
@@ -501,7 +512,7 @@ nav:
                 - Observability: modules/storage/gdp-store/observability.md
                 - Runbook: modules/storage/gdp-store/runbook.md
                 - Security: modules/storage/gdp-store/security.md
-                - UI: modules/storage/gdp-store/ui.md
+                - User Interface: modules/storage/gdp-store/ui.md
             - KPI Store:
                 - Overview: modules/storage/kpi-store/index.md
                 - API: modules/storage/kpi-store/api.md
@@ -509,7 +520,7 @@ nav:
                 - Observability: modules/storage/kpi-store/observability.md
                 - Runbook: modules/storage/kpi-store/runbook.md
                 - Security: modules/storage/kpi-store/security.md
-                - UI: modules/storage/kpi-store/ui.md
+                - User Interface: modules/storage/kpi-store/ui.md
             - Published Store:
                 - Overview: modules/storage/published-store/index.md
                 - API: modules/storage/published-store/api.md
@@ -517,7 +528,7 @@ nav:
                 - Observability: modules/storage/published-store/observability.md
                 - Runbook: modules/storage/published-store/runbook.md
                 - Security: modules/storage/published-store/security.md
-                - UI: modules/storage/published-store/ui.md
+                - User Interface: modules/storage/published-store/ui.md
             - GDP Calendar:
                 - Overview: modules/storage/gdp-calendar/index.md
                 - API: modules/storage/gdp-calendar/api.md
@@ -525,7 +536,7 @@ nav:
                 - Observability: modules/storage/gdp-calendar/observability.md
                 - Runbook: modules/storage/gdp-calendar/runbook.md
                 - Security: modules/storage/gdp-calendar/security.md
-                - UI: modules/storage/gdp-calendar/ui.md
+                - User Interface: modules/storage/gdp-calendar/ui.md
 
         - Schema Registry:
             - Index: modules/schema-registry/index.md
@@ -550,7 +561,7 @@ nav:
             - Observability: modules/schema-registry/observability.md
             - Runbook: modules/schema-registry/runbook.md
             - Security: modules/schema-registry/security.md
-            - UI: modules/schema-registry/ui.md
+            - User Interface: modules/schema-registry/ui.md
             - API:
                 - REST: modules/schema-registry/api/rest.md
                 - CLI: modules/schema-registry/api/cli.md
@@ -563,7 +574,7 @@ nav:
             - Observability: modules/data-observability/observability.md
             - Runbook: modules/data-observability/runbook.md
             - Security: modules/data-observability/security.md
-            - UI: modules/data-observability/ui.md
+            - User Interface: modules/data-observability/ui.md
 
         - DQC:
             - Overview: modules/dqc/dqc-overview.md
@@ -580,7 +591,7 @@ nav:
                 - Observability: modules/delivery/activation-apis/observability.md
                 - Runbook: modules/delivery/activation-apis/runbook.md
                 - Security: modules/delivery/activation-apis/security.md
-                - UI: modules/delivery/activation-apis/ui.md
+                - User Interface: modules/delivery/activation-apis/ui.md
             - Delivery Catalog:
                 - Overview: modules/delivery/catalog/index.md
                 - API: modules/delivery/catalog/api.md
@@ -588,7 +599,7 @@ nav:
                 - Observability: modules/delivery/catalog/observability.md
                 - Runbook: modules/delivery/catalog/runbook.md
                 - Security: modules/delivery/catalog/security.md
-                - UI: modules/delivery/catalog/ui.md
+                - User Interface: modules/delivery/catalog/ui.md
             - Delivery Exports:
                 - Overview: modules/delivery/exports/index.md
                 - API: modules/delivery/exports/api.md
@@ -596,7 +607,7 @@ nav:
                 - Observability: modules/delivery/exports/observability.md
                 - Runbook: modules/delivery/exports/runbook.md
                 - Security: modules/delivery/exports/security.md
-                - UI: modules/delivery/exports/ui.md
+                - User Interface: modules/delivery/exports/ui.md
             - Delivery Webhooks:
                 - Overview: modules/delivery/webhooks/index.md
                 - API: modules/delivery/webhooks/api.md
@@ -604,7 +615,7 @@ nav:
                 - Observability: modules/delivery/webhooks/observability.md
                 - Runbook: modules/delivery/webhooks/runbook.md
                 - Security: modules/delivery/webhooks/security.md
-                - UI: modules/delivery/webhooks/ui.md
+                - User Interface: modules/delivery/webhooks/ui.md
             - Delivery Dashboards:
                 - Overview: modules/delivery/dashboards/index.md
                 - API: modules/delivery/dashboards/api.md
@@ -612,7 +623,7 @@ nav:
                 - Observability: modules/delivery/dashboards/observability.md
                 - Runbook: modules/delivery/dashboards/runbook.md
                 - Security: modules/delivery/dashboards/security.md
-                - UI: modules/delivery/dashboards/ui.md
+                - User Interface: modules/delivery/dashboards/ui.md
 
         - Executive Workflows:
             - Overview: modules/action/index.md
@@ -623,7 +634,7 @@ nav:
                 - Observability: modules/action/action-catalog/observability.md
                 - Runbook: modules/action/action-catalog/runbook.md
                 - Security: modules/action/action-catalog/security.md
-                - UI: modules/action/action-catalog/ui.md
+                - User Interface: modules/action/action-catalog/ui.md
             - Action Engine:
                 - Overview: modules/action/action-engine/index.md
                 - API: modules/action/action-engine/api.md
@@ -631,7 +642,7 @@ nav:
                 - Observability: modules/action/action-engine/observability.md
                 - Runbook: modules/action/action-engine/runbook.md
                 - Security: modules/action/action-engine/security.md
-                - UI: modules/action/action-engine/ui.md
+                - User Interface: modules/action/action-engine/ui.md
             - Action Delivery:
                 - Overview: modules/action/action-delivery/index.md
                 - API: modules/action/action-delivery/api.md
@@ -639,7 +650,7 @@ nav:
                 - Observability: modules/action/action-delivery/observability.md
                 - Runbook: modules/action/action-delivery/runbook.md
                 - Security: modules/action/action-delivery/security.md
-                - UI: modules/action/action-delivery/ui.md
+                - User Interface: modules/action/action-delivery/ui.md
 
         - Anomaly Detection:
             - Overview: modules/anomaly-detection/overview.md

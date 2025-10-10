@@ -38,4 +38,4 @@ Calendars moved to Calendar Service. See [Calendar Service API](../calendar-serv
 - Apply per caller on write endpoints. Reads can be higher but still bounded
 
 
-Features and limits moved to Access: [Subscription Enforcement API](../access/subscription-enforcement/api.md)
+Features and limits moved to Access: [Subscription Enforcement API](../subscription-enforcement/api.md)
