@@ -1,24 +1,58 @@
-# Storage Domain
+# Data Store Family
 
-## Role in the Platform
-The Storage domain receives raw feeds, transforms them into a governed data product (GDP), calculates KPIs, and serves published datasets to downstream apps. It also exposes a calendar of GDP refreshes for predictability and SLAs.
+**Tier:** Core  
+**Owner:** Platform Foundation  
+**Status:** Active  
 
-## Submodules
-- [Raw Store](raw-store/index.md) — durable landing zone for raw, immutable feeds.  
-- [GDP Store](gdp-store/index.md) — governed, versioned data product with lineage.  
-- [KPI Store](kpi-store/index.md) — curated KPIs with dimensional lookups.  
-- [Published Store](published-store/index.md) — tenant-ready, de-duplicated, and contract-stable exports.  
-- [GDP Calendar](gdp-calendar/index.md) — schedules and status for GDP refreshes.
+## Purpose
+The Data Store family governs all persisted data within the platform. It provides authoritative PostgreSQL stores that host structured business data, golden datasets, and analytical outputs. Each submodule defines how data is cataloged, versioned, retained, and accessed.
 
-## Position in the Platform
-Ingests from external connectors and runtime jobs, emits datasets for Consumption, and feeds Runtime metrics. Trust provides encryption and key management; Security controls access.
+## Principles
+- **PostgreSQL-first:** One relational backbone for all modules — no external warehouses.  
+- **Governed by metadata:** DRR and Catalog ensure discoverability and freshness.  
+- **Zero engineering:** Declarative merges and policies; no manual ETL.  
+- **Auditable:** All changes logged to the Evidence Ledger.  
+- **Safe by default:** Read-only by design except via controlled Runtime writes.
 
-## Interfaces
-- Ingest APIs and batch loaders for raw feeds.  
-- Transformation jobs and lineage records for GDP.  
-- Query and export endpoints for KPI and Published stores.  
-- Calendar API for refresh windows and SLAs.
+## Modules
+| Module | Description |
+|---------|--------------|
+| [Data Read Registry (DRR)](../data-read-registry/index.md) | Tracks dataset freshness and lineage. |
+| [Data Store Catalog](../catalog/index.md) | Canonical metadata registry for datasets. |
+| [Slowly Changing Dimensions (SCD)](../scd/index.md) | PostgreSQL-native history tracking with merge templates. |
+| [Store Policies](store_policies.md) | Declarative governance for retention, classification, and immutability. |
+| [Observability](observability.md) | Metrics and dashboards for latency and availability. |
 
-## Constraints
-- Storage does not author KPIs or rules; it persists and serves.  
-- Schema changes are versioned and require migrations.
+## Logical Architecture
+```
+Ingestion → Runtime → DRR → Data Store (Catalog, SCD, GDP, KPI layers) → Evidence Ledger → Consumption
+```
+
+### Core Entities
+| Layer | Description |
+|--------|-------------|
+| Bronze | Raw extracted data |
+| Silver | GDP-aligned clean business facts |
+| Gold | KPI tables and analytics-ready data |
+| Dimensional | SCD-modeled entities |
+
+### Schema Conventions
+| Convention | Example |
+|-------------|----------|
+| Schema naming | `bronze`, `gdp`, `kpi`, `dim` |
+| Table naming | `fact_<domain>`, `dim_<entity>` |
+| Views | `vw_<table>_current`, `vw_<table>_asof` |
+| Retention | Bronze (90d), Silver (3y), Gold/Dim (permanent) |
+
+## Integration with Governance
+| System | Role |
+|---------|------|
+| **DRR** | Declares dataset freshness |
+| **Catalog** | Declares schema metadata |
+| **Evidence Ledger** | Audits changes |
+| **Runtime** | Executes merges |
+| **Governance** | Reviews retention and classification policies |
+
+## Summary
+The Data Store family is the platform’s core — a metadata-driven layer guaranteeing every dataset is findable, current, and historically correct.  
+Catalog defines the “what”, DRR the “when”, SCD the “how”, and Evidence Ledger the “proof.” Together they maintain a single version of truth.

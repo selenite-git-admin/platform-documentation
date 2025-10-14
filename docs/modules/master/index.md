@@ -1,11 +1,14 @@
-# Platform Master Data Catalog
+# Platform Master Data Module
 
 ## Role in the Platform
-Platform Catalog centralizes platform reference data that other modules read during tenant creation, policy binding, activation, scheduling, and operations. It provides authoritative lists, policies, and calendars so that selections are consistent and validated at write time elsewhere.
+Platform Master Data Module centralizes platform reference data that other modules read during tenant creation, 
+policy binding, activation, scheduling, and operations. 
+It provides authoritative lists, policies, and calendars so that selections are consistent and 
+validated at write time elsewhere.
 
 ## Responsibilities
 - Store and version reference sets such as regions, residency policies, plans, limits, tag taxonomy, namespace rules, notification channels, and calendars
-- Serve read APIs with cache friendly semantics and ETags
+- Serve read APIs with cache-friendly semantics and ETags
 - Expose admin APIs for controlled updates with auditing
 - Publish change events so dependents refresh caches
 - Resolve effective calendars for a tenant by combining platform sets with tenant overlays
@@ -27,7 +30,7 @@ Platform Catalog centralizes platform reference data that other modules read dur
 ## Operational Behavior
 - Read heavy service. Writes are rare and audited
 - ETag based caching on read endpoints
-- Event driven cache invalidation for consumers
+- Event-driven cache invalidation for consumers
 - Calendar resolution performed on demand with simple set logic
 
 ## Constraints
@@ -49,7 +52,7 @@ A tenant selects the APAC holiday set. Tenant specific overlays add a local holi
 [Data Model](data-model.md)
 Entities, relationships, ERD placeholder, and DDL skeletons.
 
-[UI](ui.md)
+[User Interface](ui.md)
 Screens, placement, API dependencies, and wireframe placeholders.
 
 [API](api.md)
