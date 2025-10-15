@@ -7,18 +7,18 @@ This page orients readers to the module families in the platform and points to t
 [Tenant Management](../modules/host/tenant-management/index.md)
 Owns tenant identity, lifecycle, residency, and routing tags. Other modules read it; it does not call dependents.
 
-[Platform Catalog](../modules/master/index.md)
+[Platform Catalog](../modules/platform-governance/master/index.md)
 Authoritative infra and service knobs such as regions, residency policies, environment codes, namespace prefixes, tag taxonomy, notification channels, and escalation policies.
 
 ## Governance Modules
-[Policy Registry](../modules/policy-registry/index.md)
+[Policy Registry](../modules/platform-governance/policy-registry/index.md)
 Central registry for guardrail policies that other modules reference at decision time.
 
 Lineage Obligations (planned)
 Location for lineage based governance rules.
 
 ## Data Utilities Modules
-[Calendar Service](../modules/calendar-service/index.md)
+[Calendar Service](../modules/platform-governance/calendar-service/index.md)
 Time semantics for the platform including calendars, tenant overlays, fiscal periods, working time utilities, and the Date Table used by BI.
 
 [Data Contract Registry](../modules/utilities/data-contract-registry/index.md)

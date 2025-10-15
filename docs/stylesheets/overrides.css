@@ -673,3 +673,11 @@ nav a[href="#"] {
    font-weight: bold;
    color: #333; /* Adjust the color to match your theme */
 }
+
+.info-box {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}

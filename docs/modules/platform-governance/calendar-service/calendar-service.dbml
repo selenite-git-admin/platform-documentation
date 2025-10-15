@@ -1,0 +1,75 @@
+Table calendar_definitions {
+  calendar_id uuid [pk]
+  name text [not null, unique]
+  kind text [not null] // holiday | business_hours | blackout | maintenance
+  timezone text [not null]
+  active boolean
+}
+
+Table calendar_events {
+  event_id uuid [pk]
+  calendar_id uuid [not null, ref: > calendar_definitions.calendar_id]
+  starts_at timestamp [not null]
+  ends_at timestamp [not null]
+  label text [not null]
+  attributes json
+}
+
+Table calendar_sets {
+  set_id uuid [pk]
+  name text [not null, unique]
+}
+
+Table calendar_set_members {
+  set_id uuid [not null, ref: > calendar_sets.set_id]
+  calendar_id uuid [not null, ref: > calendar_definitions.calendar_id]
+  Primary Key (set_id, calendar_id)
+}
+
+Table tenant_calendar_overlays {
+  overlay_id uuid [pk]
+  tenant_id uuid [not null]
+  set_id uuid [not null, ref: > calendar_sets.set_id]
+}
+
+Table tenant_overlay_added_events {
+  added_event_id uuid [pk]
+  overlay_id uuid [not null, ref: > tenant_calendar_overlays.overlay_id]
+  starts_at timestamp [not null]
+  ends_at timestamp [not null]
+  label text [not null]
+  attributes json
+}
+
+Table tenant_overlay_suppressed_events {
+  overlay_id uuid [not null, ref: > tenant_calendar_overlays.overlay_id]
+  event_id uuid [not null, ref: > calendar_events.event_id]
+  Primary Key (overlay_id, event_id)
+}
+
+Table fiscal_calendars {
+  fiscal_id uuid [pk]
+  name text [not null, unique]
+  timezone text [not null]
+  start_month int [not null] // 1..12
+}
+
+Table fiscal_periods {
+  period_id uuid [pk]
+  fiscal_id uuid [not null, ref: > fiscal_calendars.fiscal_id]
+  year int [not null]
+  period int [not null]
+  starts_on date [not null]
+  ends_on date [not null]
+  Primary Key (fiscal_id, year, period)
+}
+
+Table calendar_audit {
+  audit_id uuid [pk]
+  actor text
+  action text [not null]
+  target text
+  old_value json
+  new_value json
+  at timestamp [not null]
+}

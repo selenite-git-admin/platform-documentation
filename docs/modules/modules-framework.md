@@ -1,136 +1,170 @@
 # Modules Framework
 
-This document explains how modules across the DataJetty platform are organized into functional service groups. 
+The DataJetty platform is organized into modular families, each with a clear boundary of responsibility.  
+Every family encapsulates a specific capability area such as data ingestion, storage, governance, quality, activation, or intelligence, and exposes declarative interfaces to the rest of the system.  
 
-## Platform Control Services
+This framework explains how the platform’s business value is realized through technical composition.  
+It is written for developers and architects who need to understand how DataJetty works as a unified but decoupled system.
 
-These services define how tenants operate, how data contracts are managed, and how configuration is controlled. 
-They ensure all workloads follow consistent rules across environments.
+## Platform Overview
 
-* [Schema Registry](modules/schema-registry/index.md) manages schema definitions, taxonomy, versioning, and validation. It enforces structure before data moves into pipelines.
-* [Master Data](modules/master/index.md) maintains reference datasets that stabilize key entities such as customers, vendors, or plants.
-* [Tenancy](modules/tenancy/tenancy-overview.md) defines boundaries, provisioning, and isolation of customer environments.
-* [Subscription and Commercial Operations](modules/commercial-ops/index.md) handle plan definitions, entitlements, usage tracking, and pricing signals.
-* Configuration and Feature Flags control runtime settings and staged rollouts.
+DataJetty is a metadata-driven, contract-first data intelligence platform.  
+Its design objective is to give enterprises a governed, high-trust, and low-engineering environment where data flows from source systems to executive intelligence without manual effort.
 
-These services govern what is allowed to run and how each tenant interacts with the platform.
+Every capability in DataJetty - authentication, acquisition, validation, prediction, and delivery - is implemented as a module within one of the defined families.  
+These modules are independently deployable and registered in metadata catalogs for discoverability and orchestration.
 
-## Orchestration and Compute Services
+| Plane | Families | Role |
+|-------|-----------|------|
+| Core Plane | Core | Provides security, encryption, identity, and consistency across all components. |
+| Control Plane | Platform Subscription, Platform Control, Platform Operations | Defines tenants, governance, and runtime policies. |
+| Data Plane | Data Acquisition, Data Store, Data Quality, Data Intelligence, Data Activation | Moves, processes, validates, and operationalizes data. |
 
-**Purpose**
-These services manage workload execution. They ensure jobs are orchestrated, executed, retried, and monitored predictably.
+Each plane communicates through declared contracts and evidence records so that both data and control are verifiable end to end.
 
-**Included modules**
+## Business Perspective  -  How Value Is Delivered
 
-* [Orchestrator](modules/runtime/orchestrator/index.md) plans tasks, defines schedules, and manages retries and dependencies.
-* [Compute Fabric](modules/runtime/compute-fabric/index.md) executes workloads, manages scaling, and allocates resources.
-* [Streaming Bus](modules/runtime/streaming-bus/index.md) carries events, change data, and asynchronous notifications.
-* [Runners](modules/runners/index.md) provide runtime profiles such as serverless, container, managed ETL, or dedicated compute.
-* [Metering](modules/runtime/metering/index.md) records execution metrics for cost and usage visibility.
+| Business Value | Delivered By | Description |
+|----------------|--------------|-------------|
+| Trust | Core + Platform Control + Data Quality | Establishes verifiable security, data lineage, and quality assurance. |
+| Speed and Automation | Data Acquisition + Data Store + Data Activation | Provides fast, declarative data ingestion and distribution pipelines with zero manual ETL. |
+| Insight and Predictive Foresight | Data Intelligence | Powers automated anomaly detection, forecasting, and executive-level insights. |
+| Governance and Compliance | Platform Subscription + Platform Operations | Enforces tenant isolation, licensing, entitlements, and operational consistency. |
 
-**Intent**
-These services deliver predictable, observable, and cost-aware execution.
+Each family represents a part of the enterprise contract with the customer. Together they make DataJetty’s business-first, compliance-assured architecture operational.
 
-## Data Stores and Semantic Layer
+## Technical Perspective  -  How Workflows Operate
 
-**Purpose**
-These services preserve data integrity and meaning as it flows from raw ingestion to published outputs. They provide the core data foundation for business analytics.
+DataJetty functions as a governed data pipeline with distinct boundaries of control, data, and evidence.  
+Each request or job moves through deterministic steps controlled by metadata.
 
-**Included modules**
+```
+User or API Request
+   ↓
+Core → Platform Families → Data Families
+(Auth)   (Subscription + Control + Operations)   (Acquisition → Store → Quality → Intelligence → Activation)
+```
 
-* [Raw Store](modules/storage/raw-store/index.md) captures ingested data before validation.
-* [GDP Store](modules/storage/gdp-store/index.md) contains curated golden data points that represent verified business facts.
-* [KPI Store](modules/storage/kpi-store/index.md) holds calculated business metrics derived from GDP.
-* [Published Store](modules/storage/published-store/index.md) provides datasets ready for consumption through APIs and exports.
-* [GDP Calendar](modules/storage/gdp-calendar/index.md) manages period boundaries, close logic, and time-based alignment.
-
-**Intent**
-These services maintain semantic consistency and form the reference layer for downstream analytics.
-
-## Data Processing and Quality Services
-
-**Purpose**
-These services handle transformation, validation, and reliability of data. They ensure that every dataset can be verified, recovered, and trusted.
-
-**Included modules**
-
-* [Raw to GDP Transform](pipelines/04-gdp-transform.md) normalizes and conforms raw data to GDP structure.
-* [KPI Materialization](pipelines/05-kpi-materialization.md) computes metrics and creates dimensional models.
-* [Data Quality and Validation](pipelines/07-data-quality-and-validation.md) enforce schema consistency and detect errors.
-* [Lineage and Evidence](pipelines/08-lineage-and-evidence.md) record the transformation path and maintain audit trails.
-* [Recovery, Replay and DLQ](pipelines/10-recovery-replay-and-dlq.md) provide mechanisms for reprocessing and dead-letter queue handling.
-
-**Intent**
-These services provide end-to-end traceability and help preserve data reliability.
-
-## Business Intelligence and Predictive Services
-
-**Purpose**
-These services deliver intelligence on business data. They identify anomalies, predict outcomes, and generate signals for decision support.
-
-**Included modules**
-
-* [Anomaly Detection Engine](modules/anomaly-detection/overview.md) runs analytics and machine learning models on GDP or KPI data to highlight deviations.
-* [Predictive Streams](modules/forecast/predictive-streams-overview.md) generate forward-looking metrics such as forecasts or risk scores.
-
-**Intent**
-These services translate data into insights that can be consumed directly by business users.
-
-## Delivery and Workflow Services
-
-**Purpose**
-These services connect processed data to end users and integrate insights into their daily workflows.
-
-**Included modules**
-
-* [Delivery](modules/delivery/index.md) manages exports, webhooks, dashboards, and APIs.
-* Executive Workflows define and execute business actions. The [Action Catalog](modules/action/action-catalog/index.md) describes available actions, the [Action Engine](modules/action/action-engine/index.md) validates and runs them, and [Action Delivery](modules/action/action-delivery/index.md) handles receipts and records.
-
-**Intent**
-These services operationalize insights and close the feedback loop with end users.
-
-## Operations, Security, and Compliance Services
-
-**Purpose**
-These services sustain operational reliability, enforce security, and manage costs. They provide the foundation for trust and scalability.
-
-**Included modules**
-
-* [Observability](infrastructure/monitoring-slos.md) tracks metrics, logs, and traces for performance visibility.
-* [Security Baselines](infrastructure/security-baselines.md) define access policies, secret handling, and network rules.
-* [Incident and Runbooks](engineering/runbooks/index.md) guide recovery and troubleshooting.
-* [Continuous Integration and Deployment](infrastructure/ci-cd.md) manage code, schema, and configuration releases.
-* [Deployment Topologies](infrastructure/deployment-topologies.md) define environment setup and tenant isolation.
-* [Cost Controls](user-stories/05b-housekeeping-cost-controls.md) manage metering, budgets, and resource optimization.
-
-**Intent**
-These services ensure every module runs securely, efficiently, and within defined service levels.
+1. Core authenticates and authorizes every request.  
+2. Platform Subscription validates tenant context and entitlements.  
+3. Platform Control provides schemas, policies, and contractual metadata.  
+4. Platform Operations routes and secures runtime execution.  
+5. Data Acquisition ingests datasets through configured connectors and runners.  
+6. Data Store transforms and persists data across Bronze, Silver, Gold, and GDP layers.  
+7. Data Quality validates and certifies datasets against declared contracts.  
+8. Data Intelligence performs analytics, forecasting, and anomaly detection.  
+9. Data Activation delivers curated datasets and insights to business applications.  
+10. Evidence Ledger captures proofs for every critical operation.
 
 ## Interaction Model
 
-```mermaid
-flowchart LR
-  subgraph Platform
-    Schema[Schema Registry] --> GDP[GDP Store]
-    GDP --> KPI[KPI Store]
-    KPI --> Pub[Published Store]
-    Orchestrator --> Compute
-    Compute --> Runners
-    Runners --> GDP
-    GDP --> Anom[Anomaly Detection]
-    KPI --> Pred[Predictive Streams]
-    KPI --> Del[Delivery]
-    Del --> Work[Executive Workflows]
-  end
+### Control Plane
+Defines who (tenants and users) and what (policies, contracts, schemas).  
+Manages registry-based governance and runtime enforcement.  
+Records lineage and evidence for every controlled entity.
 
-  Work --> Act[Business Actions]
-  Anom --> Work
-  Pred --> Work
-  subgraph Ops
-    Obs[Observability] --> Orchestrator
-    Obs --> Compute
-  end
-```
+### Data Plane
+Handles how data moves and transforms.  
+Includes ingestion, persistence, validation, and utilization.  
+Operates in declarative mode - no custom ETL or hard-coded flows.
 
-**Summary**
-Data contracts define structure, pipelines perform transformation, storage maintains truth, analytical services add intelligence, delivery connects insights to users, and operational layers maintain reliability and control.
+### Evidence Plane
+Spans across both planes.  
+Every data or operational event emits verifiable evidence into the Evidence Ledger.  
+Enables auditability, replay, and compliance alignment.
+
+## Design Principles Shared by All Families
+
+- Metadata over code.  
+- Contract-driven integration.  
+- Audit by design.  
+- Tenant isolation.  
+- Composable architecture.  
+- Predictable observability.  
+- Declarative execution.
+
+## Module Families Summary
+
+| Family                | Description                                                                                                                 |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Core                  | Foundational services for authentication, authorization, encryption, network policy, UUID generation, and error management. |
+| Platform Subscription | Manages tenants, subscriptions, and entitlements. Defines plans, usage limits, and runtime enforcement.                     |
+| Platform Control      | Governance backbone managing master data, policies, contracts, schemas, lineage obligations, and evidence.                  |
+| Platform Operations   | Executes policies in real time, managing gateway routing, notifications, migrations, and health checks.                     |
+| Data Acquisition      | Ingests external data from ERP, CRM, API, and file-based sources. Registers metadata in the control plane.                  |
+| Data Store            | Maintains curated datasets in PostgreSQL-based layers. Implements declarative merges, retention, and audits.                |
+| Data Quality          | Validates and monitors datasets for accuracy and SLA adherence. Records validation results as structured evidence.          |
+| Data Intelligence     | Runs analytical and predictive workloads using governed data from the store.                                                |
+| Data Activation       | Delivers verified outputs to systems, dashboards, and workflows. Converts insights into actions.                            |
+
+## Example Flow  -  CFO KPI Dashboard Refresh
+
+1. Core verifies credentials and retrieves tenant identity.  
+2. Platform Subscription confirms entitlement to the Financial Intelligence pack.  
+3. Platform Control fetches schemas and KPI definitions.  
+4. Data Acquisition ingests SAP FI/CO transactions.  
+5. Data Store merges new data into Silver and Gold layers.  
+6. Data Quality validates completeness and reconciliation balance.  
+7. Data Intelligence forecasts liquidity and margin trends.  
+8. Data Activation updates the CFO dashboard and issues variance alerts.  
+9. Evidence Ledger logs dataset freshness, validation results, and forecast IDs.
+
+## Developer Guidance
+
+- Identify the correct family before coding.  
+- Register schema, policy, or KPI metadata before implementation.  
+- Inter-family calls must go through schema or policy registries.  
+- Emit evidence for every significant event.  
+- Use runners, schedulers, and runtime modules instead of loops.  
+- Respect tenant boundaries at all times.  
+- Treat families as domain packages, not folders.
+
+## Guardrails
+
+These rules define what must not be violated when extending or integrating the platform.  
+They protect integrity, traceability, and consistency across all modules.
+
+### Architecture Boundaries
+- Do not bypass registries or APIs when calling between families.  
+- No direct writes into another module’s store.  
+- No circular dependencies; communication occurs only through metadata or events.  
+- All cross-family coordination happens via declarative contracts.
+
+### Data and Schema Handling
+- Schema evolution only through the Schema Registry.  
+- No manual DDL or DML outside migration services.  
+- Every dataset must have a contract ID and schema hash.  
+- GDP and KPI layers are immutable except through controlled merges.
+
+### Execution and Runtime
+- No polling or long-running loops inside modules.  
+- No direct file system access for ingestion or transformation.  
+- All errors must propagate through the Error Handling module with trace IDs.  
+- Logs must use the unified event structure with type, entity, status, and trace reference.
+
+### Governance and Evidence
+- Every operation emits evidence with operation ID, actor, hash, output reference, and timestamp.  
+- No bypass of policy enforcement or subscription rules.  
+- Credentials and tokens must be managed only by the Secrets module.  
+- Absence of evidence means non-compliance.
+
+### Security and Compliance
+- Encryption at rest and in transit is mandatory.  
+- Internal registries are never exposed externally.  
+- Tenant-aware isolation is mandatory at data level.  
+- Audit and compliance logs are append-only.
+
+### Development Discipline
+- Schema or policy registration precedes module creation.  
+- Configuration belongs in Config or Policy registries, not environment variables.  
+- Extend modules via metadata, not forks or copies.  
+- Unit tests must verify metadata integrity and contract compliance.
+
+## Summary
+
+The Modules Framework converts DataJetty’s product vision into an executable architecture.  
+Each family behaves as a self-contained service governed by contracts and evidence.  
+Together they ensure the platform remains consistent in purpose:  
+- business-first semantics
+- technical precision
+- audit by design
